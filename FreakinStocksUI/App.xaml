@@ -58,6 +58,53 @@
                         <Setter Property="Margin" Value="10 0" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
+                    <Style x:Key="Arrow" TargetType="md:PackIcon">
+                        <Setter Property="Opacity" Value="0.8" />
+                        <Setter Property="Width" Value="20" />
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Kind" Value="ExpandLess" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                    <Style x:Key="ArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Width" Value="20" />
+                    </Style>
+                    <Style x:Key="LeftArrow" TargetType="md:PackIcon" BasedOn="{StaticResource Arrow}">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <RotateTransform CenterX="10" CenterY="10" Angle="270"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="RightArrow" TargetType="md:PackIcon" BasedOn="{StaticResource Arrow}">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <RotateTransform CenterX="10" CenterY="10" Angle="90"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="LeftArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButton}">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <md:PackIcon Style="{StaticResource LeftArrow}"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="RightArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButton}">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <md:PackIcon Style="{StaticResource RightArrow}"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

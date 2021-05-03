@@ -91,7 +91,7 @@
                                 <Label Content="Search"/>
                             </StackPanel>
                         </RadioButton>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Home">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Liked">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="HeartOutline" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Liked"/>

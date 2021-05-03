@@ -12,7 +12,6 @@ namespace FreakinStocksUI.ViewModels
     {
         #region private
 
-        private Theme _theme = new(ThemeMode.Dark);
         private WindowState _mainWindowState = WindowState.Normal;
         private Page _currentPage;
 
@@ -22,16 +21,6 @@ namespace FreakinStocksUI.ViewModels
 
 
         #region public
-
-        public Theme AppTheme
-        {
-            get => _theme;
-            set
-            {
-                _theme = value;
-                OnPropertyChanged();
-            }
-        }
 
         public WindowState MainWindowState
         {

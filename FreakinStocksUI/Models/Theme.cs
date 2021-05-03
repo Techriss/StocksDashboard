@@ -4,6 +4,12 @@ using System.Windows.Media;
 
 namespace FreakinStocksUI.Models
 {
+
+    internal static class ThemeAssist
+    {
+        public static Theme AppTheme { get; set; } = new Theme(ThemeMode.Light);
+    }
+
     internal class Theme : INotifyPropertyChanged
     {
         private SolidColorBrush _background;
@@ -90,7 +96,7 @@ namespace FreakinStocksUI.Models
                 case ThemeMode.Dark:
                 {
                     Background = new(Color.FromRgb(9, 9, 9));
-                    Middleground = new(Color.FromRgb(12, 12, 12));
+                    Middleground = new(Color.FromRgb(15, 15, 15));
                     Foreground = new(Color.FromRgb(255, 255, 255));
                     SideAcrylic = new(Color.FromArgb(221, 15, 15, 15));
                     Side = new(Color.FromRgb(15, 15, 15));

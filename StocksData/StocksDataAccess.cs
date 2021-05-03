@@ -35,21 +35,21 @@ namespace StocksData
         }
 
 
-        public static async Task<IEnumerable<decimal>> GetlastWeek(string symbol)
+        public static async Task<IEnumerable<decimal>> GetLastWeek(string symbol)
         {
             var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(7), DateTime.Now, Period.Daily);
             var prices = data.Select(c => c.Close);
             return prices;
         }
 
-        public static async Task<IEnumerable<decimal>> GetlastMonth(string symbol)
+        public static async Task<IEnumerable<decimal>> GetLastMonth(string symbol)
         {
             var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(31), DateTime.Now, Period.Daily);
             var prices = data.Select(c => c.Close);
             return prices;
         }
 
-        public static async Task<IEnumerable<decimal>> GetlastYear(string symbol)
+        public static async Task<IEnumerable<decimal>> GetLastYear(string symbol)
         {
             var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(365), DateTime.Now, Period.Daily);
             var prices = data.Select(c => c.Close);

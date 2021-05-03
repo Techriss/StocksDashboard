@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
     internal abstract class ViewModelBase : INotifyPropertyChanged
     {
+        public static Theme AppTheme => ThemeAssist.AppTheme;
+
         public object Source { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

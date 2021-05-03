@@ -3,12 +3,91 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
+      mc:Ignorable="d" FontSize="16"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomePage">
+      Title="Home"
+      Background="{Binding AppTheme.Background}" Foreground="{Binding AppTheme.Foreground}">
 
-    <Grid>
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+            </Style>
+            <Style TargetType="lvc:Axis">
+                <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Label FontFamily="{StaticResource ProductSansThin}" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="2" FontSize="40" Margin="20 20 0 0">Good Morning!</Label>
+
+
+        <Border Grid.Row="2" Margin="20 10 20 20" Grid.ColumnSpan="7" CornerRadius="30" Background="{Binding AppTheme.Middleground}" Padding="10">
+            <lvc:CartesianChart Grid.ColumnSpan="3" Margin="20" Background="Transparent" Foreground="{Binding AppTheme.Background}">
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Title="{Binding Data}" PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black"/>
+                </lvc:CartesianChart.Series>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Dates}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="100" StrokeThickness="0"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="{Binding Data}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Stroke="#20aaaaaa" Opacity="0"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
+
+
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50 40" Orientation="Horizontal" FlowDirection="RightToLeft" Height="80">
+            <Label FontSize="60" Content="$760" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="0 0 10 0" FlowDirection="LeftToRight"/>
+            <Label FontSize="20" Content="+5.6%" FontFamily="{StaticResource ProductSansLight}" VerticalAlignment="Center" FlowDirection="LeftToRight" Foreground="ForestGreen"/>
+        </StackPanel>
         
+        
+        <Label Margin="30 0" Grid.Row="1" Padding="0" Grid.Column="2" d:Content="N O &#160; C H O S E N &#160; S T O C K" Content="{Binding CurrentDisplayStock}" Opacity="0.8" FontSize="14"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <Button Style="{StaticResource LeftArrowButton}" Foreground="{Binding AppTheme.Foreground}"/>
+            <Button Style="{StaticResource RightArrowButton}" Foreground="{Binding AppTheme.Foreground}"/>
+        </StackPanel>
+
+        <StackPanel Margin="20 10" Grid.Row="3" Orientation="Horizontal">
+            <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Price:"/>
+            <Label Content="817.34"/>
+            <Label Content="+4%" Foreground="ForestGreen"/>
+        </StackPanel>
+        
+        <StackPanel Margin="20 10" Grid.Row="4" Orientation="Horizontal">
+            <Label FontFamily="{StaticResource ProductSansLight}" Content="Market Cap:"/>
+            <Label Content="27.3B"/>
+            <Label Content="-45%" Foreground="IndianRed"/>
+        </StackPanel>
+
+
+
+
     </Grid>
 </Page>
