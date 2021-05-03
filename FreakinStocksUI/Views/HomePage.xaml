@@ -7,7 +7,7 @@
       xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
       mc:Ignorable="d" FontSize="16"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="1200"
       Title="Home"
       Background="{Binding AppTheme.Background}" Foreground="{Binding AppTheme.Foreground}">
 
@@ -15,6 +15,7 @@
         <Grid.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+                <d:Setter Property="Foreground" Value="White" />
             </Style>
             <Style TargetType="lvc:Axis">
                 <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
@@ -39,7 +40,7 @@
 
 
         <Border Grid.Row="2" Margin="20 10 20 20" Grid.ColumnSpan="7" CornerRadius="30" Background="{Binding AppTheme.Middleground}" Padding="10">
-            <lvc:CartesianChart Grid.ColumnSpan="3" Margin="20" Background="Transparent" Foreground="{Binding AppTheme.Background}">
+            <lvc:CartesianChart Grid.ColumnSpan="3" Margin="20 40 20 20" Background="Transparent" Foreground="{Binding AppTheme.Background}">
                 <lvc:CartesianChart.Series>
                     <lvc:LineSeries Title="{Binding Data}" PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black"/>
                 </lvc:CartesianChart.Series>
@@ -61,9 +62,9 @@
         </Border>
 
 
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50 40" Orientation="Horizontal" FlowDirection="RightToLeft" Height="80">
-            <Label FontSize="60" Content="$760" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="0 0 10 0" FlowDirection="LeftToRight"/>
-            <Label FontSize="20" Content="+5.6%" FontFamily="{StaticResource ProductSansLight}" VerticalAlignment="Center" FlowDirection="LeftToRight" Foreground="ForestGreen"/>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50 30" Orientation="Vertical" FlowDirection="RightToLeft" Height="120">
+            <Label FontSize="60" d:Content="$760" Content="{Binding Price}" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="0 0 0 0" FlowDirection="LeftToRight"/>
+            <Label FontSize="20" d:Content="+5.6%" Content="{Binding PriceChange.Change}" FontFamily="{StaticResource ProductSansLight}" VerticalAlignment="Center" FlowDirection="LeftToRight" Foreground="{Binding PriceChange.color}" Margin="10 -15 0 0" Padding="0 0 0 0" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
         </StackPanel>
         
         
@@ -76,14 +77,14 @@
 
         <StackPanel Margin="20 10" Grid.Row="3" Orientation="Horizontal">
             <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Price:"/>
-            <Label Content="817.34"/>
-            <Label Content="+4%" Foreground="ForestGreen"/>
+            <Label d:Content="817.34" Content="{Binding Price}"/>
+            <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
         </StackPanel>
         
         <StackPanel Margin="20 10" Grid.Row="4" Orientation="Horizontal">
             <Label FontFamily="{StaticResource ProductSansLight}" Content="Market Cap:"/>
-            <Label Content="27.3B"/>
-            <Label Content="-45%" Foreground="IndianRed"/>
+            <Label d:Content="27.3B" Content="{Binding MarketCap}"/>
+            <Label d:Content="-45%" Content="{Binding MarketCapChange.Change}" Foreground="{Binding MarketCapChange.Color}"/>
         </StackPanel>
 
 

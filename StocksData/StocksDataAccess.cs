@@ -17,8 +17,15 @@ namespace StocksData
 
         public static async Task<Security> GetStockData(string symbol)
         {
-
-            return null;
+            try
+            {
+                var data = await Yahoo.Symbols(symbol).Fields(Field.RegularMarketChangePercent, Field.RegularMarketPrice, Field.MarketCap, Field.PostMarketChangePercent).QueryAsync();
+                return data[symbol];
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static async Task<IReadOnlyList<Candle>> GetStockHistory(string symbol)
