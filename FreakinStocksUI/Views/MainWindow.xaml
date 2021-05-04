@@ -9,7 +9,7 @@
         xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d" WindowState="{Binding MainWindowState, Mode=TwoWay}"
-        Title="Freakin Stocks" Height="600" Width="1200" WindowStyle="None"
+        Title="Freakin Stocks" Height="600" Width="1125" WindowStyle="None"
         MinHeight="600" MinWidth="1000" interop:WindowBlur.IsEnabled="True"
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
         FontSize="10" FontFamily="{StaticResource ProductSans}" AllowsTransparency="True"

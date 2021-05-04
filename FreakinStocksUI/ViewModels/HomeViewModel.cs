@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using FreakinStocksUI.Models;
 using LiveCharts;
 using YahooFinanceApi;
 
@@ -11,7 +12,8 @@ namespace FreakinStocksUI.ViewModels
     {
         private ChartValues<decimal> _prices;
         private Security _stockInfo;
-        private string _currentStock = "TSLA";
+        private string _currentStock;
+        private int _currentIndex = 0;
 
 
         public string CurrentStock
@@ -22,10 +24,12 @@ namespace FreakinStocksUI.ViewModels
                 _currentStock = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentDisplayStock));
+
+                Task.Run(LoadPrices);
             }
         }
 
-        public string CurrentDisplayStock => string.Join(" ", CurrentStock.ToCharArray());
+        public string CurrentDisplayStock => CurrentStock is null ? "" : string.Join(" ", CurrentStock?.ToCharArray());
 
 
         public ChartValues<decimal> Prices
@@ -53,10 +57,28 @@ namespace FreakinStocksUI.ViewModels
         }
 
         public double Price => StockInfo?.RegularMarketPrice ?? 0;
-        public ValueChange PriceChange => new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo? .RegularMarketChangePercent ?? 0));
+        public ValueChange PriceChange => new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
         public string MarketCap => $"{StockInfo?.MarketCap:#.###M}";
         public ValueChange MarketCapChange => new($"{ Math.Round(StockInfo?.PostMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.PostMarketChangePercent ?? 0));
 
+        public string[] Stocks { get; set; } = { "TSLA", "NDAQ", "AAPL" };
+
+        public int CurrentIndex
+        {
+            get => _currentIndex;
+            set
+            {
+                _currentIndex = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(CanGoNext));
+                OnPropertyChanged(nameof(CanGoPrevious));
+
+                CurrentStock = Stocks[value];
+            }
+        }
+
+        public bool CanGoNext => CurrentIndex + 1 <= Stocks.Length - 1;
+        public bool CanGoPrevious => CurrentIndex - 1 >= 0;
 
 
 
@@ -75,11 +97,17 @@ namespace FreakinStocksUI.ViewModels
         }
 
 
+        public RelayCommand GoNext => new(() => CurrentIndex++);
+
+        public RelayCommand GoPrevious => new(() => CurrentIndex--);
+
+
 
 
         public HomeViewModel(Page page)
         {
             Source = page;
+            CurrentStock = Stocks[CurrentIndex];
 
             Task.Run(LoadPrices);
         }

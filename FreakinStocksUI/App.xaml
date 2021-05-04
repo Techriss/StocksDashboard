@@ -105,6 +105,10 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+                    <Style x:Key="Tab" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Margin" Value="5 10" />
+                        <Setter Property="GroupName" Value="Tabs" />
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

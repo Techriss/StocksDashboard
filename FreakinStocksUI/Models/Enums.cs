@@ -15,4 +15,12 @@
         Liked,
         Settings
     }
+
+    internal enum DataMode
+    {
+        Week,
+        Month,
+        Year,
+        All
+    }
 }
