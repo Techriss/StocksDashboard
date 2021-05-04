@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using System.Windows.Media;
 using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
@@ -19,28 +17,24 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-
-
-
-
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public bool EnableAcrylic
         {
-            Properties.Settings.Default.Save();
-            base.OnPropertyChanged(propertyName);
+            get => Properties.Settings.Default.EnableAcrylic;
+            set
+            {
+                Properties.Settings.Default.EnableAcrylic = value;
+                Properties.Settings.Default.Save();
+                ThemeAssist.AppTheme.EnableAcrylic = value;
+            }
         }
+
+
+
+
 
         public SettingsViewModel(Page page)
         {
             Source = page;
-        }
-    }
-
-
-    public static class Extensions
-    {
-        public static string GetName(this SolidColorBrush brush)
-        {
-            return nameof(brush);
         }
     }
 }

@@ -20,5 +20,11 @@
 
         <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
         <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
+
+        <Label Style="{StaticResource SettingsOptionLabel}" Content="Enable Acrylic" Foreground="{Binding AppTheme.Foreground}"/>
+        <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding EnableAcrylic, Mode=TwoWay}"/>
+
+
+
     </StackPanel>
 </Page>

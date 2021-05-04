@@ -73,7 +73,7 @@ namespace FreakinStocksUI.Models
 
         public SolidColorBrush Side
         {
-            get => EnableAcrylic ? SideColorAcrylic : SideColor;
+            get => Properties.Settings.Default.EnableAcrylic ? EnableAcrylic ? SideColorAcrylic : SideColor : SideColor;
         }
 
         public bool EnableAcrylic

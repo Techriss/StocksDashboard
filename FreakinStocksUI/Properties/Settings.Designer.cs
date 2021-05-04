@@ -34,5 +34,17 @@ namespace FreakinStocksUI.Properties {
                 this["Theme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableAcrylic {
+            get {
+                return ((bool)(this["EnableAcrylic"]));
+            }
+            set {
+                this["EnableAcrylic"] = value;
+            }
+        }
     }
 }
