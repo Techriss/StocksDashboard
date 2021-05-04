@@ -11,7 +11,7 @@ Functionality Includes:
   - Silent background latest information gathering every minute
   - Automatic launch on system startup configurable in settings
   - MySQL Database login and connection
-  - Dark and Gray Theme
+  - Dark and Light Theme
   - Configurable startup tab for analytics
   - Configurable startup page for application
   - Recently Viewed Stock choice for Home Page
