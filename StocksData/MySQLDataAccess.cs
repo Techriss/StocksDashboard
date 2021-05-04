@@ -12,10 +12,12 @@ namespace StocksData
     {
         private static string ConnectionString { get; set; }
 
+
         public static void SetDatabase(string server, string database, string username, string password)
         {
             ConnectionString = $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ password };";
         }
+
 
         public static void SavePrice(StockPrice stockPrice)
         {
@@ -32,6 +34,7 @@ namespace StocksData
                 await cnn.ExecuteAsync($"INSERT INTO LiveData (Symbol, Price, Time) VALUES (@Symbol, @Price, @Time)", stockPrice);
             }
         }
+
 
 
         public static List<StockPrice> LoadAllPrices()
@@ -54,11 +57,29 @@ namespace StocksData
 
 
 
+        public static void ClearDatabase()
+        {
+            using (IDbConnection cnn = new MySqlConnection(ConnectionString))
+            {
+                cnn.Execute("DELETE FROM LiveData");
+            }
+        }
+
+        public static async Task ClearDatabaseAsync()
+        {
+            using (IDbConnection cnn = new MySqlConnection(ConnectionString))
+            {
+                await cnn.ExecuteAsync("DELETE FROM LiveData");
+            }
+        }
+
+
+
         public static void RepairDatabase()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
-                cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                //cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
             }
         }
 
@@ -66,7 +87,7 @@ namespace StocksData
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
-                await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                // await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
             }
         }
     }

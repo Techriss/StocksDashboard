@@ -106,6 +106,7 @@ namespace FreakinStocksUI.ViewModels
         public MainViewModel()
         {
             CurrentPage = HomePage.Source as Page;
+
         }
     }
 }

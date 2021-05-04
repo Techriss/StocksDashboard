@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+
 namespace FreakinStocksUI.ViewModels
 {
     class LiveViewModel : ViewModelBase
@@ -10,10 +11,15 @@ namespace FreakinStocksUI.ViewModels
             get => _currentStock;
             set
             {
-                _currentStock = value;
-                OnPropertyChanged();
+                value = value.ToUpper();
+                if (StocksData.StockMarketData.CheckSymbolExists(value))
+                {
+                    _currentStock = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
 
 
 

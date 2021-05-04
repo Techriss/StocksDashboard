@@ -13,6 +13,7 @@ namespace StocksData
         private static readonly string ConnectionString = @"Data Source=.\StocksData.db;Version=3;";
 
 
+
         public static void SavePrice(StockPrice stockPrice)
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
@@ -30,6 +31,7 @@ namespace StocksData
         }
 
 
+
         public static List<StockPrice> LoadAllPrices()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
@@ -45,6 +47,24 @@ namespace StocksData
             {
                 var data = (await cnn.QueryAsync<StockPrice>("SELECT * FROM LiveData")).ToList();
                 return data;
+            }
+        }
+
+
+
+        public static void ClearDatabase()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            {
+                cnn.Execute("DELETE FROM LiveData");
+            }
+        }
+
+        public static async Task ClearDatabaseAsync()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            {
+                await cnn.ExecuteAsync("DELETE FROM LiveData");
             }
         }
 

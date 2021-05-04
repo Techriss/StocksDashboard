@@ -14,7 +14,14 @@ namespace StocksData.Models
         {
             Symbol = symbol;
             Price = price;
-            Time = Time.ToString();
+            Time = time.ToString();
+        }
+
+        public StockPrice(string symbol, decimal price, string time)
+        {
+            Symbol = symbol;
+            Price = price;
+            Time = time;
         }
 
         public void Deconstruct(out string symbol, out decimal price, out DateTime time)

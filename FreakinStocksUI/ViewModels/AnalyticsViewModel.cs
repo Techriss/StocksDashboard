@@ -7,7 +7,7 @@ namespace FreakinStocksUI.ViewModels
     class AnalyticsViewModel : ViewModelBase
     {
         private DataMode _currentDataMode;
-        private string _currentStock = "TSLA";
+        private string _currentStock;
 
         public DataMode CurrentDataMode
         {
