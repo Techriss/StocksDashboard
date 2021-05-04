@@ -3,12 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+      mc:Ignorable="d" FontFamily="{StaticResource ProductSansLight}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+        </Style>
+    </Page.Resources>
 
-    <Grid>
-        <Label Content="Settings"/>
-    </Grid>
+    <StackPanel Margin="20">
+        <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}"/>
+
+        <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
+        <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
+    </StackPanel>
 </Page>

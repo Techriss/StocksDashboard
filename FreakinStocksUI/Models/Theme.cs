@@ -1,22 +1,24 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
 namespace FreakinStocksUI.Models
 {
 
-    internal static class ThemeAssist
+    public static class ThemeAssist
     {
-        public static Theme AppTheme { get; set; } = new Theme(ThemeMode.Light);
+        public static Theme AppTheme { get; set; } = new(Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme));
     }
 
-    internal class Theme : INotifyPropertyChanged
+    public class Theme : INotifyPropertyChanged
     {
         private SolidColorBrush _background;
         private SolidColorBrush _middleground;
         private SolidColorBrush _foreground;
-        private SolidColorBrush _sideAcrylic;
-        private SolidColorBrush _side;
+        private SolidColorBrush _sideColorAcrylic;
+        private SolidColorBrush _sideColor;
+        private bool _enableAcrylic = true;
         private ThemeMode _mode;
 
         public SolidColorBrush Background
@@ -49,23 +51,39 @@ namespace FreakinStocksUI.Models
             }
         }
 
-        public SolidColorBrush SideAcrylic
+        public SolidColorBrush SideColorAcrylic
         {
-            get => _sideAcrylic;
+            get => _sideColorAcrylic;
             set
             {
-                _sideAcrylic = value;
+                _sideColorAcrylic = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SolidColorBrush SideColor
+        {
+            get => _sideColor;
+            set
+            {
+                _sideColor = value;
                 OnPropertyChanged();
             }
         }
 
         public SolidColorBrush Side
         {
-            get => _side;
+            get => EnableAcrylic ? SideColorAcrylic : SideColor;
+        }
+
+        public bool EnableAcrylic
+        {
+            get => _enableAcrylic;
             set
             {
-                _side = value;
+                _enableAcrylic = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Side));
             }
         }
 
@@ -89,8 +107,8 @@ namespace FreakinStocksUI.Models
                     Background = new(Color.FromRgb(250, 250, 250));
                     Middleground = new(Color.FromRgb(230, 230, 230));
                     Foreground = new(Color.FromRgb(0, 0, 0));
-                    SideAcrylic = new(Color.FromArgb(221, 230, 230, 230));
-                    Side = new(Color.FromRgb(230, 230, 230));
+                    SideColorAcrylic = new(Color.FromArgb(221, 230, 230, 230));
+                    SideColor = new(Color.FromRgb(230, 230, 230));
                     break;
                 }
                 case ThemeMode.Dark:
@@ -98,13 +116,14 @@ namespace FreakinStocksUI.Models
                     Background = new(Color.FromRgb(9, 9, 9));
                     Middleground = new(Color.FromRgb(15, 15, 15));
                     Foreground = new(Color.FromRgb(255, 255, 255));
-                    SideAcrylic = new(Color.FromArgb(221, 15, 15, 15));
-                    Side = new(Color.FromRgb(15, 15, 15));
+                    SideColorAcrylic = new(Color.FromArgb(221, 15, 15, 15));
+                    SideColor = new(Color.FromRgb(15, 15, 15));
                     break;
                 }
             }
 
             Mode = theme;
+            OnPropertyChanged(nameof(Side));
         }
 
         public Theme(ThemeMode theme)

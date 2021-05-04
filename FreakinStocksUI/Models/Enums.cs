@@ -1,12 +1,12 @@
 ﻿namespace FreakinStocksUI.Models
 {
-    internal enum ThemeMode
+    public enum ThemeMode
     {
         Light,
         Dark
     }
 
-    internal enum AppPage
+    public enum AppPage
     {
         Home,
         Analytics,
@@ -16,7 +16,7 @@
         Settings
     }
 
-    internal enum DataMode
+    public enum DataMode
     {
         Week,
         Month,

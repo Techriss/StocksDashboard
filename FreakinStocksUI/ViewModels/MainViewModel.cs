@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using FreakinStocksUI.Models;
 using FreakinStocksUI.Views;
 
@@ -30,13 +28,11 @@ namespace FreakinStocksUI.ViewModels
                 _mainWindowState = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MainWindowMargin));
-                OnPropertyChanged(nameof(SideColor));
+                ThemeAssist.AppTheme.EnableAcrylic = value != WindowState.Maximized;
             }
         }
 
         public Thickness MainWindowMargin => MainWindowState == WindowState.Maximized ? new(0) : new(10);
-
-        public SolidColorBrush SideColor => MainWindowState == WindowState.Maximized ? AppTheme.Side : AppTheme.SideAcrylic;
 
         public Page CurrentPage
         {
@@ -105,10 +101,7 @@ namespace FreakinStocksUI.ViewModels
                 default:
                     break;
             }
-
-            Debug.WriteLine("Pressed");
         }
-
 
         public MainViewModel()
         {

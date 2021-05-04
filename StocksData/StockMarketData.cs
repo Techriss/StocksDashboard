@@ -6,7 +6,7 @@ using YahooFinanceApi;
 
 namespace StocksData
 {
-    public static class StocksDataAccess
+    public static class StockMarketData
     {
         public static async Task<double> GetStockPrice(string symbol)
         {
@@ -68,6 +68,20 @@ namespace StocksData
             var data = await Yahoo.GetHistoricalAsync(symbol, null, null, Period.Weekly);
             var prices = data.Select(c => c.Close);
             return prices;
+        }
+
+        public static bool CheckSymbolExists(string symbol)
+        {
+            try
+            {
+                var data = Task.Run(async () => await Yahoo.Symbols(symbol).Fields(Field.Symbol).QueryAsync()).GetAwaiter().GetResult();
+
+                return data is not null && data.Count > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

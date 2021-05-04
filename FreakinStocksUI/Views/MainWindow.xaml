@@ -48,7 +48,7 @@
                 </Button>
             </StackPanel>
 
-            <Grid Grid.RowSpan="2" Background="{Binding SideColor}" d:Background="#151515">
+            <Grid Grid.RowSpan="2" Background="{Binding AppTheme.Side}" d:Background="#151515">
                 <Grid.Resources>
                     <Style TargetType="{x:Type Label}">
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />

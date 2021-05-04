@@ -57,9 +57,23 @@ namespace FreakinStocksUI.ViewModels
         }
 
         public double Price => StockInfo?.RegularMarketPrice ?? 0;
-        public ValueChange PriceChange => new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
+        public ValueChange PriceChange
+        {
+            get
+            {
+                return new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
+            }
+        }
+
         public string MarketCap => $"{StockInfo?.MarketCap:#.###M}";
-        public ValueChange MarketCapChange => new($"{ Math.Round(StockInfo?.PostMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.PostMarketChangePercent ?? 0));
+        public ValueChange MarketCapChange
+        {
+            get
+            {
+                //return new($"{ Math.Round(StockInfo?.PostMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.PostMarketChangePercent ?? 0));
+                return new("0", GetColorForValue(0));
+            }
+        }
 
         public string[] Stocks { get; set; } = { "TSLA", "NDAQ", "AAPL" };
 
@@ -84,8 +98,8 @@ namespace FreakinStocksUI.ViewModels
 
         private async Task LoadPrices()
         {
-            var data = await StocksData.StocksDataAccess.GetLastWeek(CurrentStock);
-            var info = await StocksData.StocksDataAccess.GetStockData(CurrentStock);
+            var data = await StocksData.StockMarketData.GetLastWeek(CurrentStock);
+            var info = await StocksData.StockMarketData.GetStockData(CurrentStock);
 
             Prices = new(data);
             StockInfo = info;

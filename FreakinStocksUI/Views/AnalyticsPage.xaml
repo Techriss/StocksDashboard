@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
       d:DataContext="{d:DesignInstance Type=viewmodels:AnalyticsViewModel}"
       mc:Ignorable="d" FontFamily="{StaticResource ProductSansLight}" Foreground="{Binding AppTheme.Foreground}"
@@ -18,8 +19,16 @@
             <Style.Triggers>
                 <Trigger Property="IsChecked" Value="true">
                     <Setter Property="Opacity" Value="1" />
+                    <Setter Property="FontFamily" Value="{StaticResource ProductSans}" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StockTextBox}">
+            <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+            <Setter Property="FontFamily" Value="{StaticResource ProductSansLight}" />
+        </Style>
+        <Style TargetType="md:PackIcon">
+            <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
         </Style>
     </Page.Resources>
 
@@ -27,6 +36,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
@@ -36,6 +46,17 @@
             <RadioButton Content="Last Week" CommandParameter="Week"/>
         </StackPanel>
 
-        <Frame Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <!--<Frame Grid.Row="1" NavigationUIVisibility="Hidden">
+            <Frame.Content>-->
+                <Label Grid.Row="1" Panel.ZIndex="10000" Content="{Binding CurrentStock}" Foreground="{Binding AppTheme.Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
+            <!--</Frame.Content>
+        </Frame>-->
+
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+            <Button Style="{StaticResource Search}"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

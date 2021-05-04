@@ -4,7 +4,7 @@ using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
-    internal abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public static Theme AppTheme => ThemeAssist.AppTheme;
 

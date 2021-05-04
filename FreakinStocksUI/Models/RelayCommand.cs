@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace FreakinStocksUI.Models
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -12,7 +12,7 @@ namespace FreakinStocksUI.Models
             return true;
         }
 
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
             ToExecute?.Invoke();
             ToExecuteParams?.Invoke(parameter);
