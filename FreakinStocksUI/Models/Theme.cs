@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
@@ -7,12 +6,6 @@ using FreakinStocksUI.ViewModels;
 
 namespace FreakinStocksUI.Models
 {
-
-    public static class ThemeAssist
-    {
-        public static Theme AppTheme { get; set; } = new(Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme));
-    }
-
     public class Theme : INotifyPropertyChanged
     {
         private SolidColorBrush _background;

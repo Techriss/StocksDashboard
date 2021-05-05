@@ -20,7 +20,10 @@
     <Setting Name="DBUsername" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DBPassword" Type="System.String" Scope="User">
+    <Setting Name="DBPasswordCipher" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DBPasswordEntropy" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StartupPage" Type="System.String" Scope="User">

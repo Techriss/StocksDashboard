@@ -98,12 +98,24 @@ namespace FreakinStocksUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DBPassword {
+        public string DBPasswordCipher {
             get {
-                return ((string)(this["DBPassword"]));
+                return ((string)(this["DBPasswordCipher"]));
             }
             set {
-                this["DBPassword"] = value;
+                this["DBPasswordCipher"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBPasswordEntropy {
+            get {
+                return ((string)(this["DBPasswordEntropy"]));
+            }
+            set {
+                this["DBPasswordEntropy"] = value;
             }
         }
         

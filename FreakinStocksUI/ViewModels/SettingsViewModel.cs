@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Controls;
+using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
@@ -65,6 +67,7 @@ namespace FreakinStocksUI.ViewModels
 
         public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
+        public static RelayCommand ConfigureDatabase => new(() => Debug.WriteLine("-- Not Implemented"));
 
 
 
