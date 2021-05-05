@@ -113,6 +113,8 @@ namespace FreakinStocksUI.ViewModels
         public MainViewModel()
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
+
+            System.Diagnostics.Process.Start("./FreakinStocksLiveService.exe");
         }
     }
 }

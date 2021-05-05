@@ -1,31 +1,90 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using LiveCharts;
+using StocksData;
 
 namespace FreakinStocksUI.ViewModels
 {
     class LiveViewModel : ViewModelBase
     {
         private string _currentStock;
+        private ObservableCollection<string> _dates;
+        private ChartValues<decimal> _prices = new();
 
         public string CurrentStock
         {
-            get => _currentStock;
-            set
+            get
+            {
+                return _currentStock;
+            }
+            init
             {
                 value = value.ToUpper();
-                if (StocksData.StockMarketData.CheckSymbolExists(value))
+                if (StockMarketData.CheckSymbolExists(value))
                 {
                     _currentStock = value;
                     OnPropertyChanged();
+                    GetCurrentLiveData();
                 }
+            }
+        }
+
+        public ObservableCollection<string> Dates
+        {
+            get => _dates;
+            set
+            {
+                _dates = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ChartValues<decimal> Prices
+        {
+            get => _prices;
+            set
+            {
+                _prices = value;
+                OnPropertyChanged();
             }
         }
 
 
 
 
+        private async Task FetchLiveData()
+        {
+            while (true)
+            {
+                if (CurrentStock is not null && CurrentStock != "")
+                {
+                    var price = (await SQLiteDataAccess.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
+                    Prices.Add(price.Price);
+                    Dates.Add($"{DateTime.Parse(price.Time):t}");
+                }
+
+                await Task.Delay(5000);
+            }
+        }
+
+        private async Task GetCurrentLiveData()
+        {
+            var data = (await SQLiteDataAccess.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
+            Prices.Clear();
+            Prices.AddRange(data.Select(x => x.Price));
+            Dates = new(data.Select(x => $"{DateTime.Parse(x.Time):t}"));
+        }
+
+
         public LiveViewModel(Page page)
         {
             Source = page;
+
+            FetchLiveData();
         }
     }
 }

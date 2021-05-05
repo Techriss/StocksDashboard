@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using StocksData.Models;
@@ -162,6 +163,40 @@ namespace StocksData
             var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
 
             return prices;
+        }
+
+
+        public static async Task<List<StockPrice>> GetLivePrice(params string[] symbols)
+        {
+            try
+            {
+                var data = await Yahoo.Symbols(symbols).Fields(Field.Ask).QueryAsync();
+                var prices = new List<StockPrice>();
+                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.Ask), DateTime.Now)));
+
+                return prices;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return new();
+            }
+        }
+
+        public static async Task<StockPrice> GetLivePrice(string symbol)
+        {
+            try
+            {
+                var data = await Yahoo.Symbols(symbol).Fields(Field.Ask).QueryAsync();
+                var price = new StockPrice(symbol, Convert.ToDecimal(data[symbol].Ask), DateTime.Now);
+
+                return price;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

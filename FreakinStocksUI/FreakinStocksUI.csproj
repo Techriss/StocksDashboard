@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FreakinStocksLiveService\FreakinStocksLiveService.csproj" />
     <ProjectReference Include="..\StocksData\StocksData.csproj" />
   </ItemGroup>
 

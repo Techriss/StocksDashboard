@@ -10,12 +10,17 @@ namespace StocksData
 {
     public static class MySQLDataAccess
     {
-        private static string ConnectionString { get; set; }
+        private static string ConnectionString { get; set; } = GetConnectionString("localhost", "stocksdata", "root", "75750506200420");
 
 
         public static void SetDatabase(string server, string database, string username, string password)
         {
             ConnectionString = $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ password };";
+        }
+
+        public static string GetConnectionString(string server, string database, string username, string password)
+        {
+            return ConnectionString = $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ password };";
         }
 
 

@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" d:DataContext="{d:DesignInstance Type=viewmodels:LiveViewModel}"
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" d:DataContext="{d:DesignInstance Type=viewmodels:LiveViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LivePage">
@@ -13,6 +13,26 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="0" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black" Title="Price: "/>
+            </lvc:CartesianChart.Series>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Dates}">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator StrokeThickness="0"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis>
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Stroke="#20aaaaaa" Opacity="0"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
