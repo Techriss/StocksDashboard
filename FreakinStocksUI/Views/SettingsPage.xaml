@@ -21,7 +21,7 @@
 
     <ScrollViewer>
         <StackPanel Margin="20">
-            <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}"/>
+            <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
             <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
@@ -38,7 +38,7 @@
             <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked"/>
 
 
-            <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}"/>
+            <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Database Type" Foreground="{Binding AppTheme.Foreground}"/>

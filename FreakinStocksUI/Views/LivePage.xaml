@@ -18,7 +18,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay}"/>
             <Button Style="{StaticResource Search}" Foreground="{Binding AppTheme.Foreground}">
-                <md:PackIcon Kind="ArrowRight" Opacity="0.7"/>
+                <md:PackIcon Style="{StaticResource RightArrow}"/>
             </Button>
         </StackPanel>
     </Grid>

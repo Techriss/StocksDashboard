@@ -109,13 +109,30 @@
                         <Setter Property="Margin" Value="5 10" />
                         <Setter Property="GroupName" Value="Tabs" />
                     </Style>
-                    <Style x:Key="StockTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                    <Style x:Key="StockTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                        <Setter Property="Padding" Value="0" />
                         <Setter Property="Height" Value="40" />
                         <Setter Property="Width" Value="200" />
                         <Setter Property="HorizontalAlignment" Value="Left" />
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                         <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Background" Value="{Binding AppTheme.Middleground}" />
                         <Setter Property="Margin" Value="20 10" />
+                        <Setter Property="AutoWordSelection" Value="True" />
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="Padding" Value="0" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="Padding" Value="0" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                     <Style x:Key="Search" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />

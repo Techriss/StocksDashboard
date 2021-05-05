@@ -65,8 +65,6 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Price));
                 OnPropertyChanged(nameof(PriceChange));
-                OnPropertyChanged(nameof(MarketCap));
-                OnPropertyChanged(nameof(MarketCapChange));
             }
         }
 
@@ -76,16 +74,6 @@ namespace FreakinStocksUI.ViewModels
             get
             {
                 return new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
-            }
-        }
-
-        public string MarketCap => $"{StockInfo?.MarketCap:#.###M}";
-        public ValueChange MarketCapChange
-        {
-            get
-            {
-                //return new($"{ Math.Round(StockInfo?.PostMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.PostMarketChangePercent ?? 0));
-                return new("0", GetColorForValue(0));
             }
         }
 

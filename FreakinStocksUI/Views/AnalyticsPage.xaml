@@ -26,6 +26,8 @@
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StockTextBox}">
             <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
             <Setter Property="FontFamily" Value="{StaticResource ProductSansLight}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
         <Style TargetType="md:PackIcon">
             <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
@@ -48,7 +50,7 @@
 
         <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="1" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black"/>
+                <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black" Title="Price: "/>
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Labels="{Binding Dates}">
@@ -68,12 +70,11 @@
 
         <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-            <Button Style="{StaticResource Search}">
-                <md:PackIcon Kind="ArrowRight"/>
-            </Button>
-        </StackPanel>
-        
+            <StackPanel Grid.Row="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
+                <TextBox Style="{StaticResource StockTextBox}" Padding="0" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                <Button Style="{StaticResource IconButton}" Foreground="{Binding AppTheme.Foreground}">
+                        <md:PackIcon Style="{StaticResource RightArrow}"/>
+                </Button>
+            </StackPanel>
     </Grid>
 </Page>
