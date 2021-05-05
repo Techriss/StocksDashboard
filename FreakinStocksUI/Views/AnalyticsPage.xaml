@@ -66,7 +66,7 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
-        <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Chosen" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
+        <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>

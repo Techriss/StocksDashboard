@@ -29,6 +29,82 @@ namespace StocksData
             }
         }
 
+        public static async Task<Security> GetAllStockData(string symbol)
+        {
+            var data = await Yahoo.Symbols(symbol).Fields(
+            #region Fields
+            Field.Ask,
+            Field.AskSize,
+
+            Field.AverageDailyVolume10Day,
+            Field.AverageDailyVolume3Month,
+
+            Field.Bid,
+            Field.BidSize,
+            Field.BookValue,
+            Field.Currency,
+            Field.EpsForward,
+            Field.EpsTrailingTwelveMonths,
+            Field.Exchange,
+            Field.ExchangeDataDelayedBy,
+            Field.ExchangeTimezoneName,
+            Field.ExchangeTimezoneShortName,
+
+
+            Field.FiftyDayAverage,
+            Field.FiftyDayAverageChange,
+            Field.FiftyDayAverageChangePercent,
+
+            Field.FiftyTwoWeekHigh,
+            Field.FiftyTwoWeekHighChange,
+            Field.FiftyTwoWeekHighChangePercent,
+
+            Field.FiftyTwoWeekLow,
+            Field.FiftyTwoWeekLowChange,
+            Field.FiftyTwoWeekLowChangePercent,
+
+
+            Field.FinancialCurrency,
+            Field.ForwardPE,
+            Field.FullExchangeName,
+            Field.GmtOffSetMilliseconds,
+            Field.Language,
+            Field.LongName,
+            Field.Market,
+            Field.MarketCap,
+            Field.MarketState,
+            Field.MessageBoardId,
+            Field.PriceHint,
+            Field.PriceToBook,
+            Field.QuoteSourceName,
+
+            Field.QuoteType,
+            Field.RegularMarketChange,
+            Field.RegularMarketChangePercent,
+            Field.RegularMarketDayHigh,
+            Field.RegularMarketDayLow,
+            Field.RegularMarketOpen,
+            Field.RegularMarketPreviousClose,
+            Field.RegularMarketPrice,
+            Field.RegularMarketTime,
+
+            Field.RegularMarketVolume,
+            Field.SharesOutstanding,
+            Field.ShortName,
+            Field.SourceInterval,
+            Field.Symbol,
+            Field.Tradeable,
+
+            Field.TrailingPE,
+            Field.TwoHundredDayAverage,
+            Field.TwoHundredDayAverageChange,
+            Field.TwoHundredDayAverageChangePercent
+            #endregion
+            ).QueryAsync();
+
+            return data[symbol];
+        }
+
         public static async Task<IReadOnlyList<Candle>> GetStockHistory(string symbol)
         {
             var history = await Yahoo.GetHistoricalAsync(symbol);
