@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StocksData.Models;
 using YahooFinanceApi;
 
 namespace StocksData
@@ -42,34 +43,6 @@ namespace StocksData
         }
 
 
-        public static async Task<IEnumerable<decimal>> GetLastWeek(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(7), DateTime.Now, Period.Daily);
-            var prices = data.Select(c => c.Close);
-            return prices;
-        }
-
-        public static async Task<IEnumerable<decimal>> GetLastMonth(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(31), DateTime.Now, Period.Daily);
-            var prices = data.Select(c => c.Close);
-            return prices;
-        }
-
-        public static async Task<IEnumerable<decimal>> GetLastYear(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(365), DateTime.Now, Period.Daily);
-            var prices = data.Select(c => c.Close);
-            return prices;
-        }
-
-        public static async Task<IEnumerable<decimal>> GetAllTime(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, null, null, Period.Weekly);
-            var prices = data.Select(c => c.Close);
-            return prices;
-        }
-
         public static bool CheckSymbolExists(string symbol)
         {
             try
@@ -82,6 +55,37 @@ namespace StocksData
             {
                 return false;
             }
+        }
+
+
+        public static async Task<IEnumerable<StockPrice>> GetLastWeek(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(7), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetLastMonth(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(31), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetLastYear(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(365), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetAllTime(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, null, null, Period.Weekly);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+
+            return prices;
         }
     }
 }

@@ -123,11 +123,6 @@
                         <Setter Property="Padding" Value="5" />
                         <Setter Property="Height" Value="25" />
                         <Setter Property="Width" Value="25" />
-                        <Setter Property="Content">
-                            <Setter.Value>
-                                <md:PackIcon Kind="Search"/>
-                            </Setter.Value>
-                        </Setter>
                     </Style>
                     <Style x:Key="SettingsSectionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="30" />
@@ -153,6 +148,11 @@
                         <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                         <Setter Property="Padding" Value="0" />
+                    </Style>
+                    <Style x:Key="TempHeader" TargetType="{x:Type Label}">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="40" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

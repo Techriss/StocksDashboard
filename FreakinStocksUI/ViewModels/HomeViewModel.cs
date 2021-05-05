@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using FreakinStocksUI.Models;
 using LiveCharts;
+using StocksData;
 using YahooFinanceApi;
 
 namespace FreakinStocksUI.ViewModels
@@ -11,6 +14,7 @@ namespace FreakinStocksUI.ViewModels
     class HomeViewModel : ViewModelBase
     {
         private ChartValues<decimal> _prices;
+        private List<string> _dates;
         private Security _stockInfo;
         private string _currentStock;
         private int _currentIndex = 0;
@@ -41,6 +45,16 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged();
             }
         }
+        public List<string> Dates
+        {
+            get => _dates;
+            set
+            {
+                _dates = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public Security StockInfo
         {
@@ -98,10 +112,13 @@ namespace FreakinStocksUI.ViewModels
 
         private async Task LoadPrices()
         {
-            var data = await StocksData.StockMarketData.GetLastWeek(CurrentStock);
-            var info = await StocksData.StockMarketData.GetStockData(CurrentStock);
+            var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
+            var prices = data.Select(x => x.Price);
+            var dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
+            var info = await StockMarketData.GetStockData(CurrentStock);
 
-            Prices = new(data);
+            Prices = new(prices);
+            Dates = dates;
             StockInfo = info;
         }
 

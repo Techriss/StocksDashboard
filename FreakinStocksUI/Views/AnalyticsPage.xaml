@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FreakinStocksUI.Views" 
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       d:DataContext="{d:DesignInstance Type=viewmodels:AnalyticsViewModel}"
       mc:Ignorable="d" FontFamily="{StaticResource ProductSansLight}" Foreground="{Binding AppTheme.Foreground}"
       d:DesignHeight="450" d:DesignWidth="800"
@@ -46,16 +46,33 @@
             <RadioButton Content="Last Week" CommandParameter="Week"/>
         </StackPanel>
 
-        <!--<Frame Grid.Row="1" NavigationUIVisibility="Hidden">
-            <Frame.Content>-->
-                <Label Grid.Row="1" Panel.ZIndex="10000" Content="{Binding CurrentStock}" Foreground="{Binding AppTheme.Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
-            <!--</Frame.Content>
-        </Frame>-->
+        <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="1" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black"/>
+            </lvc:CartesianChart.Series>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Dates}">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator StrokeThickness="0"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis>
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Stroke="#20aaaaaa" Opacity="0"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
+        <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Chosen" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-            <Button Style="{StaticResource Search}"/>
+            <Button Style="{StaticResource Search}">
+                <md:PackIcon Kind="ArrowRight"/>
+            </Button>
         </StackPanel>
         
     </Grid>
