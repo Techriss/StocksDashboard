@@ -8,5 +8,23 @@
     <Setting Name="EnableAcrylic" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="DatabaseType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SQLite</Value>
+    </Setting>
+    <Setting Name="DBServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DBDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DBUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DBPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StartupPage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Home</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

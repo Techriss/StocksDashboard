@@ -139,8 +139,20 @@
                     </Style>
                     <Style x:Key="SettingsOptionToggle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
                         <Setter Property="HorizontalAlignment" Value="Left" />
-                        <Setter Property="Margin" Value="10" />
+                        <Setter Property="Margin" Value="20 10" />
                         <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style x:Key="SettingsOptionRadio" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                        <Setter Property="Margin" Value="20 15" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style x:Key="IconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Width" Value="20" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="0" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

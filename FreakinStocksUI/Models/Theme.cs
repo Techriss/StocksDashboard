@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Media;
+using FreakinStocksUI.ViewModels;
 
 namespace FreakinStocksUI.Models
 {
@@ -109,6 +111,14 @@ namespace FreakinStocksUI.Models
                     Foreground = new(Color.FromRgb(0, 0, 0));
                     SideColorAcrylic = new(Color.FromArgb(221, 230, 230, 230));
                     SideColor = new(Color.FromRgb(230, 230, 230));
+
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
                     break;
                 }
                 case ThemeMode.Dark:
@@ -118,6 +128,15 @@ namespace FreakinStocksUI.Models
                     Foreground = new(Color.FromRgb(255, 255, 255));
                     SideColorAcrylic = new(Color.FromArgb(221, 15, 15, 15));
                     SideColor = new(Color.FromRgb(15, 15, 15));
+
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+
                     break;
                 }
             }

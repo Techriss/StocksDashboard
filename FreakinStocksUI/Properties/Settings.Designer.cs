@@ -46,5 +46,77 @@ namespace FreakinStocksUI.Properties {
                 this["EnableAcrylic"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SQLite")]
+        public string DatabaseType {
+            get {
+                return ((string)(this["DatabaseType"]));
+            }
+            set {
+                this["DatabaseType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBServer {
+            get {
+                return ((string)(this["DBServer"]));
+            }
+            set {
+                this["DBServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBDatabase {
+            get {
+                return ((string)(this["DBDatabase"]));
+            }
+            set {
+                this["DBDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBUsername {
+            get {
+                return ((string)(this["DBUsername"]));
+            }
+            set {
+                this["DBUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBPassword {
+            get {
+                return ((string)(this["DBPassword"]));
+            }
+            set {
+                this["DBPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Home")]
+        public string StartupPage {
+            get {
+                return ((string)(this["StartupPage"]));
+            }
+            set {
+                this["StartupPage"] = value;
+            }
+        }
     }
 }

@@ -5,26 +5,51 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FreakinStocksUI.Views" 
       xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
       mc:Ignorable="d" FontFamily="{StaticResource ProductSansLight}"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="850" d:DesignWidth="1000"
       Title="SettingsPage">
     <Page.Resources>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
         </Style>
+        <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+        </Style>
     </Page.Resources>
 
-    <StackPanel Margin="20">
-        <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}"/>
+    <ScrollViewer>
+        <StackPanel Margin="20">
+            <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}"/>
 
-        <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
-        <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
+            <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
 
-        <Label Style="{StaticResource SettingsOptionLabel}" Content="Enable Acrylic" Foreground="{Binding AppTheme.Foreground}"/>
-        <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding EnableAcrylic, Mode=TwoWay}"/>
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Enable Acrylic" Foreground="{Binding AppTheme.Foreground}"/>
+            <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding EnableAcrylic, Mode=TwoWay}"/>
 
 
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Startup Page" Foreground="{Binding AppTheme.Foreground}"/>
+            <RadioButton IsChecked="{Binding IsStartupHome, Mode=OneTime}" Content="Home" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Home"/>
+            <RadioButton IsChecked="{Binding IsStartupAnalytics, Mode=OneTime}" Content="Analytics" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Analytics"/>
+            <RadioButton IsChecked="{Binding IsStartupLive, Mode=OneTime}" Content="Live" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Live"/>
+            <RadioButton IsChecked="{Binding IsStartupSearch, Mode=OneTime}" Content="Search" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Search"/>
+            <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked"/>
 
-    </StackPanel>
+
+            <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}"/>
+
+
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Database Type" Foreground="{Binding AppTheme.Foreground}"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=OneTime}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL"/>
+                <Button Style="{StaticResource IconButton}">
+                    <md:PackIcon Kind="DatabaseCogOutline"/>
+                </Button>
+            </StackPanel>
+            <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=OneTime}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite"/>
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>

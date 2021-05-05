@@ -57,6 +57,12 @@ namespace FreakinStocksUI.ViewModels
         public SettingsViewModel SettingsPage { get; private set; } = new(new SettingsPage());
 
 
+        public static bool IsStartupHome => SettingsViewModel.IsStartupHome;
+        public static bool IsStartupAnalytics => SettingsViewModel.IsStartupAnalytics;
+        public static bool IsStartupLive => SettingsViewModel.IsStartupLive;
+        public static bool IsStartupSearch => SettingsViewModel.IsStartupSearch;
+        public static bool IsStartupLiked => SettingsViewModel.IsStartupLiked;
+
         #endregion
 
 
@@ -105,8 +111,7 @@ namespace FreakinStocksUI.ViewModels
 
         public MainViewModel()
         {
-            CurrentPage = HomePage.Source as Page;
-
+            NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
         }
     }
 }

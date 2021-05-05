@@ -23,4 +23,10 @@
         Year,
         All
     }
+
+    public enum DatabaseType
+    {
+        MySQL,
+        SQLite
+    }
 }

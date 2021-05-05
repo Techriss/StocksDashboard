@@ -63,19 +63,19 @@
                 <StackPanel Margin="20 80 20 20">
                     <Label Style="{StaticResource SectionLabel}" Content="M E N U" Foreground="{Binding AppTheme.Foreground}"/>
                     <StackPanel>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Home" IsChecked="True">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Home" IsChecked="{Binding IsStartupHome, Mode=OneTime}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="Home" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Home"/>
                             </StackPanel>
                         </RadioButton>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Analytics">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Analytics" IsChecked="{Binding IsStartupAnalytics, Mode=OneTime}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="TrendingUp" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Analytics"/>
                             </StackPanel>
                         </RadioButton>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Live">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Live" IsChecked="{Binding IsStartupLive, Mode=OneTime}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="GoogleAnalytics" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Live"/>
@@ -85,13 +85,13 @@
 
                     <Label Style="{StaticResource SectionLabel}" Content="L I B R A R Y" Foreground="{Binding AppTheme.Foreground}" Margin="10 20 10 10"/>
                     <StackPanel>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Search">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Search" IsChecked="{Binding IsStartupSearch, Mode=OneTime}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="Search" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Search"/>
                             </StackPanel>
                         </RadioButton>
-                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Liked">
+                        <RadioButton Style="{StaticResource MenuItem}" Command="{Binding NavigateCommand}" CommandParameter="Liked" IsChecked="{Binding IsStartupLiked, Mode=OneTime}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Style="{StaticResource MenuItemIcon}" Kind="HeartOutline" Foreground="{Binding AppTheme.Foreground}"/>
                                 <Label Content="Liked"/>
