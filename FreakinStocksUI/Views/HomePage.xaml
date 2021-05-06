@@ -4,13 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FreakinStocksUI.Views" 
-      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
       mc:Ignorable="d" FontSize="16"
       d:DesignHeight="650" d:DesignWidth="1200"
       Title="Home"
       Background="{Binding AppTheme.Background}" Foreground="{Binding AppTheme.Foreground}">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ReloadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid Margin="10">
         <Grid.Resources>
             <Style TargetType="{x:Type Label}">

@@ -26,11 +26,15 @@ namespace FreakinStocksUI.ViewModels
             get => _currentDataMode;
             set
             {
-                if (value != _currentDataMode && CurrentStock is not null or "")
+                if (value != _currentDataMode)
                 {
                     _currentDataMode = value;
                     OnPropertyChanged();
-                    Task.Run(() => LoadChart(CurrentDataMode));
+
+                    if (CurrentStock is not null or "")
+                    {
+                        Task.Run(() => LoadChart(CurrentDataMode));
+                    }
                 }
             }
         }

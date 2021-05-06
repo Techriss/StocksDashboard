@@ -114,6 +114,8 @@ namespace FreakinStocksUI.ViewModels
 
         public RelayCommand GoPrevious => new(() => CurrentIndex--);
 
+        public RelayCommand ReloadCommand => new(async () => await LoadPrices());
+
 
 
 

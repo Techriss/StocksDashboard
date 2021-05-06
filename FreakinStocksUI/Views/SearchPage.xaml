@@ -30,7 +30,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Button Margin="10" Panel.ZIndex="10" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right" Padding="0" VerticalAlignment="Top" Height="40" Width="40" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ChangeLikedCommand}">
+        <Button Visibility="{Binding DataVisibility}" Margin="10" Panel.ZIndex="10" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right" Padding="0" VerticalAlignment="Top" Height="40" Width="40" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ChangeLikedCommand}">
             <md:PackIcon d:Kind="Heart"  Kind="{Binding IsCurrentStockLiked}" Width="30" Height="30"/>
         </Button>
 

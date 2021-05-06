@@ -90,7 +90,14 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(IsCurrentStockLiked));
         });
 
-        public RelayCommand ReloadCommand => new(() => OnPropertyChanged(nameof(IsCurrentStockLiked)));
+        public RelayCommand ReloadCommand => new(async () =>
+        {
+            if (CurrentStock is not null) await LoadData(CurrentStock);
+            OnPropertyChanged(nameof(StockData));
+            OnPropertyChanged(nameof(DataVisibility));
+            OnPropertyChanged(nameof(TempHeaderVisibility));
+            OnPropertyChanged(nameof(IsCurrentStockLiked));
+        });
 
 
         public async Task LoadData(string symbol)
