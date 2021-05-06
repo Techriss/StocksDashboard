@@ -141,12 +141,20 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public void InstallLiveService()
+        public static void InstallLiveService()
         {
             try
             {
                 var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
-                Process.Start(@"C:\Windows\system32\sc.exe", $"create FreakinStocksLiveData binPath={ path }");
+                var psi = new ProcessStartInfo
+                {
+                    FileName = @"C:\Windows\system32\sc.exe",
+                    Arguments = $"create FreakinStocksLiveData binPath={ path } start= auto",
+                    Verb = "runas",
+                    UseShellExecute = true,
+
+                };
+                Process.Start(psi);
             }
             catch (Exception ex)
             {

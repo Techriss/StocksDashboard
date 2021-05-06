@@ -37,6 +37,7 @@
             <RadioButton IsChecked="{Binding IsStartupSearch, Mode=OneTime}" Content="Search" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Search"/>
             <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked"/>
 
+            <Button Command="{Binding InstallService}" Width="250" Height="40" Foreground="{Binding AppTheme.Foreground}" HorizontalAlignment="Left" Margin="20" Content="I N I L I A L I Z E   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
 
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
