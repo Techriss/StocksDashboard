@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
@@ -124,17 +125,34 @@ namespace FreakinStocksUI.ViewModels
 
         public void RunLiveService()
         {
-            ProcessStartInfo psi = new ProcessStartInfo
+            if (Process.GetProcessesByName("FreakinStocksLiveService").Length is 0)
             {
-                CreateNoWindow = true,
-                FileName = "./FreakinStocksLiveService.exe",
-                UseShellExecute = false,
-            };
-            var process = new Process() { StartInfo = psi };
-            process.Start();
+                var psi = new ProcessStartInfo
+                {
+                    CreateNoWindow = true,
+                    FileName = "./FreakinStocksLiveService.exe",
+                    UseShellExecute = false,
+                };
+                var process = new Process() { StartInfo = psi };
+                process.Start();
 
-            Properties.Settings.Default.LiveServiceProcessID = process.Id;
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.LiveServiceProcessID = process.Id;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public void InstallLiveService()
+        {
+            try
+            {
+                var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
+                Process.Start(@"C:\Windows\system32\sc.exe", $"create FreakinStocksLiveData binPath={ path }");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception has occurred: { ex.Message }");
+                throw;
+            }
         }
 
         public void KillPreviousLiveService()
@@ -158,8 +176,9 @@ namespace FreakinStocksUI.ViewModels
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
 
-            KillPreviousLiveService();
             RunLiveService();
+
+            //InstallLiveService();
         }
     }
 }

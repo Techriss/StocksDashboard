@@ -4,6 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>dotnet-FreakinStocksLiveService-0F56687A-B0B5-450A-93E8-587BE97E374C</UserSecretsId>
     <ApplicationIcon>stocks.ico</ApplicationIcon>
+    <Authors>Techris</Authors>
+    <Company>Techris</Company>
+    <Description>The Freakin Stocks Stock Market Analytics Desktop Application Live Data gathering service</Description>
   </PropertyGroup>
 
   <ItemGroup>

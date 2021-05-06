@@ -3,12 +3,60 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:LikedViewModel}"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LikedPage">
 
-    <Grid>
-        <Label Content="liked"/>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ReloadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Style="{StaticResource SettingsSectionLabel}" Content="Liked" FontFamily="{StaticResource ProductSansThin}" Margin="0 0 0 20"/>
+
+        <ListView ItemsSource="{Binding Stocks}" Grid.Row="1">
+            <ListView.Resources>
+                <Style x:Key="HeartCheck" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatButton}"/>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="Visibility" Value="{Binding EntryVisibility}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" Margin="10 0" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" MinWidth="160"/>
+                            <ColumnDefinition Width="auto" MinWidth="160"/>
+                            <ColumnDefinition Width="auto" MinWidth="160"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                            
+                        <Label Grid.Column="0" Content="{Binding Symbol}" FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
+                        <Label Grid.Column="1" Content="{Binding Stock.RegularMarketPrice}" ContentStringFormat="Price:   {0:C}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
+                        <Label Grid.Column="2" Content="{Binding Stock.MarketCap}" ContentStringFormat="Market Cap:   {0:$#,##0,,,B}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
+                        
+                        <ToggleButton ToolTip="Remove" Grid.Column="4" Width="30" HorizontalAlignment="Right" Style="{StaticResource HeartCheck}" Padding="0" Command="{Binding RemoveCommand}" CommandParameter="{Binding}">
+                            <md:PackIcon Kind="Close"/>
+                        </ToggleButton>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

@@ -140,5 +140,16 @@ namespace FreakinStocksUI.Properties {
                 this["LiveServiceProcessID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Generic.List<System.String> LikedStocks {
+            get {
+                return ((global::System.Collections.Generic.List<System.String>)(this["LikedStocks"]));
+            }
+            set {
+                this["LikedStocks"] = value;
+            }
+        }
     }
 }

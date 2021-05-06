@@ -12,7 +12,6 @@
             <FontFamily x:Key="ProductSansThin">pack://application:,,,/Fonts/#Product Sans Thin</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <md:BundledTheme BaseTheme="Dark" PrimaryColor="Red" SecondaryColor="DeepOrange"/>
-                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary>
                     <Style x:Key="ControlButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
@@ -26,6 +25,7 @@
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="FontSize" Value="20" />
                         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="ControlButtonIcon" TargetType="md:PackIcon">
                         <Setter Property="Width" Value="12" />
@@ -36,6 +36,7 @@
                         <Setter Property="FontSize" Value="10" />
                         <Setter Property="FontWeight" Value="Regular" />
                         <Setter Property="Margin" Value="10 0 10 10" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="MenuItem" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
@@ -48,6 +49,7 @@
                         <Setter Property="FontWeight" Value="Thin" />
                         <Setter Property="Opacity" Value="0.6" />
                         <Setter Property="GroupName" Value="MenuItems" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                         <Style.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Opacity" Value="1" />
@@ -57,6 +59,7 @@
                     <Style x:Key="MenuItemIcon" TargetType="md:PackIcon">
                         <Setter Property="Margin" Value="10 0" />
                         <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="Arrow" TargetType="md:PackIcon">
                         <Setter Property="Opacity" Value="0.8" />
@@ -108,6 +111,7 @@
                     <Style x:Key="Tab" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Margin" Value="5 10" />
                         <Setter Property="GroupName" Value="Tabs" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="StockTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                         <Setter Property="Padding" Value="0" />
@@ -118,6 +122,7 @@
                         <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="Background" Value="{Binding AppTheme.Middleground}" />
                         <Setter Property="Margin" Value="20 10" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                         <Setter Property="AutoWordSelection" Value="True" />
                         <Style.Triggers>
                             <Trigger Property="IsFocused" Value="False">
@@ -140,23 +145,28 @@
                         <Setter Property="Padding" Value="5" />
                         <Setter Property="Height" Value="25" />
                         <Setter Property="Width" Value="25" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="SettingsSectionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="30" />
                         <Setter Property="Padding" Value="10" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="SettingsOptionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="14" />
                         <Setter Property="Padding" Value="10" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="SettingsOptionToggle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
                         <Setter Property="HorizontalAlignment" Value="Left" />
                         <Setter Property="Margin" Value="20 10" />
                         <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="SettingsOptionRadio" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
                         <Setter Property="Margin" Value="20 15" />
                         <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="IconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
@@ -165,11 +175,13 @@
                         <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                         <Setter Property="Padding" Value="0" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="TempHeader" TargetType="{x:Type Label}">
                         <Setter Property="HorizontalAlignment" Value="Center" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="FontSize" Value="40" />
+                        <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

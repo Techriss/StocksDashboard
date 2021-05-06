@@ -170,9 +170,9 @@ namespace StocksData
         {
             try
             {
-                var data = await Yahoo.Symbols(symbols).Fields(Field.Ask).QueryAsync();
+                var data = await Yahoo.Symbols(symbols).Fields(Field.RegularMarketPrice).QueryAsync();
                 var prices = new List<StockPrice>();
-                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.Ask), DateTime.Now)));
+                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.Now)));
 
                 return prices;
             }
@@ -187,8 +187,8 @@ namespace StocksData
         {
             try
             {
-                var data = await Yahoo.Symbols(symbol).Fields(Field.Ask).QueryAsync();
-                var price = new StockPrice(symbol, Convert.ToDecimal(data[symbol].Ask), DateTime.Now);
+                var data = await Yahoo.Symbols(symbol).Fields(Field.RegularMarketPrice).QueryAsync();
+                var price = new StockPrice(symbol, Convert.ToDecimal(data[symbol].RegularMarketPrice), DateTime.Now);
 
                 return price;
             }

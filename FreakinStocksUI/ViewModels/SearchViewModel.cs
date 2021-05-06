@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using FreakinStocksUI.Models;
+using MaterialDesignThemes.Wpf;
 using StocksData;
 using YahooFinanceApi;
 
@@ -26,6 +29,7 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged(nameof(StockData));
                     OnPropertyChanged(nameof(DataVisibility));
                     OnPropertyChanged(nameof(TempHeaderVisibility));
+                    OnPropertyChanged(nameof(IsCurrentStockLiked));
                 }
             }
         }
@@ -37,11 +41,56 @@ namespace FreakinStocksUI.ViewModels
             {
                 _stockData = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(PriceChange));
+                OnPropertyChanged(nameof(FiftyDayAverageChange));
+                OnPropertyChanged(nameof(TwoHundredDayAverageChange));
             }
         }
 
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
+
+        public PackIconKind IsCurrentStockLiked => Properties.Settings.Default.LikedStocks is not null && Properties.Settings.Default.LikedStocks.Contains(CurrentStock) ? PackIconKind.Heart : PackIconKind.HeartOutline;
+
+        public ValueChange PriceChange
+        {
+            get
+            {
+                return new($"{ Math.Round(StockData?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.RegularMarketChangePercent ?? 0));
+            }
+        }
+        public ValueChange FiftyDayAverageChange
+        {
+            get
+            {
+                return new($"{ Math.Round(StockData?.FiftyDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.FiftyDayAverageChangePercent ?? 0));
+            }
+        }
+        public ValueChange TwoHundredDayAverageChange
+        {
+            get
+            {
+                return new($"{ Math.Round(StockData?.TwoHundredDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.TwoHundredDayAverageChangePercent ?? 0));
+            }
+        }
+
+
+        public RelayCommand ChangeLikedCommand => new(() =>
+        {
+            if (Properties.Settings.Default.LikedStocks is null) Properties.Settings.Default.LikedStocks = new();
+            if (!Properties.Settings.Default.LikedStocks.Contains(CurrentStock))
+            {
+                Properties.Settings.Default.LikedStocks.Add(CurrentStock);
+            }
+            else
+            {
+                Properties.Settings.Default.LikedStocks.Remove(CurrentStock);
+            }
+            Properties.Settings.Default.Save();
+            OnPropertyChanged(nameof(IsCurrentStockLiked));
+        });
+
+        public RelayCommand ReloadCommand => new(() => OnPropertyChanged(nameof(IsCurrentStockLiked)));
 
 
         public async Task LoadData(string symbol)

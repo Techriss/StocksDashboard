@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
 using FreakinStocksUI.Models;
 using LiveCharts;
 using StocksData;
@@ -73,7 +72,7 @@ namespace FreakinStocksUI.ViewModels
         {
             get
             {
-                return new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
+                return new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
             }
         }
 
@@ -110,11 +109,6 @@ namespace FreakinStocksUI.ViewModels
             StockInfo = info;
         }
 
-        private static SolidColorBrush GetColorForValue(double value)
-        {
-            return value < 0 ? new(Colors.IndianRed) : new(Colors.ForestGreen);
-        }
-
 
         public RelayCommand GoNext => new(() => CurrentIndex++);
 
@@ -131,7 +125,4 @@ namespace FreakinStocksUI.ViewModels
             Task.Run(LoadPrices);
         }
     }
-
-
-    public record ValueChange(string Change, SolidColorBrush Color);
 }

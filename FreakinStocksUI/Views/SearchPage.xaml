@@ -3,10 +3,16 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SearchViewModel}"
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" d:DataContext="{d:DesignInstance Type=viewmodels:SearchViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SearchPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ReloadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Margin="20">
         <Grid.Resources>
@@ -24,17 +30,33 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <Button Margin="10" Panel.ZIndex="10" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right" Padding="0" VerticalAlignment="Top" Height="40" Width="40" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ChangeLikedCommand}">
+            <md:PackIcon d:Kind="Heart"  Kind="{Binding IsCurrentStockLiked}" Width="30" Height="30"/>
+        </Button>
+
         <Label d:Visibility="Hidden" Margin="10 40 10 10" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
         <StackPanel Orientation="Vertical" Visibility="{Binding DataVisibility}" Margin="10 0">
             <Label FontSize="40" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.LongName}" d:Content="Tesla, Inc." Margin="-10 0 0 20"/>
 
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPrice}" d:Content="720 USD" ContentStringFormat="Price: {0:C}"/>
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPrice}" d:Content="720 USD" ContentStringFormat="Price: {0:C}"/>
+                <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
+            </StackPanel>
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketCap}" d:Content="720 USD" ContentStringFormat="Market Cap: {0:$#,##0,,,B}"/>
 
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPreviousClose}" ContentStringFormat="Previous Close: {0:C}" d:Content="720 USD" Margin="0 0 0 20"/>
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FiftyDayAverage}" d:Content="720 USD" ContentStringFormat="50 Days Avarage: {0:C}"/>
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.TwoHundredDayAverage}" d:Content="720 USD" ContentStringFormat="200 Days Avarage: {0:C}"/>
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPreviousClose}" ContentStringFormat="Previous Close: {0:C}" d:Content="720 USD" Margin="0 20 0 0"/>
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FiftyDayAverage}" d:Content="720 USD" ContentStringFormat="50 Days Avarage: {0:C}"/>
+                <Label d:Content="+4%" Content="{Binding FiftyDayAverageChange.Change}" Foreground="{Binding FiftyDayAverageChange.Color}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.TwoHundredDayAverage}" d:Content="720 USD" ContentStringFormat="200 Days Avarage: {0:C}"/>
+                <Label d:Content="+4%" Content="{Binding TwoHundredDayAverageChange.Change}" Foreground="{Binding TwoHundredDayAverageChange.Color}"/>
+            </StackPanel>
+            
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.ExchangeTimezoneName}" d:Content="720 USD" ContentStringFormat="Time Zone: {0:$#,##0,,,B}" Margin="0 20 0 0"/>
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FullExchangeName}" d:Content="720 USD" ContentStringFormat="Exchange: {0}"/>
 
         </StackPanel>
         
