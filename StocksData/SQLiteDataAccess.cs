@@ -8,13 +8,35 @@ using StocksData.Models;
 
 namespace StocksData
 {
-    public static class SQLiteDataAccess
+    public class SQLiteDataAccess : IDataAccess
     {
-        private static readonly string ConnectionString = @"Data Source=.\StocksData.db;Version=3;";
+        private string ConnectionString { get; set; } = @"Data Source=.\StocksData.db;Version=3;";
+
+        public SQLiteDataAccess()
+        {
+
+        }
+
+        public SQLiteDataAccess(string path)
+        {
+            SetDatabase(path);
+        }
 
 
 
-        public static void SavePrice(StockPrice stockPrice)
+        private void SetDatabase(string path)
+        {
+            ConnectionString = GetConnectionString(path);
+        }
+
+        private string GetConnectionString(string path)
+        {
+            return @$"Data Source={ path };Version=3;";
+        }
+
+
+
+        public void SavePrice(StockPrice stockPrice)
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -22,7 +44,7 @@ namespace StocksData
             }
         }
 
-        public static async Task SavePriceAsync(StockPrice stockPrice)
+        public async Task SavePriceAsync(StockPrice stockPrice)
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -32,7 +54,7 @@ namespace StocksData
 
 
 
-        public static List<StockPrice> LoadAllPrices()
+        public List<StockPrice> LoadAllPrices()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -41,7 +63,7 @@ namespace StocksData
             }
         }
 
-        public static async Task<List<StockPrice>> LoadAllPricesAsync()
+        public async Task<List<StockPrice>> LoadAllPricesAsync()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -52,7 +74,7 @@ namespace StocksData
 
 
 
-        public static void ClearDatabase()
+        public void ClearDatabase()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -60,7 +82,7 @@ namespace StocksData
             }
         }
 
-        public static async Task ClearDatabaseAsync()
+        public async Task ClearDatabaseAsync()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -70,7 +92,7 @@ namespace StocksData
 
 
 
-        public static void RepairDatabase()
+        public void RepairDatabase()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
@@ -78,7 +100,7 @@ namespace StocksData
             }
         }
 
-        public static async Task RepairDatabaseAsync()
+        public async Task RepairDatabaseAsync()
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {

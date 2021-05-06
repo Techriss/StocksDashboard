@@ -11,10 +11,12 @@ namespace FreakinStocksLiveService
     {
         private readonly ILogger<Worker> _logger;
         private static readonly string[] _symbols = { "TSLA", "NDAQ", "AAPL" };
+        private readonly IDataAccess _dataAccess;
 
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
+            _dataAccess = new SQLiteDataAccess();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -24,8 +26,8 @@ namespace FreakinStocksLiveService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 try
                 {
-                    await Task.Delay(10000, stoppingToken);
-                    await SaveLivePriceDebugTest();
+                    await Task.Delay(60000, stoppingToken);
+                    await SaveLivePriceSQLite();
                 }
                 catch (OperationCanceledException)
                 {
@@ -43,7 +45,8 @@ namespace FreakinStocksLiveService
                 {
                     if (p is not null)
                     {
-                        await MySQLDataAccess.SavePriceAsync(p);
+                        await _dataAccess.SavePriceAsync(p);
+                        _logger.LogInformation("Saved Price");
                     }
                     else
                     {
@@ -62,7 +65,7 @@ namespace FreakinStocksLiveService
                 {
                     if (p is not null)
                     {
-                        await SQLiteDataAccess.SavePriceAsync(p);
+                        await _dataAccess.SavePriceAsync(p);
                     }
                     else
                     {
@@ -79,7 +82,7 @@ namespace FreakinStocksLiveService
             {
                 if (p is not null)
                 {
-                    await SQLiteDataAccess.SavePriceAsync(p);
+                    await _dataAccess.SavePriceAsync(p);
                 }
                 else
                 {

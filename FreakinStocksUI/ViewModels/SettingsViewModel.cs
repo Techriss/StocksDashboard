@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
+using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {

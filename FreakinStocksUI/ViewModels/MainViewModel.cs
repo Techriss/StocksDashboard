@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using FreakinStocksUI.Views;
+using StocksData;
+using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
@@ -18,8 +20,17 @@ namespace FreakinStocksUI.ViewModels
 
 
 
-
         #region public
+
+        public static IDataAccess StockMarket { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType) switch
+        {
+            DatabaseType.MySQL => new MySQLDataAccess(Properties.Settings.Default.DBServer,
+                                                      Properties.Settings.Default.DBDatabase,
+                                                      Properties.Settings.Default.DBUsername,
+                                                      Properties.Settings.Default.DBPasswordCipher,
+                                                      Properties.Settings.Default.DBPasswordEntropy),
+            DatabaseType.SQLite => new SQLiteDataAccess(),
+        };
 
         public WindowState MainWindowState
         {

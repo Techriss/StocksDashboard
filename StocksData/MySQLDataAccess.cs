@@ -3,28 +3,36 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using FreakinStocksUI.Helpers;
 using MySqlConnector;
 using StocksData.Models;
 
 namespace StocksData
 {
-    public static class MySQLDataAccess
+    public class MySQLDataAccess : IDataAccess
     {
-        private static string ConnectionString { get; set; } = GetConnectionString("localhost", "stocksdata", "root", "75750506200420");
+        private string ConnectionString { get; set; }
 
-
-        public static void SetDatabase(string server, string database, string username, string password)
+        public MySQLDataAccess(string server, string database, string username, byte[] cipher, byte[] entropy)
         {
-            ConnectionString = $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ password };";
-        }
-
-        public static string GetConnectionString(string server, string database, string username, string password)
-        {
-            return ConnectionString = $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ password };";
+            SetDatabase(server, database, username, cipher, entropy);
         }
 
 
-        public static void SavePrice(StockPrice stockPrice)
+
+        private void SetDatabase(string server, string database, string username, byte[] cipher, byte[] entropy)
+        {
+            ConnectionString = GetConnectionString(server, database, username, cipher, entropy);
+        }
+
+        private string GetConnectionString(string server, string database, string username, byte[] cipher, byte[] entropy)
+        {
+            return $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ Encryption.Decrypt(cipher, entropy) };";
+        }
+
+
+
+        public void SavePrice(StockPrice stockPrice)
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -32,7 +40,7 @@ namespace StocksData
             }
         }
 
-        public static async Task SavePriceAsync(StockPrice stockPrice)
+        public async Task SavePriceAsync(StockPrice stockPrice)
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -42,7 +50,7 @@ namespace StocksData
 
 
 
-        public static List<StockPrice> LoadAllPrices()
+        public List<StockPrice> LoadAllPrices()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -51,7 +59,7 @@ namespace StocksData
             }
         }
 
-        public static async Task<List<StockPrice>> LoadAllPricesAsync()
+        public async Task<List<StockPrice>> LoadAllPricesAsync()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -62,7 +70,7 @@ namespace StocksData
 
 
 
-        public static void ClearDatabase()
+        public void ClearDatabase()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -70,7 +78,7 @@ namespace StocksData
             }
         }
 
-        public static async Task ClearDatabaseAsync()
+        public async Task ClearDatabaseAsync()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -80,7 +88,7 @@ namespace StocksData
 
 
 
-        public static void RepairDatabase()
+        public void RepairDatabase()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
@@ -88,10 +96,11 @@ namespace StocksData
             }
         }
 
-        public static async Task RepairDatabaseAsync()
+        public async Task RepairDatabaseAsync()
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
+                await Task.Delay(100);
                 // await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
             }
         }

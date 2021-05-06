@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,20 +59,20 @@ namespace FreakinStocksUI.ViewModels
         {
             while (true)
             {
-                if (CurrentStock is not null && CurrentStock != "")
+                if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null && CurrentStock != "")
                 {
-                    var price = (await SQLiteDataAccess.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
+                    var price = (await MainViewModel.StockMarket.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
                     Prices.Add(price.Price);
                     Dates.Add($"{DateTime.Parse(price.Time):t}");
                 }
 
-                await Task.Delay(5000);
+                await Task.Delay(60000);
             }
         }
 
         private async Task GetCurrentLiveData()
         {
-            var data = (await SQLiteDataAccess.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
+            var data = (await MainViewModel.StockMarket.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
             Prices.Clear();
             Prices.AddRange(data.Select(x => x.Price));
             Dates = new(data.Select(x => $"{DateTime.Parse(x.Time):t}"));
