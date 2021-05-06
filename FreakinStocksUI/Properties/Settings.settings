@@ -29,5 +29,8 @@
     <Setting Name="StartupPage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Home</Value>
     </Setting>
+    <Setting Name="LiveServiceProcessID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

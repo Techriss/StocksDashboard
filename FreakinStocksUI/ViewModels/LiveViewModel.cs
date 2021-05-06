@@ -61,7 +61,7 @@ namespace FreakinStocksUI.ViewModels
             {
                 if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null && CurrentStock != "")
                 {
-                    var price = (await MainViewModel.StockMarket.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
+                    var price = (await MainViewModel.Database.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
                     Prices.Add(price.Price);
                     Dates.Add($"{DateTime.Parse(price.Time):t}");
                 }
@@ -72,7 +72,7 @@ namespace FreakinStocksUI.ViewModels
 
         private async Task GetCurrentLiveData()
         {
-            var data = (await MainViewModel.StockMarket.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
+            var data = (await MainViewModel.Database.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
             Prices.Clear();
             Prices.AddRange(data.Select(x => x.Price));
             Dates = new(data.Select(x => $"{DateTime.Parse(x.Time):t}"));

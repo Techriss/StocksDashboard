@@ -128,5 +128,17 @@ namespace FreakinStocksUI.Properties {
                 this["StartupPage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LiveServiceProcessID {
+            get {
+                return ((int)(this["LiveServiceProcessID"]));
+            }
+            set {
+                this["LiveServiceProcessID"] = value;
+            }
+        }
     }
 }

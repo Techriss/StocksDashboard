@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
@@ -22,7 +23,7 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
-        public static IDataAccess StockMarket { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType) switch
+        public static IDataAccess Database { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType) switch
         {
             DatabaseType.MySQL => new MySQLDataAccess(Properties.Settings.Default.DBServer,
                                                       Properties.Settings.Default.DBDatabase,
@@ -121,12 +122,44 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+        public void RunLiveService()
+        {
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                CreateNoWindow = true,
+                FileName = "./FreakinStocksLiveService.exe",
+                UseShellExecute = false,
+            };
+            var process = new Process() { StartInfo = psi };
+            process.Start();
+
+            Properties.Settings.Default.LiveServiceProcessID = process.Id;
+            Properties.Settings.Default.Save();
+        }
+
+        public void KillPreviousLiveService()
+        {
+            try
+            {
+                var process = Process.GetProcessById(Properties.Settings.Default.LiveServiceProcessID);
+
+                if (process is not null && process.Id is not 0)
+                {
+                    process.Kill();
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("[WARNING] Process cannot be closed");
+            }
+        }
+
         public MainViewModel()
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
 
-            System.Diagnostics.Process.Start("./FreakinStocksLiveService.exe");
+            KillPreviousLiveService();
+            RunLiveService();
         }
     }
 }
-
