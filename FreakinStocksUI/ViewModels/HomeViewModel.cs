@@ -12,12 +12,19 @@ namespace FreakinStocksUI.ViewModels
 {
     class HomeViewModel : ViewModelBase
     {
+        #region private
+
         private ChartValues<decimal> _prices;
         private List<string> _dates;
         private Security _stockInfo;
         private string _currentStock;
         private int _currentIndex = 0;
 
+        #endregion
+
+
+
+        #region public
 
         public string CurrentStock
         {
@@ -31,9 +38,7 @@ namespace FreakinStocksUI.ViewModels
                 Task.Run(LoadPrices);
             }
         }
-
         public string CurrentDisplayStock => CurrentStock is null ? "" : string.Join(" ", CurrentStock?.ToCharArray());
-
 
         public ChartValues<decimal> Prices
         {
@@ -54,7 +59,6 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-
         public Security StockInfo
         {
             get => _stockInfo;
@@ -62,12 +66,9 @@ namespace FreakinStocksUI.ViewModels
             {
                 _stockInfo = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Price));
                 OnPropertyChanged(nameof(PriceChange));
             }
         }
-
-        public double Price => StockInfo?.RegularMarketPrice ?? 0;
         public ValueChange PriceChange
         {
             get
@@ -76,8 +77,7 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public string[] Stocks { get; set; } = { "TSLA", "NDAQ", "AAPL" };
-
+        public string[] Stocks { get; set; } = Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
         public int CurrentIndex
         {
             get => _currentIndex;
@@ -91,14 +91,33 @@ namespace FreakinStocksUI.ViewModels
                 CurrentStock = Stocks[value];
             }
         }
-
         public bool CanGoNext => CurrentIndex + 1 <= Stocks.Length - 1;
         public bool CanGoPrevious => CurrentIndex - 1 >= 0;
 
 
+        #endregion
+
+
+
+        #region commands
+
+        public RelayCommand GoNext => new(() => CurrentIndex++);
+
+        public RelayCommand GoPrevious => new(() => CurrentIndex--);
+
+        public RelayCommand ReloadCommand => new(async () => await LoadPrices());
+
+        #endregion
+
+
+
+        #region methods
 
         private async Task LoadPrices()
         {
+            Stocks = GetStocks();
+            OnPropertyChanged(nameof(CanGoNext));
+            OnPropertyChanged(nameof(CanGoPrevious));
             var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
             var prices = data.Select(x => x.Price);
             var dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
@@ -109,14 +128,12 @@ namespace FreakinStocksUI.ViewModels
             StockInfo = info;
         }
 
+        private string[] GetStocks()
+        {
+            return Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
+        }
 
-        public RelayCommand GoNext => new(() => CurrentIndex++);
-
-        public RelayCommand GoPrevious => new(() => CurrentIndex--);
-
-        public RelayCommand ReloadCommand => new(async () => await LoadPrices());
-
-
+        #endregion
 
 
         public HomeViewModel(Page page)

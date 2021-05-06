@@ -58,5 +58,11 @@ namespace FreakinStocksUI.Helpers
 
             Process.Start(psi2); // execute service
         }
+
+
+        public static void SetServiceSymbols()
+        {
+            FreakinStocksLiveService.Worker.Symbols = Properties.Settings.Default.LikedStocks.ToArray();
+        }
     }
 }

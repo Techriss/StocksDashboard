@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
@@ -25,6 +26,7 @@ namespace FreakinStocksUI.ViewModels
             Properties.Settings.Default.Save();
             Stocks.Remove(stock as StockEntry);
             ReloadCommand.Execute();
+            ServiceHelper.SetServiceSymbols();
         });
 
         public RelayCommand ReloadCommand => new(() =>

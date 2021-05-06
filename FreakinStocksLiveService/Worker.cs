@@ -9,8 +9,9 @@ namespace FreakinStocksLiveService
 {
     public class Worker : BackgroundService
     {
+        public static string[] Symbols { get; set; } = { "TSLA", "NDAQ", "AAPL" };
+
         private readonly ILogger<Worker> _logger;
-        private static readonly string[] _symbols = { "TSLA", "NDAQ", "AAPL" };
         private readonly IDataAccess _dataAccess;
 
         public Worker(ILogger<Worker> logger)
@@ -40,7 +41,7 @@ namespace FreakinStocksLiveService
         {
             if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
             {
-                var prices = await StockMarketData.GetLivePrice(_symbols);
+                var prices = await StockMarketData.GetLivePrice(Symbols);
                 foreach (var p in prices)
                 {
                     if (p is not null)
@@ -60,7 +61,7 @@ namespace FreakinStocksLiveService
         {
             if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
             {
-                var prices = await StockMarketData.GetLivePrice(_symbols);
+                var prices = await StockMarketData.GetLivePrice(Symbols);
                 foreach (var p in prices)
                 {
                     if (p is not null)
@@ -77,7 +78,7 @@ namespace FreakinStocksLiveService
 
         public async Task SaveLivePriceDebugTest()
         {
-            var prices = await StockMarketData.GetLivePrice(_symbols);
+            var prices = await StockMarketData.GetLivePrice(Symbols);
             foreach (var p in prices)
             {
                 if (p is not null)

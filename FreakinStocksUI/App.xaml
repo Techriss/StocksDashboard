@@ -164,9 +164,10 @@
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
                     <Style x:Key="SettingsOptionRadio" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
-                        <Setter Property="Margin" Value="20 15" />
+                        <Setter Property="Margin" Value="10 5" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+                        <Setter Property="FontSize" Value="14" />
                     </Style>
                     <Style x:Key="IconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />

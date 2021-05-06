@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using LiveCharts;
 using StocksData;
@@ -10,9 +11,17 @@ namespace FreakinStocksUI.ViewModels
 {
     class LiveViewModel : ViewModelBase
     {
+        #region private
+
         private string _currentStock;
         private ObservableCollection<string> _dates;
         private ChartValues<decimal> _prices = new();
+
+        #endregion
+
+
+
+        #region public
 
         public string CurrentStock
         {
@@ -20,13 +29,15 @@ namespace FreakinStocksUI.ViewModels
             {
                 return _currentStock;
             }
-            init
+            set
             {
                 value = value.ToUpper();
                 if (StockMarketData.CheckSymbolExists(value))
                 {
                     _currentStock = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(TempHeaderVisibility));
+                    OnPropertyChanged(nameof(DataVisibility));
                     GetCurrentLiveData();
                 }
             }
@@ -41,7 +52,6 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public ChartValues<decimal> Prices
         {
             get => _prices;
@@ -52,8 +62,14 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+        public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
+
+        #endregion
 
 
+
+        #region methods
 
         private async Task FetchLiveData()
         {
@@ -77,6 +93,8 @@ namespace FreakinStocksUI.ViewModels
             Prices.AddRange(data.Select(x => x.Price));
             Dates = new(data.Select(x => $"{DateTime.Parse(x.Time):t}"));
         }
+
+        #endregion
 
 
         public LiveViewModel(Page page)

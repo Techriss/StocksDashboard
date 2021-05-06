@@ -80,7 +80,6 @@ namespace FreakinStocksUI.ViewModels
 
 
 
-
         #region commands
 
         public RelayCommand CloseCommand => new(() => Application.Current.Shutdown());
@@ -94,6 +93,9 @@ namespace FreakinStocksUI.ViewModels
 
         #endregion
 
+
+
+        #region methods
 
         public void NavigateTo(AppPage Page)
         {
@@ -157,13 +159,17 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+        #endregion
+
+
+
         public MainViewModel()
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
 
             // RunLiveService();
 
-            //InstallLiveService();
+            ServiceHelper.SetServiceSymbols();
         }
     }
 }

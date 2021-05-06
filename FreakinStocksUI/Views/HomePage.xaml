@@ -72,7 +72,7 @@
 
 
         <StackPanel Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="50 30" Orientation="Vertical" FlowDirection="RightToLeft" Height="120">
-            <Label FontSize="60" d:Content="$760" Content="{Binding Price}" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="0 0 0 0" FlowDirection="LeftToRight" ContentStringFormat=" {0:C}"/>
+            <Label FontSize="60" d:Content="$760" Content="{Binding StockInfo.RegularMarketPrice}" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="0 0 0 0" FlowDirection="LeftToRight" ContentStringFormat=" {0:C}"/>
             <Label FontSize="20" d:Content="+5.6%" Content="{Binding PriceChange.Change}" FontFamily="{StaticResource ProductSansLight}" VerticalAlignment="Center" FlowDirection="LeftToRight" Foreground="{Binding PriceChange.Color}" Margin="10 -15 0 0" Padding="0 0 0 0" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
         </StackPanel>
         
@@ -93,7 +93,6 @@
         <StackPanel Margin="20 10" Grid.Row="4" Orientation="Horizontal">
             <Label FontFamily="{StaticResource ProductSansLight}" Content="Market Cap:"/>
             <Label d:Content="27.3B" Content="{Binding StockInfo.MarketCap}" ContentStringFormat=" ${0:#,##0,,,B}"/>
-            <Label d:Content="-45%" Content="{Binding MarketCapChange.Change}" Foreground="{Binding MarketCapChange.Color}"/>
         </StackPanel>
 
 

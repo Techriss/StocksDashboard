@@ -31,25 +31,25 @@
 
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Startup Page" Foreground="{Binding AppTheme.Foreground}"/>
-            <RadioButton IsChecked="{Binding IsStartupHome, Mode=OneTime}" Content="Home" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Home"/>
-            <RadioButton IsChecked="{Binding IsStartupAnalytics, Mode=OneTime}" Content="Analytics" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Analytics"/>
-            <RadioButton IsChecked="{Binding IsStartupLive, Mode=OneTime}" Content="Live" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Live"/>
-            <RadioButton IsChecked="{Binding IsStartupSearch, Mode=OneTime}" Content="Search" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Search"/>
-            <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked"/>
+            <RadioButton IsChecked="{Binding IsStartupHome, Mode=OneTime}" Content="Home" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Home" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsStartupAnalytics, Mode=OneTime}" Content="Analytics" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Analytics" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsStartupLive, Mode=OneTime}" Content="Live" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Live" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsStartupSearch, Mode=OneTime}" Content="Search" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Search" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked" Padding="15 10"/>
 
-            <Button Command="{Binding InstallService}" Width="250" Height="40" Foreground="{Binding AppTheme.Foreground}" HorizontalAlignment="Left" Margin="20" Content="I N I L I A L I Z E   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
+            <Button Command="{Binding InstallService}" Width="250" Height="40" Foreground="{Binding AppTheme.Foreground}" HorizontalAlignment="Left" Margin="20" Content="I N I T I A L I Z E   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
 
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Database Type" Foreground="{Binding AppTheme.Foreground}"/>
             <StackPanel Orientation="Horizontal">
-                <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=OneTime}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL"/>
+                <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=OneTime}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL" Padding="15 10 5 10"/>
                 <Button Style="{StaticResource IconButton}" Command="{Binding ConfigureDatabase}">
                     <md:PackIcon Kind="DatabaseCogOutline"/>
                 </Button>
             </StackPanel>
-            <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=OneTime}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite"/>
+            <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=OneTime}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite" Padding="15 10"/>
 
         </StackPanel>
     </ScrollViewer>

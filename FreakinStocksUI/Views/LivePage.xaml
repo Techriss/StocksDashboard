@@ -3,7 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FreakinStocksUI.Views" xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" d:DataContext="{d:DesignInstance Type=viewmodels:LiveViewModel}"
+      xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+      xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:LiveViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LivePage">
@@ -14,7 +18,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="0" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
+        <lvc:CartesianChart Visibility="{Binding DataVisibility}" Grid.Row="0" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black" Title="Price: "/>
             </lvc:CartesianChart.Series>
@@ -34,6 +38,7 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
+        <Label d:Visibility="Hidden" Margin="10 40 10 10" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay}"/>

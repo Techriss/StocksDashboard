@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using MaterialDesignThemes.Wpf;
 using StocksData;
@@ -11,8 +12,16 @@ namespace FreakinStocksUI.ViewModels
 {
     class SearchViewModel : ViewModelBase
     {
+        #region private
+
         private string _currentStock;
         private Security _stockData;
+
+        #endregion
+
+
+
+        #region public
 
         public string CurrentStock
         {
@@ -33,7 +42,6 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
-
         public Security StockData
         {
             get => _stockData;
@@ -49,7 +57,6 @@ namespace FreakinStocksUI.ViewModels
 
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
-
         public PackIconKind IsCurrentStockLiked => Properties.Settings.Default.LikedStocks is not null && Properties.Settings.Default.LikedStocks.Contains(CurrentStock) ? PackIconKind.Heart : PackIconKind.HeartOutline;
 
         public ValueChange PriceChange
@@ -74,6 +81,11 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+        #endregion
+
+
+
+        #region commands
 
         public RelayCommand ChangeLikedCommand => new(() =>
         {
@@ -86,7 +98,9 @@ namespace FreakinStocksUI.ViewModels
             {
                 Properties.Settings.Default.LikedStocks.Remove(CurrentStock);
             }
+
             Properties.Settings.Default.Save();
+            ServiceHelper.SetServiceSymbols();
             OnPropertyChanged(nameof(IsCurrentStockLiked));
         });
 
@@ -99,6 +113,11 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(IsCurrentStockLiked));
         });
 
+        #endregion
+
+
+
+        #region methods
 
         public async Task LoadData(string symbol)
         {
@@ -108,6 +127,10 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(TempHeaderVisibility));
             OnPropertyChanged(nameof(StockData));
         }
+
+        #endregion
+
+
 
         public SearchViewModel(Page page)
         {
