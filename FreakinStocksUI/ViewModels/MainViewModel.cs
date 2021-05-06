@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
@@ -141,28 +140,6 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public static void InstallLiveService()
-        {
-            try
-            {
-                var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
-                var psi = new ProcessStartInfo
-                {
-                    FileName = @"C:\Windows\system32\sc.exe",
-                    Arguments = $"create FreakinStocksLiveData binPath={ path } start= auto",
-                    Verb = "runas",
-                    UseShellExecute = true,
-
-                };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Exception has occurred: { ex.Message }");
-                throw;
-            }
-        }
-
         public void KillPreviousLiveService()
         {
             try
@@ -184,7 +161,7 @@ namespace FreakinStocksUI.ViewModels
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
 
-            RunLiveService();
+            // RunLiveService();
 
             //InstallLiveService();
         }

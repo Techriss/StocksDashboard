@@ -69,7 +69,7 @@ namespace FreakinStocksUI.ViewModels
         public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
         public static RelayCommand ConfigureDatabase => new(() => Debug.WriteLine("-- Not Implemented"));
-        public static RelayCommand InstallService => new(() => MainViewModel.InstallLiveService());
+        public static RelayCommand InstallService => new(() => ServiceHelper.ConfigureLiveService());
 
 
         public SettingsViewModel(Page page)
