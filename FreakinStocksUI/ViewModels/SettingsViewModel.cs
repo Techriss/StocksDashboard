@@ -55,7 +55,6 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-
         public static bool IsMySQLSelected => DBType is DatabaseType.MySQL;
         public static bool IsSQLiteSelected => DBType is DatabaseType.SQLite;
 

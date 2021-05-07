@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceProcess;
+using System.Threading.Tasks;
 
 namespace FreakinStocksUI.Helpers
 {
@@ -10,26 +11,28 @@ namespace FreakinStocksUI.Helpers
     {
         public static void ConfigureLiveService()
         {
-            try
+            Task.Run(() =>
             {
-                using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+                try
                 {
-                    if (sc is null)
+                    using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
                     {
-                        InstallService();
-                        RunService();
-                    }
-                    else if (sc.Status is not ServiceControllerStatus.Running)
-                    {
-                        RunService();
+                        if (sc is null)
+                        {
+                            InstallService();
+                            RunService();
+                        }
+                        else if (sc.Status is not ServiceControllerStatus.Running)
+                        {
+                            RunService();
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Exception has occurred: { ex.Message }");
-                throw;
-            }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Exception has occurred: { ex.Message }");
+                }
+            });
         }
 
         private static void InstallService()
@@ -59,10 +62,16 @@ namespace FreakinStocksUI.Helpers
             Process.Start(psi2); // execute service
         }
 
-
         public static void SetServiceSymbols()
         {
-            FreakinStocksLiveService.Worker.Symbols = Properties.Settings.Default.LikedStocks.ToArray();
+            try
+            {
+                File.WriteAllLines("Stocks.txt", Properties.Settings.Default.LikedStocks);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERR] Could not write to file \"Stocks.txt\" - Reason: { ex.Message }");
+            }
         }
     }
 }

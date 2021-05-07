@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Stocks.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Stocks.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.3.21201.4" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0-preview.3.21201.4" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />

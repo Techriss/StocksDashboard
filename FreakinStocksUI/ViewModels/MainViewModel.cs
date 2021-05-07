@@ -167,9 +167,8 @@ namespace FreakinStocksUI.ViewModels
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
 
-            // RunLiveService();
-
             ServiceHelper.SetServiceSymbols();
+            ServiceHelper.ConfigureLiveService();
         }
     }
 }

@@ -13,13 +13,18 @@ namespace FreakinStocksUI.ViewModels
 {
     class AnalyticsViewModel : ViewModelBase
     {
+        #region private
+
         private DataMode _currentDataMode = DataMode.All;
         private string _currentStock;
         private ChartValues<decimal> _prices;
         private List<string> _dates = new();
 
+        #endregion
 
 
+
+        #region public
 
         public DataMode CurrentDataMode
         {
@@ -77,15 +82,19 @@ namespace FreakinStocksUI.ViewModels
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ChartVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
 
+        #endregion
 
 
 
-
+        #region command
 
         public RelayCommand SetDataMode => new((object mode) => CurrentDataMode = Enum.Parse<DataMode>(mode as string));
 
+        #endregion
 
 
+
+        #region methods
 
         public async Task LoadChart(DataMode mode)
         {
@@ -122,6 +131,8 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+
+        #endregion
 
 
 

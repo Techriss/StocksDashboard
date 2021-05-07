@@ -27,9 +27,10 @@ namespace StocksData
         private void SetDatabase(string path)
         {
             ConnectionString = GetConnectionString(path);
+            RepairDatabase();
         }
 
-        private string GetConnectionString(string path)
+        private static string GetConnectionString(string path)
         {
             return @$"Data Source={ path };Version=3;";
         }
@@ -96,7 +97,7 @@ namespace StocksData
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
-                cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
             }
         }
 
@@ -104,7 +105,7 @@ namespace StocksData
         {
             using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
             {
-                await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
             }
         }
     }

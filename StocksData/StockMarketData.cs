@@ -134,6 +134,17 @@ namespace StocksData
             }
         }
 
+        public static Dictionary<string, bool> CheckSymbolsExist(params string[] symbols)
+        {
+            var dictionary = new Dictionary<string, bool>();
+            foreach (var symbol in symbols)
+            {
+                dictionary.Add(symbol, CheckSymbolExists(symbol));
+            }
+
+            return dictionary;
+        }
+
 
         public static async Task<IEnumerable<StockPrice>> GetLastWeek(string symbol)
         {
