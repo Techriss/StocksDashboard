@@ -42,10 +42,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
-            <RadioButton Content="All Time" CommandParameter="All" IsChecked="True"/>
-            <RadioButton Content="Last Year" CommandParameter="Year"/>
-            <RadioButton Content="Last Month" CommandParameter="Month"/>
-            <RadioButton Content="Last Week" CommandParameter="Week"/>
+            <RadioButton Content="All Time" CommandParameter="All" IsChecked="{Binding IsAll, Mode=OneTime}"/>
+            <RadioButton Content="Last Year" CommandParameter="Year" IsChecked="{Binding IsYear, Mode=OneTime}"/>
+            <RadioButton Content="Last Month" CommandParameter="Month" IsChecked="{Binding IsMonth, Mode=OneTime}"/>
+            <RadioButton Content="Last Week" CommandParameter="Week" IsChecked="{Binding IsWeek, Mode=OneTime}"/>
         </StackPanel>
 
         <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="1" Margin="20 20 20 20" Background="Transparent" Foreground="Black">

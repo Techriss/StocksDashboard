@@ -151,5 +151,17 @@ namespace FreakinStocksUI.Properties {
                 this["LikedStocks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("All")]
+        public string AnalyticsStartupPage {
+            get {
+                return ((string)(this["AnalyticsStartupPage"]));
+            }
+            set {
+                this["AnalyticsStartupPage"] = value;
+            }
+        }
     }
 }

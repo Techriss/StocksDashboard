@@ -63,6 +63,19 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+        public static DataMode AnalyticsStartupPage
+        {
+            get => Enum.Parse<DataMode>(Properties.Settings.Default.AnalyticsStartupPage);
+            set
+            {
+                if (AnalyticsStartupPage != value)
+                {
+                    Properties.Settings.Default.AnalyticsStartupPage = value.ToString();
+                    Properties.Settings.Default.Save();
+                }
+            }
+        }
+
 
         public static bool IsMySQLSelected => DBType is DatabaseType.MySQL;
         public static bool IsSQLiteSelected => DBType is DatabaseType.SQLite;
@@ -73,9 +86,15 @@ namespace FreakinStocksUI.ViewModels
         public static bool IsStartupSearch => StartupPage is AppPage.Search;
         public static bool IsStartupLiked => StartupPage is AppPage.Liked;
 
+        public static bool IsAnalyticsStartupWeek => AnalyticsStartupPage is DataMode.Week;
+        public static bool IsAnalyticsStartupMonth => AnalyticsStartupPage is DataMode.Month;
+        public static bool IsAnalyticsStartupYear => AnalyticsStartupPage is DataMode.Year;
+        public static bool IsAnalyticsStartupAll => AnalyticsStartupPage is DataMode.All;
+
 
         public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
+        public static RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public static RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
         public static RelayCommand InstallService => new(() => ServiceHelper.ConfigureLiveService());
 

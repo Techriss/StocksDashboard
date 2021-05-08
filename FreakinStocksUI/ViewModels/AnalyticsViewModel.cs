@@ -15,7 +15,7 @@ namespace FreakinStocksUI.ViewModels
     {
         #region private
 
-        private DataMode _currentDataMode = DataMode.All;
+        private DataMode _currentDataMode = Enum.Parse<DataMode>(Properties.Settings.Default.AnalyticsStartupPage ?? "All");
         private string _currentStock;
         private ChartValues<decimal> _prices;
         private List<string> _dates = new();
@@ -81,6 +81,11 @@ namespace FreakinStocksUI.ViewModels
 
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ChartVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
+
+        public bool IsAll => CurrentDataMode is DataMode.All;
+        public bool IsYear => CurrentDataMode is DataMode.Year;
+        public bool IsMonth => CurrentDataMode is DataMode.Month;
+        public bool IsWeek => CurrentDataMode is DataMode.Week;
 
         #endregion
 

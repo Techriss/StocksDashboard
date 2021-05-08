@@ -133,7 +133,7 @@ namespace FreakinStocksLiveService
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message }");
+                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message + ex.StackTrace + ex.Source }");
                 _logger.LogInformation("Configuring SQLITE DATABASE");
                 return new SQLiteDataAccess(CURRENT_DIR + DB);
             }
