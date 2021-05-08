@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +13,12 @@ namespace StocksData
     {
         private string ConnectionString { get; set; }
 
+        public MySQLConfiguration Config { get; init; }
+
         public MySQLDataAccess(MySQLConfiguration mysql)
         {
             SetDatabase(mysql);
+            Config = mysql;
         }
 
 

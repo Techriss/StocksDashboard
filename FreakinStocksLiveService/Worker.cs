@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -123,22 +122,45 @@ namespace FreakinStocksLiveService
                 var lines = File.ReadAllLines(CURRENT_DIR + MYSQL);
                 if (lines[0].ToLower() == "true")
                 {
-                    _logger.LogInformation("Configuring MYSQL DATABASE");
                     var mysql = new MySQLConfiguration(lines[1], lines[2], lines[3], Convert.FromBase64String(lines[4]), Convert.FromBase64String(lines[5]));
-                    return new MySQLDataAccess(mysql);
+
+                    if ((_dataAccess is not null && _dataAccess is MySQLDataAccess && !AreConfigsEqual((_dataAccess as MySQLDataAccess).Config, mysql)) ||
+                        (_dataAccess is null) || (_dataAccess is SQLiteDataAccess))
+                    {
+                        _logger.LogInformation("Configuring MYSQL DATABASE");
+                        if (_dataAccess is MySQLDataAccess previous)
+                        {
+                            _logger.LogInformation($"The previous configuration: [ Server: { previous.Config.Server }, Database: { previous.Config.Database }, Username: { previous.Config.Username } ]");
+                            _logger.LogInformation($"The new configuration: [ Server: { mysql.Server }, Database: { mysql.Database }, Username: { mysql.Username } ]");
+                        }
+                        return new MySQLDataAccess(mysql);
+                    }
+                    else
+                    {
+                        return _dataAccess;
+                    }
                 }
-                else
+                else if ((_dataAccess is null) || (_dataAccess is MySQLDataAccess))
                 {
                     _logger.LogInformation("Configuring SQLITE DATABASE");
                     return new SQLiteDataAccess(CURRENT_DIR + DB);
                 }
+                else
+                {
+                    return _dataAccess;
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex }");
+                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message }");
                 _logger.LogInformation("Configuring SQLITE DATABASE");
                 return new SQLiteDataAccess(CURRENT_DIR + DB);
             }
+        }
+
+        private static bool AreConfigsEqual(MySQLConfiguration c1, MySQLConfiguration c2)
+        {
+            return (c1.Server == c2.Server && c1.Database == c2.Database && c1.Username == c2.Username);
         }
     }
 }

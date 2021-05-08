@@ -3,11 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security;
-using System.Text;
 using System.Windows;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using StocksData;
 using StocksData.Models;
 
