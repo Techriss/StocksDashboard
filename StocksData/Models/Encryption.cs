@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace FreakinStocksUI.Helpers
@@ -15,7 +16,7 @@ namespace FreakinStocksUI.Helpers
                 rng.GetBytes(entropy);
             }
 
-            var cipher = ProtectedData.Protect(bytes, entropy, DataProtectionScope.CurrentUser);
+            var cipher = ProtectedData.Protect(bytes, entropy, DataProtectionScope.LocalMachine);
 
             valuecipher = cipher;
             valueentropy = entropy;
@@ -23,7 +24,8 @@ namespace FreakinStocksUI.Helpers
 
         public static string Decrypt(byte[] cipher, byte[] entropy)
         {
-            return Encoding.UTF8.GetString(ProtectedData.Unprotect(cipher, entropy, DataProtectionScope.CurrentUser));
+            var data = ProtectedData.Unprotect(cipher, entropy, DataProtectionScope.LocalMachine);
+            return Encoding.UTF8.GetString(data);
         }
     }
 }

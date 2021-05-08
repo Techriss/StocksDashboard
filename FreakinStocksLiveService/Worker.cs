@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -38,6 +39,7 @@ namespace FreakinStocksLiveService
                 try
                 {
                     await Task.Delay(60000, stoppingToken);
+                    _dataAccess = GetDatabaseConfig();
                     await RefreshSymbols();
                     await SaveLivePrice();
                 }
@@ -133,7 +135,7 @@ namespace FreakinStocksLiveService
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message + ex.StackTrace + ex.Source }");
+                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex }");
                 _logger.LogInformation("Configuring SQLITE DATABASE");
                 return new SQLiteDataAccess(CURRENT_DIR + DB);
             }
