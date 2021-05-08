@@ -13,21 +13,21 @@ namespace StocksData
     {
         private string ConnectionString { get; set; }
 
-        public MySQLDataAccess(string server, string database, string username, byte[] cipher, byte[] entropy)
+        public MySQLDataAccess(MySQLConfiguration mysql)
         {
-            SetDatabase(server, database, username, cipher, entropy);
+            SetDatabase(mysql);
         }
 
 
 
-        private void SetDatabase(string server, string database, string username, byte[] cipher, byte[] entropy)
+        private void SetDatabase(MySQLConfiguration mysql)
         {
-            ConnectionString = GetConnectionString(server, database, username, cipher, entropy);
+            ConnectionString = GetConnectionString(mysql);
         }
 
-        private string GetConnectionString(string server, string database, string username, byte[] cipher, byte[] entropy)
+        private string GetConnectionString(MySQLConfiguration mysql)
         {
-            return $"SERVER={ server };DATABASE={ database };UID={ username };PASSWORD={ Encryption.Decrypt(cipher, entropy) };";
+            return $"SERVER={ mysql.Server };DATABASE={ mysql.Database };UID={ mysql.Username };PASSWORD={ Encryption.Decrypt(mysql.Cipher, mysql.Entropy) };";
         }
 
 
@@ -92,7 +92,7 @@ namespace StocksData
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
-                //cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                cnn.Execute("CREATE TABLE LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
             }
         }
 
@@ -100,8 +100,7 @@ namespace StocksData
         {
             using (IDbConnection cnn = new MySqlConnection(ConnectionString))
             {
-                await Task.Delay(100);
-                // await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL");
+                await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
             }
         }
     }

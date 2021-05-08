@@ -1,0 +1,56 @@
+﻿<Window x:Class="FreakinStocksUI.Views.Dialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+        xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:DialogViewModel}" 
+        FontFamily="{StaticResource ProductSansLight}" FontSize="14"
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        SizeToContent="Height" Background="Transparent" WindowStartupLocation="CenterScreen"
+        Title="Dialog" Height="550" Width="400">
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="10" GlassFrameThickness="0" CaptionHeight="40"/>
+    </WindowChrome.WindowChrome>
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="10" Opacity="0.2" Color="{Binding AppTheme.Middleground}"/>
+    </Window.Effect>
+    
+    <Border Margin="15" Background="{Binding AppTheme.Middleground}" d:Background="#141414" Height="400">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                    <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+                    <d:Setter Property="Foreground" Value="White" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Padding" Value="10" />
+                    <Setter Property="Margin" Value="12" />
+                    <Setter Property="Width" Value="300" />
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Label FontFamily="{StaticResource ProductSans}" Style="{StaticResource SettingsOptionLabel}" Content="Configure MySQL" Foreground="{Binding AppTheme.Foreground}" d:Foreground="White" Margin="10"/>
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <TextBox Text="{Binding Server, Mode=TwoWay}"/>
+                <TextBox Text="{Binding Database, Mode=TwoWay}"/>
+                <TextBox Text="{Binding Username, Mode=TwoWay}"/>
+                <PasswordBox Foreground="{Binding AppTheme.Foreground}" PasswordChanged="PasswordBox_PasswordChanged" Padding="10" Margin="12" Width="300" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0 10 0 10">
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="20" Width="120" Content="Cancel" Command="{Binding CloseCommand}"/>
+                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Margin="20" Width="120" Content="Confirm" Command="{Binding ConfirmCommand}"/>
+            </StackPanel>
+            
+        </Grid>
+    </Border>
+</Window>

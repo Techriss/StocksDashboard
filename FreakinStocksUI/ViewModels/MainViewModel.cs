@@ -25,12 +25,12 @@ namespace FreakinStocksUI.ViewModels
 
         public static IDataAccess Database { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType) switch
         {
-            DatabaseType.MySQL => new MySQLDataAccess(Properties.Settings.Default.DBServer,
-                                                      Properties.Settings.Default.DBDatabase,
-                                                      Properties.Settings.Default.DBUsername,
-                                                      Properties.Settings.Default.DBPasswordCipher,
-                                                      Properties.Settings.Default.DBPasswordEntropy),
             DatabaseType.SQLite => new SQLiteDataAccess(),
+            DatabaseType.MySQL => new MySQLDataAccess(new(Properties.Settings.Default.DBServer,
+                                                              Properties.Settings.Default.DBDatabase,
+                                                              Properties.Settings.Default.DBUsername,
+                                                              Properties.Settings.Default.DBPasswordEntropy,
+                                                              Properties.Settings.Default.DBPasswordCipher))
         };
 
         public WindowState MainWindowState

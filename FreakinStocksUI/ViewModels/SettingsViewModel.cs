@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
+using System.IO;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
+using FreakinStocksUI.Views;
 using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
@@ -35,10 +36,18 @@ namespace FreakinStocksUI.ViewModels
             get => Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType);
             set
             {
-                if (DBType != value)
+                if (DBType != value && ((value == DatabaseType.MySQL && new Dialog().ShowDialog().Value) || value == DatabaseType.SQLite))
                 {
                     Properties.Settings.Default.DatabaseType = value.ToString();
                     Properties.Settings.Default.Save();
+                }
+                if (DBType == DatabaseType.SQLite)
+                {
+                    try
+                    {
+                        File.WriteAllLines("MySQL.txt", new[] { "false" });
+                    }
+                    catch { }
                 }
             }
         }
@@ -67,7 +76,7 @@ namespace FreakinStocksUI.ViewModels
 
         public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
-        public static RelayCommand ConfigureDatabase => new(() => Debug.WriteLine("-- Not Implemented"));
+        public static RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
         public static RelayCommand InstallService => new(() => ServiceHelper.ConfigureLiveService());
 
 

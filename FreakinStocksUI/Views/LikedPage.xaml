@@ -40,9 +40,9 @@
                 <DataTemplate>
                     <Grid HorizontalAlignment="Stretch" Margin="10 0" Height="40">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" MinWidth="160"/>
-                            <ColumnDefinition Width="auto" MinWidth="160"/>
-                            <ColumnDefinition Width="auto" MinWidth="160"/>
+                            <ColumnDefinition Width="auto" MinWidth="180"/>
+                            <ColumnDefinition Width="auto" MinWidth="180"/>
+                            <ColumnDefinition Width="auto" MinWidth="180"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>

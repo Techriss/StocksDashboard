@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using StocksData;
+using StocksData.Models;
 
 namespace FreakinStocksLiveService
 {
@@ -15,16 +16,17 @@ namespace FreakinStocksLiveService
         public static string[] Symbols { get; set; }
 
         private readonly ILogger<Worker> _logger;
-        private readonly IDataAccess _dataAccess;
+        private IDataAccess _dataAccess;
 
         private static readonly string CURRENT_DIR = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private const string DB = @"\StocksData.db";
         private const string STOCKS = @"\Stocks.txt";
+        private const string MYSQL = @"\MySQL.txt";
 
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
-            _dataAccess = new SQLiteDataAccess(CURRENT_DIR + DB);
+            _dataAccess = GetDatabaseConfig();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -37,7 +39,7 @@ namespace FreakinStocksLiveService
                 {
                     await Task.Delay(60000, stoppingToken);
                     await RefreshSymbols();
-                    await SaveLivePriceSQLite();
+                    await SaveLivePrice();
                 }
                 catch (OperationCanceledException)
                 {
@@ -53,27 +55,7 @@ namespace FreakinStocksLiveService
         }
 
 
-        public async Task SaveLivePriceMySQL()
-        {
-            if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
-            {
-                var prices = await StockMarketData.GetLivePrice(Symbols);
-                foreach (var p in prices)
-                {
-                    if (p is not null)
-                    {
-                        await _dataAccess.SavePriceAsync(p);
-                        _logger.LogInformation("Saved Price");
-                    }
-                    else
-                    {
-                        _logger.LogWarning("The Live Price is null");
-                    }
-                }
-            }
-        }
-
-        public async Task SaveLivePriceSQLite()
+        public async Task SaveLivePrice()
         {
             if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
             {
@@ -90,26 +72,11 @@ namespace FreakinStocksLiveService
                     }
                 }
             }
-            else if (DateTime.Now.TimeOfDay.TotalMinutes >= 925 && DateTime.Now.TimeOfDay.TotalMinutes < 930)
+            else if (DateTime.Now.TimeOfDay.TotalMinutes >= 900 && DateTime.Now.TimeOfDay.TotalMinutes < 930)
             {
                 _logger.LogInformation("Clearing Database...");
                 await _dataAccess.ClearDatabaseAsync();
-            }
-        }
-
-        public async Task SaveLivePriceDebugTest()
-        {
-            var prices = await StockMarketData.GetLivePrice(Symbols);
-            foreach (var p in prices)
-            {
-                if (p is not null)
-                {
-                    await _dataAccess.SavePriceAsync(p);
-                }
-                else
-                {
-                    _logger.LogWarning("The Live Price is null");
-                }
+                _dataAccess = GetDatabaseConfig();
             }
         }
 
@@ -135,6 +102,40 @@ namespace FreakinStocksLiveService
             catch (Exception ex)
             {
                 _logger.LogError($"Could not save to file { CURRENT_DIR + STOCKS } Reason: { ex.Message }");
+            }
+        }
+
+        public IDataAccess GetDatabaseConfig()
+        {
+            try
+            {
+                /*
+                 *  true/false
+                 *  server
+                 *  database
+                 *  username/UID
+                 *  [ENTROPY]
+                 *  [CIPHER]
+                 */
+
+                var lines = File.ReadAllLines(CURRENT_DIR + MYSQL);
+                if (lines[0].ToLower() == "true")
+                {
+                    _logger.LogInformation("Configuring MYSQL DATABASE");
+                    var mysql = new MySQLConfiguration(lines[1], lines[2], lines[3], Convert.FromBase64String(lines[4]), Convert.FromBase64String(lines[5]));
+                    return new MySQLDataAccess(mysql);
+                }
+                else
+                {
+                    _logger.LogInformation("Configuring SQLITE DATABASE");
+                    return new SQLiteDataAccess(CURRENT_DIR + DB);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message }");
+                _logger.LogInformation("Configuring SQLITE DATABASE");
+                return new SQLiteDataAccess(CURRENT_DIR + DB);
             }
         }
     }
