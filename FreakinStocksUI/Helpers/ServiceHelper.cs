@@ -39,19 +39,19 @@ namespace FreakinStocksUI.Helpers
         {
             var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
 
-            var psi1 = new ProcessStartInfo
+            var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
                 Arguments = $"create FreakinStocksLiveData binPath={ path } start= auto",
                 Verb = "runas",
                 UseShellExecute = true,
             };
-            Process.Start(psi1);
+            Process.Start(psi);
         }
 
         private static void RunService()
         {
-            var psi2 = new ProcessStartInfo
+            var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
                 Arguments = $"start FreakinStocksLiveData",
@@ -59,7 +59,32 @@ namespace FreakinStocksUI.Helpers
                 UseShellExecute = true,
             };
 
-            Process.Start(psi2); // execute service
+            Process.Start(psi); // execute service
+        }
+
+        private static void StopService()
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = @"C:\Windows\system32\sc.exe",
+                Arguments = $"stop FreakinStocksLiveData",
+                Verb = "runas",
+                UseShellExecute = true,
+            };
+
+            Process.Start(psi); // stops service
+        }
+
+        public static void RestartService()
+        {
+            using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+            {
+                if (sc.Status is ServiceControllerStatus.Running)
+                {
+                    StopService();
+                    RunService();
+                }
+            }
         }
 
         public static void SetServiceSymbols()

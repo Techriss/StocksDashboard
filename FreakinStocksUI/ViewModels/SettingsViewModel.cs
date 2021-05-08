@@ -96,7 +96,7 @@ namespace FreakinStocksUI.ViewModels
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
         public static RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public static RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
-        public static RelayCommand InstallService => new(() => ServiceHelper.ConfigureLiveService());
+        public static RelayCommand InstallService => new(() => ServiceHelper.RestartService());
 
 
         public SettingsViewModel(Page page)
