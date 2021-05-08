@@ -35,6 +35,27 @@ namespace FreakinStocksUI.Helpers
             });
         }
 
+        public static void RestartService()
+        {
+            using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+            {
+                if (sc is null)
+                {
+                    InstallService();
+                    RunService();
+                }
+                if (sc.Status is ServiceControllerStatus.Running)
+                {
+                    StopService();
+                    RunService();
+                }
+                else
+                {
+                    RunService();
+                }
+            }
+        }
+
         private static void InstallService()
         {
             var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
@@ -46,7 +67,15 @@ namespace FreakinStocksUI.Helpers
                 Verb = "runas",
                 UseShellExecute = true,
             };
-            Process.Start(psi);
+
+            try
+            {
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("[WAR] Installing was not approved or failed");
+            }
         }
 
         private static void RunService()
@@ -59,7 +88,14 @@ namespace FreakinStocksUI.Helpers
                 UseShellExecute = true,
             };
 
-            Process.Start(psi); // execute service
+            try
+            {
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("[WAR] Running was not approved or failed");
+            }
         }
 
         private static void StopService()
@@ -72,18 +108,13 @@ namespace FreakinStocksUI.Helpers
                 UseShellExecute = true,
             };
 
-            Process.Start(psi); // stops service
-        }
-
-        public static void RestartService()
-        {
-            using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+            try
             {
-                if (sc.Status is ServiceControllerStatus.Running)
-                {
-                    StopService();
-                    RunService();
-                }
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("[WAR] Stopping was not approved or failed");
             }
         }
 

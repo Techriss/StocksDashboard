@@ -45,7 +45,7 @@
 
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Live Data Service" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
-            <Button Command="{Binding InstallService}" Width="250" Height="40" Foreground="White" HorizontalAlignment="Left" Margin="10 5" Content="I N I T I A L I Z E   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
+            <Button Command="{Binding RestartService}" Width="250" Height="40" Foreground="White" HorizontalAlignment="Left" Margin="10 5" Content="R E S T A R T   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
 
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
