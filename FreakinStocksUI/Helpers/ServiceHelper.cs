@@ -48,7 +48,7 @@ namespace FreakinStocksUI.Helpers
                         InstallService();
                         RunService();
                     }
-                    if (sc.Status is ServiceControllerStatus.Running)
+                    else if (sc.Status is ServiceControllerStatus.Running)
                     {
                         StopService();
                         RunService();

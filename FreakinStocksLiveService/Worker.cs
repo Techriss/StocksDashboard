@@ -60,17 +60,24 @@ namespace FreakinStocksLiveService
         {
             if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
             {
-                var prices = await StockMarketData.GetLivePrice(Symbols);
-                foreach (var p in prices)
+                try
                 {
-                    if (p is not null)
+                    var prices = await StockMarketData.GetLivePrice(Symbols);
+                    foreach (var p in prices)
                     {
-                        await _dataAccess.SavePriceAsync(p);
+                        if (p is not null)
+                        {
+                            await _dataAccess.SavePriceAsync(p);
+                        }
+                        else
+                        {
+                            _logger.LogWarning("The Live Price is null");
+                        }
                     }
-                    else
-                    {
-                        _logger.LogWarning("The Live Price is null");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
                 }
             }
             else if (DateTime.Now.TimeOfDay.TotalMinutes >= 900 && DateTime.Now.TimeOfDay.TotalMinutes < 930 && await IsDatabaseEmpty() == false)
@@ -140,7 +147,7 @@ namespace FreakinStocksLiveService
                         return _dataAccess;
                     }
                 }
-                else if ((_dataAccess is null) || (_dataAccess is MySQLDataAccess))
+                else if (_dataAccess is null || _dataAccess is MySQLDataAccess)
                 {
                     _logger.LogInformation("Configuring SQLITE DATABASE");
                     return new SQLiteDataAccess(CURRENT_DIR + DB);
@@ -154,7 +161,14 @@ namespace FreakinStocksLiveService
             {
                 _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message }");
                 _logger.LogInformation("Configuring SQLITE DATABASE");
-                return new SQLiteDataAccess(CURRENT_DIR + DB);
+                try
+                {
+                    return new SQLiteDataAccess(CURRENT_DIR + DB);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
