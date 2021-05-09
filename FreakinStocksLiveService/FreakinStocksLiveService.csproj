@@ -7,6 +7,7 @@
     <Authors>Techris</Authors>
     <Company>Techris</Company>
     <Description>The Freakin Stocks Stock Market Analytics Desktop Application Live Data gathering service</Description>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

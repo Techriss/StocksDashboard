@@ -12,7 +12,7 @@
         MinHeight="600" MinWidth="1000" interop:WindowBlur.IsEnabled="True"
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
         FontSize="10" FontFamily="{StaticResource ProductSans}" AllowsTransparency="True"
-        Foreground="{Binding AppTheme.Foreground}" Background="Transparent" BorderThickness="0"
+        Foreground="{Binding AppTheme.Foreground}" Background="Transparent" BorderThickness="0" Icon="/stocks.ico"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" ResizeBorderThickness="10" CaptionHeight="40" CornerRadius="0"/>
