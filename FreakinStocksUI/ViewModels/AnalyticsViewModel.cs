@@ -55,6 +55,8 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(ChartVisibility));
                     OnPropertyChanged(nameof(TempHeaderVisibility));
+                    Properties.Settings.Default.AnalyticsStock = value;
+                    Properties.Settings.Default.Save();
                     Task.Run(() => LoadChart(CurrentDataMode));
                 }
             }
@@ -144,6 +146,7 @@ namespace FreakinStocksUI.ViewModels
         public AnalyticsViewModel(Page page)
         {
             Source = page;
+            if (Properties.Settings.Default.AnalyticsStock is not "" or null) CurrentStock = Properties.Settings.Default.AnalyticsStock;
         }
     }
 }

@@ -163,5 +163,41 @@ namespace FreakinStocksUI.Properties {
                 this["AnalyticsStartupPage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AnalyticsStock {
+            get {
+                return ((string)(this["AnalyticsStock"]));
+            }
+            set {
+                this["AnalyticsStock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LiveStock {
+            get {
+                return ((string)(this["LiveStock"]));
+            }
+            set {
+                this["LiveStock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SearchStock {
+            get {
+                return ((string)(this["SearchStock"]));
+            }
+            set {
+                this["SearchStock"] = value;
+            }
+        }
     }
 }

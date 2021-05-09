@@ -38,5 +38,14 @@
     <Setting Name="AnalyticsStartupPage" Type="System.String" Scope="User">
       <Value Profile="(Default)">All</Value>
     </Setting>
+    <Setting Name="AnalyticsStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LiveStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SearchStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

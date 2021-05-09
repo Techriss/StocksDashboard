@@ -25,10 +25,7 @@ namespace FreakinStocksUI.ViewModels
 
         public string CurrentStock
         {
-            get
-            {
-                return _currentStock;
-            }
+            get => _currentStock;
             set
             {
                 value = value.ToUpper();
@@ -38,6 +35,8 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(TempHeaderVisibility));
                     OnPropertyChanged(nameof(DataVisibility));
+                    Properties.Settings.Default.LiveStock = value;
+                    Properties.Settings.Default.Save();
                     GetCurrentLiveData();
                 }
             }
@@ -100,6 +99,7 @@ namespace FreakinStocksUI.ViewModels
         public LiveViewModel(Page page)
         {
             Source = page;
+            if (Properties.Settings.Default.LiveStock is not "" or null) CurrentStock = Properties.Settings.Default.LiveStock;
 
             FetchLiveData();
         }

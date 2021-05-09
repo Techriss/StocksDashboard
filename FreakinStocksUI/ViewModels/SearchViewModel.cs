@@ -39,6 +39,8 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged(nameof(DataVisibility));
                     OnPropertyChanged(nameof(TempHeaderVisibility));
                     OnPropertyChanged(nameof(IsCurrentStockLiked));
+                    Properties.Settings.Default.SearchStock = value;
+                    Properties.Settings.Default.Save();
                 }
             }
         }
@@ -135,6 +137,7 @@ namespace FreakinStocksUI.ViewModels
         public SearchViewModel(Page page)
         {
             Source = page;
+            if (Properties.Settings.Default.SearchStock is not "" or null) CurrentStock = Properties.Settings.Default.SearchStock;
         }
     }
 }
