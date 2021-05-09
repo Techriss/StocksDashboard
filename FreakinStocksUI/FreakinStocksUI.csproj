@@ -13,6 +13,8 @@
     <None Remove="Fonts\ProductSans-Light.ttf" />
     <None Remove="Fonts\ProductSans-Regular.ttf" />
     <None Remove="Fonts\ProductSans-Thin.ttf" />
+    <None Remove="stocks.ico" />
+    <None Remove="Views\stocks.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,8 @@
     <Resource Include="Fonts\ProductSans-Light.ttf" />
     <Resource Include="Fonts\ProductSans-Regular.ttf" />
     <Resource Include="Fonts\ProductSans-Thin.ttf" />
+    <Resource Include="stocks.ico" />
+    <Resource Include="Views\stocks.ico" />
   </ItemGroup>
 
   <ItemGroup>

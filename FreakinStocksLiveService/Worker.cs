@@ -56,7 +56,7 @@ namespace FreakinStocksLiveService
         }
 
 
-        public async Task SaveLivePrice()
+        private async Task SaveLivePrice()
         {
             if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
             {
@@ -73,7 +73,7 @@ namespace FreakinStocksLiveService
                     }
                 }
             }
-            else if (DateTime.Now.TimeOfDay.TotalMinutes >= 900 && DateTime.Now.TimeOfDay.TotalMinutes < 930)
+            else if (DateTime.Now.TimeOfDay.TotalMinutes >= 900 && DateTime.Now.TimeOfDay.TotalMinutes < 930 && await IsDatabaseEmpty() == false)
             {
                 _logger.LogInformation("Clearing Database...");
                 await _dataAccess.ClearDatabaseAsync();
@@ -81,7 +81,7 @@ namespace FreakinStocksLiveService
             }
         }
 
-        public async Task RefreshSymbols()
+        private async Task RefreshSymbols()
         {
             try
             {
@@ -106,7 +106,7 @@ namespace FreakinStocksLiveService
             }
         }
 
-        public IDataAccess GetDatabaseConfig()
+        private IDataAccess GetDatabaseConfig()
         {
             try
             {
@@ -161,6 +161,11 @@ namespace FreakinStocksLiveService
         private static bool AreConfigsEqual(MySQLConfiguration c1, MySQLConfiguration c2)
         {
             return (c1.Server == c2.Server && c1.Database == c2.Database && c1.Username == c2.Username);
+        }
+
+        private async Task<bool> IsDatabaseEmpty()
+        {
+            return (await _dataAccess.LoadAllPricesAsync()).Count is 0;
         }
     }
 }

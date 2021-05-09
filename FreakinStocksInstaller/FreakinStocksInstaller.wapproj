@@ -61,7 +61,7 @@
 	<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
 	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
 	<GenerateTestArtifacts>True</GenerateTestArtifacts>
-	<AppxBundlePlatforms>x64</AppxBundlePlatforms>
+	<AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
 	<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -164,7 +164,11 @@
   </ItemGroup>
   <ItemGroup>
 	<ProjectReference Include="..\FreakinStocksUI\FreakinStocksUI.csproj">
-	  <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+		<DesktopBridgeSelfContained>False</DesktopBridgeSelfContained>
+		<DesktopBridgeIdentifiers>win-x64</DesktopBridgeIdentifiers>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<Properties>SelfContained=False;RuntimeIdentifier=win-x64</Properties>
+		<SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
 	</ProjectReference>
   </ItemGroup>
 </Project>
