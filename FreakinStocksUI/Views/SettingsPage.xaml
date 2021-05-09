@@ -29,6 +29,10 @@
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Enable Acrylic" Foreground="{Binding AppTheme.Foreground}"/>
             <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding EnableAcrylic, Mode=TwoWay}"/>
 
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Home Page Stocks" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
+            <RadioButton IsChecked="{Binding IsHomeStockLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="HomeStock" Command="{Binding ChangeHomeStock}" CommandParameter="Liked" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsHomeStockRecent, Mode=OneTime}" Content="Recent" Style="{StaticResource SettingsOptionRadio}" GroupName="HomeStock" Command="{Binding ChangeHomeStock}" CommandParameter="Recent" Padding="15 10"/>
+
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Startup Page" Foreground="{Binding AppTheme.Foreground}"/>
             <RadioButton IsChecked="{Binding IsStartupHome, Mode=OneTime}" Content="Home" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Home" Padding="15 10"/>

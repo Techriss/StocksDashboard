@@ -77,7 +77,7 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public string[] Stocks { get; set; } = Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
+        public string[] Stocks { get; private set; }
         public int CurrentIndex
         {
             get => _currentIndex;
@@ -116,6 +116,9 @@ namespace FreakinStocksUI.ViewModels
         private async Task LoadPrices()
         {
             Stocks = GetStocks();
+            OnPropertyChanged(nameof(CurrentStock));
+            OnPropertyChanged(nameof(CurrentDisplayStock));
+            OnPropertyChanged(nameof(CurrentIndex));
             OnPropertyChanged(nameof(CanGoNext));
             OnPropertyChanged(nameof(CanGoPrevious));
             var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
@@ -130,7 +133,15 @@ namespace FreakinStocksUI.ViewModels
 
         private string[] GetStocks()
         {
-            return Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
+            if (Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode) is HomeStockMode.Liked || Properties.Settings.Default.RecentStock == "")
+            {
+                return Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
+            }
+            else
+            {
+                _currentStock = Properties.Settings.Default.RecentStock;
+                return new[] { Properties.Settings.Default.RecentStock };
+            }
         }
 
         #endregion
@@ -139,7 +150,8 @@ namespace FreakinStocksUI.ViewModels
         public HomeViewModel(Page page)
         {
             Source = page;
-            CurrentStock = Stocks[CurrentIndex];
+            Stocks = GetStocks();
+            _currentStock = Stocks[CurrentIndex];
 
             Task.Run(LoadPrices);
         }

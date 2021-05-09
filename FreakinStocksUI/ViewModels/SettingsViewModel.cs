@@ -75,7 +75,18 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
-
+        public static HomeStockMode HomeStock
+        {
+            get => Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode);
+            set
+            {
+                if (value != HomeStock)
+                {
+                    Properties.Settings.Default.HomeStockMode = value.ToString();
+                    Properties.Settings.Default.Save();
+                }
+            }
+        }
 
         public static bool IsMySQLSelected => DBType is DatabaseType.MySQL;
         public static bool IsSQLiteSelected => DBType is DatabaseType.SQLite;
@@ -91,12 +102,16 @@ namespace FreakinStocksUI.ViewModels
         public static bool IsAnalyticsStartupYear => AnalyticsStartupPage is DataMode.Year;
         public static bool IsAnalyticsStartupAll => AnalyticsStartupPage is DataMode.All;
 
+        public static bool IsHomeStockLiked => HomeStock is HomeStockMode.Liked;
+        public static bool IsHomeStockRecent => HomeStock is HomeStockMode.Recent;
+
 
         public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
         public static RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public static RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
         public static RelayCommand RestartService => new(() => ServiceHelper.RestartService());
+        public static RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
 
 
         public SettingsViewModel(Page page)

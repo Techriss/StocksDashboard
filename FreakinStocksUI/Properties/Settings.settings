@@ -47,5 +47,11 @@
     <Setting Name="SearchStock" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="RecentStock" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HomeStockMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Liked</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

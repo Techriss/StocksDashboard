@@ -199,5 +199,29 @@ namespace FreakinStocksUI.Properties {
                 this["SearchStock"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecentStock {
+            get {
+                return ((string)(this["RecentStock"]));
+            }
+            set {
+                this["RecentStock"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Liked")]
+        public string HomeStockMode {
+            get {
+                return ((string)(this["HomeStockMode"]));
+            }
+            set {
+                this["HomeStockMode"] = value;
+            }
+        }
     }
 }

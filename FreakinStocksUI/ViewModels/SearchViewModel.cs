@@ -40,6 +40,7 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged(nameof(TempHeaderVisibility));
                     OnPropertyChanged(nameof(IsCurrentStockLiked));
                     Properties.Settings.Default.SearchStock = value;
+                    Properties.Settings.Default.RecentStock = value;
                     Properties.Settings.Default.Save();
                 }
             }

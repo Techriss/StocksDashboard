@@ -36,6 +36,7 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged(nameof(TempHeaderVisibility));
                     OnPropertyChanged(nameof(DataVisibility));
                     Properties.Settings.Default.LiveStock = value;
+                    Properties.Settings.Default.RecentStock = value;
                     Properties.Settings.Default.Save();
                     GetCurrentLiveData();
                 }

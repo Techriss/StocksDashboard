@@ -56,6 +56,7 @@ namespace FreakinStocksUI.ViewModels
                     OnPropertyChanged(nameof(ChartVisibility));
                     OnPropertyChanged(nameof(TempHeaderVisibility));
                     Properties.Settings.Default.AnalyticsStock = value;
+                    Properties.Settings.Default.RecentStock = value;
                     Properties.Settings.Default.Save();
                     Task.Run(() => LoadChart(CurrentDataMode));
                 }
