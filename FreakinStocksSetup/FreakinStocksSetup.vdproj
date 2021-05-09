@@ -43,6 +43,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -59,6 +75,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -76,6 +100,16 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_E288D4E81C6C4623B5A2C1192E9EDD2F"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
             }
         }
         "File"
@@ -119,7 +153,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_D325D01F7A764F73AF7410A7BE991408"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[LocalAppDataFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -157,7 +191,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Freakin Stocks"
         "ProductCode" = "8:{9AFF92C0-96E8-44CC-A5CD-561C4652BA7B}"
-        "PackageCode" = "8:{C3B01C18-E581-4985-BBF8-59CB15758096}"
+        "PackageCode" = "8:{D958A9A4-2F4B-4DE9-90A3-0374CA192784}"
         "UpgradeCode" = "8:{5064D9D1-DF56-487D-843A-DFF699A7FA97}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -318,7 +352,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_BABCEDD698C84EB19412342C404A5975"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Postęp"
+                    "DisplayName" = "8:Progress"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdProgressDlg.wid"
@@ -362,7 +396,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_2DFC2AA785C94D6FABD8E0C05A91D0D3"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Zapraszamy"
+                    "DisplayName" = "8:Welcome"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdWelcomeDlg.wid"
@@ -410,7 +444,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_DA8E0A29ACA44E97B0B66D1B24BF0CC6"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Potwierdzanie instalacji"
+                    "DisplayName" = "8:Confirm Installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdConfirmDlg.wid"
@@ -432,7 +466,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_DB90E1E7EFB448E3BDAD51251372EE6D"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Folder instalacji"
+                    "DisplayName" = "8:Installation Folder"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -476,7 +510,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_110756EE72574DCC9FA1B3D0BDC7CDF5"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Zapraszamy"
+                    "DisplayName" = "8:Welcome"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminWelcomeDlg.wid"
@@ -524,7 +558,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_2A974D64C2384944A6EA645F4FADC536"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Potwierdzanie instalacji"
+                    "DisplayName" = "8:Confirm Installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminConfirmDlg.wid"
@@ -546,7 +580,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_34C1FEDD1DC3459F975F84DEDA758685"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Folder instalacji"
+                    "DisplayName" = "8:Installation Folder"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
@@ -577,7 +611,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_874CD1335CD54241B399B3C237C2C7BA"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Zakończono"
+                    "DisplayName" = "8:Finished"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFinishedDlg.wid"
@@ -621,7 +655,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_CDBD740B09464C56A9CDF2146834ADCB"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Postęp"
+                    "DisplayName" = "8:Progress"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminProgressDlg.wid"
@@ -671,7 +705,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_D04EA48788DE44D495396B6FA1930308"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Zakończono"
+                    "DisplayName" = "8:Finished"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFinishedDlg.wid"
@@ -706,7 +740,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FF6DD2BB6E1F4C83B01BC173BDD7F31D"
             {
-            "SourcePath" = "8:..\\FreakinStocksUI\\obj\\x64\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\FreakinStocksUI\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D325D01F7A764F73AF7410A7BE991408"
