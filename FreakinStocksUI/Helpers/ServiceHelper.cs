@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FreakinStocksUI.Helpers
 {
@@ -31,28 +32,36 @@ namespace FreakinStocksUI.Helpers
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Exception has occurred: { ex.Message }");
+                    MessageBox.Show($"Exception has occurred: { ex.Message }");
                 }
             });
         }
 
         public static void RestartService()
         {
-            using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+            try
             {
-                if (sc is null)
+                using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
                 {
-                    InstallService();
-                    RunService();
+                    if (sc is null)
+                    {
+                        InstallService();
+                        RunService();
+                    }
+                    if (sc.Status is ServiceControllerStatus.Running)
+                    {
+                        StopService();
+                        RunService();
+                    }
+                    else
+                    {
+                        RunService();
+                    }
                 }
-                if (sc.Status is ServiceControllerStatus.Running)
-                {
-                    StopService();
-                    RunService();
-                }
-                else
-                {
-                    RunService();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace + ex.InnerException ?? " -- No Inner Exception");
             }
         }
 
