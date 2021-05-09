@@ -29,9 +29,6 @@
     <Setting Name="StartupPage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Home</Value>
     </Setting>
-    <Setting Name="LiveServiceProcessID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="LikedStocks" Type="System.Collections.Generic.List&lt;System.String&gt;" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

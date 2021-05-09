@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
@@ -58,15 +57,10 @@ namespace FreakinStocksUI.ViewModels
         }
 
         public HomeViewModel HomePage { get; private set; } = new(new HomePage());
-
         public AnalyticsViewModel AnalyticsPage { get; private set; } = new(new AnalyticsPage());
-
         public LiveViewModel LivePage { get; private set; } = new(new LivePage());
-
         public SearchViewModel SearchPage { get; private set; } = new(new SearchPage());
-
         public LikedViewModel LikedPage { get; private set; } = new(new LikedPage());
-
         public SettingsViewModel SettingsPage { get; private set; } = new(new SettingsPage());
 
 
@@ -121,41 +115,6 @@ namespace FreakinStocksUI.ViewModels
                     break;
                 default:
                     break;
-            }
-        }
-
-        public void RunLiveService()
-        {
-            if (Process.GetProcessesByName("FreakinStocksLiveService").Length is 0)
-            {
-                var psi = new ProcessStartInfo
-                {
-                    CreateNoWindow = true,
-                    FileName = "./FreakinStocksLiveService.exe",
-                    UseShellExecute = false,
-                };
-                var process = new Process() { StartInfo = psi };
-                process.Start();
-
-                Properties.Settings.Default.LiveServiceProcessID = process.Id;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        public void KillPreviousLiveService()
-        {
-            try
-            {
-                var process = Process.GetProcessById(Properties.Settings.Default.LiveServiceProcessID);
-
-                if (process is not null && process.Id is not 0)
-                {
-                    process.Kill();
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("[WARNING] Process cannot be closed");
             }
         }
 
