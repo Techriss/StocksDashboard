@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,7 +39,7 @@ namespace FreakinStocksUI.ViewModels
                     Properties.Settings.Default.LiveStock = value;
                     Properties.Settings.Default.RecentStock = value;
                     Properties.Settings.Default.Save();
-                    GetCurrentLiveData();
+                    Task.Run(GetCurrentLiveData);
                 }
             }
         }
@@ -65,19 +66,21 @@ namespace FreakinStocksUI.ViewModels
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
 
+        public CancellationTokenSource OperationsCancellation { get; set; } = new();
+
         #endregion
 
 
 
         #region methods
 
-        private async Task FetchLiveData()
+        private async Task FetchLiveData(CancellationToken token = default)
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
-                if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null && CurrentStock != "")
+                if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null and not "")
                 {
-                    var price = (await MainViewModel.Database.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock).Last();
+                    var price = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock).Last();
                     Prices.Add(price.Price);
                     Dates.Add($"{DateTime.Parse(price.Time):t}");
                 }
@@ -88,10 +91,10 @@ namespace FreakinStocksUI.ViewModels
 
         private async Task GetCurrentLiveData()
         {
-            var data = (await MainViewModel.Database.LoadAllPricesAsync()).Where(x => x.Symbol == CurrentStock);
+            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock);
             Prices.Clear();
-            Prices.AddRange(data.Select(x => x.Price));
-            Dates = new(data.Select(x => $"{DateTime.Parse(x.Time):t}"));
+            Prices.AddRange(data?.Select(x => x?.Price ?? 0));
+            Dates = new(data?.Select(x => $"{DateTime.Parse(x.Time):t}"));
         }
 
         #endregion
@@ -100,9 +103,9 @@ namespace FreakinStocksUI.ViewModels
         public LiveViewModel(Page page)
         {
             Source = page;
-            if (Properties.Settings.Default.LiveStock is not "" or null) CurrentStock = Properties.Settings.Default.LiveStock;
+            if (Properties.Settings.Default.LiveStock is not "" and not null) CurrentStock = Properties.Settings.Default.LiveStock;
 
-            FetchLiveData();
+            Task.Run(() => FetchLiveData(OperationsCancellation.Token));
         }
     }
 }

@@ -13,6 +13,11 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "FreakinStocksInstaller", "F
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FreakinStocksSetup", "FreakinStocksSetup\FreakinStocksSetup.vdproj", "{DDED49C4-30F6-4184-A640-F69F7E5EC61D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2F63C25-F38B-48F3-90BB-AC1AC31D2916}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

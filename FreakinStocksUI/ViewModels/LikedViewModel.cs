@@ -29,10 +29,7 @@ namespace FreakinStocksUI.ViewModels
             ServiceHelper.SetServiceSymbols();
         });
 
-        public RelayCommand ReloadCommand => new(() =>
-        {
-            OnPropertyChanged(nameof(Stocks));
-        });
+        public RelayCommand ReloadCommand => new(() => OnPropertyChanged(nameof(Stocks)));
 
         public LikedViewModel(Page page)
         {

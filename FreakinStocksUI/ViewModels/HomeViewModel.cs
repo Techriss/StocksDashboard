@@ -95,7 +95,6 @@ namespace FreakinStocksUI.ViewModels
         public bool CanGoNext => CurrentIndex + 1 <= Stocks.Length - 1;
         public bool CanGoPrevious => CurrentIndex - 1 >= 0;
 
-
         #endregion
 
 
@@ -125,8 +124,8 @@ namespace FreakinStocksUI.ViewModels
             try
             {
                 var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
-                var prices = data.Select(x => x.Price);
-                var dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
+                var prices = data?.Select(x => x?.Price ?? 0);
+                var dates = data?.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
                 var info = await StockMarketData.GetStockData(CurrentStock);
 
                 Prices = new(prices);
@@ -137,8 +136,6 @@ namespace FreakinStocksUI.ViewModels
             {
                 Debug.WriteLine("Not valid symbol");
             }
-
-
         }
 
         private string[] GetStocks()

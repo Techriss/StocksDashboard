@@ -22,14 +22,14 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
-        public static IDataAccess Database { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType) switch
+        public static IDataAccess Database { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType ?? "SQLite") switch
         {
             DatabaseType.SQLite => new SQLiteDataAccess(),
             DatabaseType.MySQL => new MySQLDataAccess(new(Properties.Settings.Default.DBServer,
-                                                              Properties.Settings.Default.DBDatabase,
-                                                              Properties.Settings.Default.DBUsername,
-                                                              Properties.Settings.Default.DBPasswordEntropy,
-                                                              Properties.Settings.Default.DBPasswordCipher))
+                                                          Properties.Settings.Default.DBDatabase,
+                                                          Properties.Settings.Default.DBUsername,
+                                                          Properties.Settings.Default.DBPasswordEntropy,
+                                                          Properties.Settings.Default.DBPasswordCipher))
         };
 
         public WindowState MainWindowState
@@ -38,9 +38,9 @@ namespace FreakinStocksUI.ViewModels
             set
             {
                 _mainWindowState = value;
+                ThemeAssist.AppTheme.EnableAcrylic = value is not WindowState.Maximized;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MainWindowMargin));
-                ThemeAssist.AppTheme.EnableAcrylic = value != WindowState.Maximized;
             }
         }
 
@@ -76,14 +76,10 @@ namespace FreakinStocksUI.ViewModels
 
         #region commands
 
-        public RelayCommand CloseCommand => new(() => Application.Current.Shutdown());
-
+        public static RelayCommand CloseCommand => new(() => Application.Current.Shutdown());
         public RelayCommand MaximizeCommand => new(() => MainWindowState = MainWindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized);
-
         public RelayCommand MinimizeCommand => new(() => MainWindowState = WindowState.Minimized);
-
-        public RelayCommand NavigateCommand => new((object page) => NavigateTo(Enum.Parse<AppPage>(page as string)));
-
+        public RelayCommand NavigateCommand => new((object page) => NavigateTo(Enum.Parse<AppPage>(page as string ?? "Home")));
 
         #endregion
 
@@ -93,29 +89,16 @@ namespace FreakinStocksUI.ViewModels
 
         public void NavigateTo(AppPage Page)
         {
-            switch (Page)
+            CurrentPage = Page switch
             {
-                case AppPage.Home:
-                    CurrentPage = HomePage.Source as Page;
-                    break;
-                case AppPage.Analytics:
-                    CurrentPage = AnalyticsPage.Source as Page;
-                    break;
-                case AppPage.Live:
-                    CurrentPage = LivePage.Source as Page;
-                    break;
-                case AppPage.Search:
-                    CurrentPage = SearchPage.Source as Page;
-                    break;
-                case AppPage.Liked:
-                    CurrentPage = LikedPage.Source as Page;
-                    break;
-                case AppPage.Settings:
-                    CurrentPage = SettingsPage.Source as Page;
-                    break;
-                default:
-                    break;
-            }
+                AppPage.Home => HomePage.Source as Page,
+                AppPage.Analytics => AnalyticsPage.Source as Page,
+                AppPage.Live => LivePage.Source as Page,
+                AppPage.Search => SearchPage.Source as Page,
+                AppPage.Liked => LikedPage.Source as Page,
+                AppPage.Settings => SettingsPage.Source as Page,
+                _ => CurrentPage ?? HomePage.Source as Page,
+            };
         }
 
         #endregion

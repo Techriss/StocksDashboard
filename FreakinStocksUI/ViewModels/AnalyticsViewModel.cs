@@ -113,28 +113,29 @@ namespace FreakinStocksUI.ViewModels
                 case DataMode.Week:
                 {
                     data = await StockMarketData.GetLastWeek(CurrentStock);
-                    Dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
-                    Prices = new(data.Select(x => x.Price));
+                    Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):dddd}").ToList();
+                    Prices = new(data?.Select(x => x?.Price ?? 0));
                     break;
                 }
                 case DataMode.Month:
                 {
                     data = await StockMarketData.GetLastMonth(CurrentStock);
-                    Dates = data.Select(x => $"{DateTime.Parse(x.Time):M}").ToList();
-                    Prices = new(data.Select(x => x.Price)); break;
+                    Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):M}").ToList();
+                    Prices = new(data?.Select(x => x?.Price ?? 0));
+                    break;
                 }
                 case DataMode.Year:
                 {
                     data = await StockMarketData.GetLastYear(CurrentStock);
-                    Dates = data.Select(x => $"{DateTime.Parse(x.Time):Y}").ToList();
-                    Prices = new(data.Select(x => x.Price));
+                    Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):Y}").ToList();
+                    Prices = new(data?.Select(x => x?.Price ?? 0));
                     break;
                 }
                 case DataMode.All:
                 {
                     data = await StockMarketData.GetAllTime(CurrentStock);
-                    Dates = data.Select(x => $"{DateTime.Parse(x.Time):Y}").ToList();
-                    Prices = new(data.Select(x => x.Price));
+                    Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):Y}").ToList();
+                    Prices = new(data?.Select(x => x?.Price ?? 0));
                     break;
                 }
             }
@@ -147,7 +148,7 @@ namespace FreakinStocksUI.ViewModels
         public AnalyticsViewModel(Page page)
         {
             Source = page;
-            if (Properties.Settings.Default.AnalyticsStock is not "" or null) CurrentStock = Properties.Settings.Default.AnalyticsStock;
+            if (Properties.Settings.Default.AnalyticsStock is not "" and not null) CurrentStock = Properties.Settings.Default.AnalyticsStock;
         }
     }
 }

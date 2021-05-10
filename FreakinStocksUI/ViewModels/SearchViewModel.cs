@@ -159,7 +159,7 @@ namespace FreakinStocksUI.ViewModels
         public SearchViewModel(Page page)
         {
             Source = page;
-            if (Properties.Settings.Default.SearchStock is not "" or null) CurrentStock = Properties.Settings.Default.SearchStock;
+            if (Properties.Settings.Default.SearchStock is not "" and not null) CurrentStock = Properties.Settings.Default.SearchStock;
         }
     }
 }
