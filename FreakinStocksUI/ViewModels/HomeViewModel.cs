@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -121,14 +122,23 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(CurrentIndex));
             OnPropertyChanged(nameof(CanGoNext));
             OnPropertyChanged(nameof(CanGoPrevious));
-            var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
-            var prices = data.Select(x => x.Price);
-            var dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
-            var info = await StockMarketData.GetStockData(CurrentStock);
+            try
+            {
+                var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
+                var prices = data.Select(x => x.Price);
+                var dates = data.Select(x => $"{DateTime.Parse(x.Time):dddd}").ToList();
+                var info = await StockMarketData.GetStockData(CurrentStock);
 
-            Prices = new(prices);
-            Dates = dates;
-            StockInfo = info;
+                Prices = new(prices);
+                Dates = dates;
+                StockInfo = info;
+            }
+            catch
+            {
+                Debug.WriteLine("Not valid symbol");
+            }
+
+
         }
 
         private string[] GetStocks()

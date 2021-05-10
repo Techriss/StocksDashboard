@@ -66,21 +66,42 @@ namespace FreakinStocksUI.ViewModels
         {
             get
             {
-                return new($"{ Math.Round(StockData?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.RegularMarketChangePercent ?? 0));
+                try
+                {
+                    return new($"{ Math.Round(StockData?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.RegularMarketChangePercent ?? 0));
+                }
+                catch
+                {
+                    return new("0", ValueChange.GetColorForValue(0));
+                }
             }
         }
         public ValueChange FiftyDayAverageChange
         {
             get
             {
-                return new($"{ Math.Round(StockData?.FiftyDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.FiftyDayAverageChangePercent ?? 0));
+                try
+                {
+                    return new($"{ Math.Round(StockData?.FiftyDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.FiftyDayAverageChangePercent ?? 0));
+                }
+                catch
+                {
+                    return new("0", ValueChange.GetColorForValue(0));
+                }
             }
         }
         public ValueChange TwoHundredDayAverageChange
         {
             get
             {
-                return new($"{ Math.Round(StockData?.TwoHundredDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.TwoHundredDayAverageChangePercent ?? 0));
+                try
+                {
+                    return new($"{Math.Round(StockData?.TwoHundredDayAverageChangePercent ?? 0, 2)}%", ValueChange.GetColorForValue(StockData?.TwoHundredDayAverageChangePercent ?? 0));
+                }
+                catch
+                {
+                    return new("0", ValueChange.GetColorForValue(0));
+                }
             }
         }
 
