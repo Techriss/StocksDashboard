@@ -10,13 +10,17 @@ namespace FreakinStocksUI.Helpers
 {
     public static class ServiceHelper
     {
+        public const string ServiceName = "Freakin Stocks Live Data";
+        private static readonly string servicePath = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
+
+
         public static void ConfigureLiveService()
         {
             Task.Run(() =>
             {
                 try
                 {
-                    using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+                    using (var sc = GetService())
                     {
                         if (sc is null)
                         {
@@ -31,7 +35,6 @@ namespace FreakinStocksUI.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Exception has occurred: { ex.Message }");
                     MessageBox.Show($"Exception has occurred: { ex.Message }");
                 }
             });
@@ -41,7 +44,7 @@ namespace FreakinStocksUI.Helpers
         {
             try
             {
-                using (var sc = ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == "FreakinStocksLiveData"))
+                using (var sc = GetService())
                 {
                     if (sc is null)
                     {
@@ -67,12 +70,10 @@ namespace FreakinStocksUI.Helpers
 
         private static void InstallService()
         {
-            var path = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
-
             var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
-                Arguments = $"create FreakinStocksLiveData binPath={ path } start= auto",
+                Arguments = $"create \"{ ServiceName }\" binPath= \"{ servicePath }\" start= auto",
                 Verb = "runas",
                 UseShellExecute = true,
             };
@@ -81,9 +82,9 @@ namespace FreakinStocksUI.Helpers
             {
                 Process.Start(psi);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("[WAR] Installing was not approved or failed");
+                MessageBox.Show($"[WAR] Installing was not approved or failed. Reason: { ex.Message + ex.StackTrace }");
             }
         }
 
@@ -92,7 +93,7 @@ namespace FreakinStocksUI.Helpers
             var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
-                Arguments = $"start FreakinStocksLiveData",
+                Arguments = $"start \"{ ServiceName }\"",
                 Verb = "runas",
                 UseShellExecute = true,
             };
@@ -101,9 +102,9 @@ namespace FreakinStocksUI.Helpers
             {
                 Process.Start(psi);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("[WAR] Running was not approved or failed");
+                Debug.WriteLine($"[WAR] Running was not approved or failed. Reason: { ex.Message }");
             }
         }
 
@@ -112,7 +113,7 @@ namespace FreakinStocksUI.Helpers
             var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
-                Arguments = $"stop FreakinStocksLiveData",
+                Arguments = $"stop \"{ ServiceName }\"",
                 Verb = "runas",
                 UseShellExecute = true,
             };
@@ -137,6 +138,11 @@ namespace FreakinStocksUI.Helpers
             {
                 Debug.WriteLine($"[ERR] Could not write to file \"Stocks.txt\" - Reason: { ex.Message }");
             }
+        }
+
+        private static ServiceController GetService()
+        {
+            return ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == ServiceName);
         }
     }
 }
