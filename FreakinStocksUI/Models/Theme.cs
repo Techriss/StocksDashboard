@@ -106,12 +106,12 @@ namespace FreakinStocksUI.Models
                     SideColor = new(Color.FromRgb(230, 230, 230));
 
                     MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
                     break;
                 }
                 case ThemeMode.Dark:
@@ -123,12 +123,12 @@ namespace FreakinStocksUI.Models
                     SideColor = new(Color.FromRgb(15, 15, 15));
 
                     MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme((Application.Current.MainWindow.DataContext as MainViewModel).SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
 
                     break;
                 }

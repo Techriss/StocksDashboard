@@ -22,15 +22,7 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
-        public static IDataAccess Database { get; private set; } = Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType ?? "SQLite") switch
-        {
-            DatabaseType.SQLite => new SQLiteDataAccess(),
-            DatabaseType.MySQL => new MySQLDataAccess(new(Properties.Settings.Default.DBServer,
-                                                          Properties.Settings.Default.DBDatabase,
-                                                          Properties.Settings.Default.DBUsername,
-                                                          Properties.Settings.Default.DBPasswordEntropy,
-                                                          Properties.Settings.Default.DBPasswordCipher))
-        };
+        internal static IDataAccess Database { get; private set; } = GetDatabase();
 
         public WindowState MainWindowState
         {
@@ -56,12 +48,12 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public HomeViewModel HomePage { get; private set; } = new(new HomePage());
-        public AnalyticsViewModel AnalyticsPage { get; private set; } = new(new AnalyticsPage());
-        public LiveViewModel LivePage { get; private set; } = new(new LivePage());
-        public SearchViewModel SearchPage { get; private set; } = new(new SearchPage());
-        public LikedViewModel LikedPage { get; private set; } = new(new LikedPage());
-        public SettingsViewModel SettingsPage { get; private set; } = new(new SettingsPage());
+        public static HomeViewModel HomePage { get; private set; } = new(new HomePage());
+        public static AnalyticsViewModel AnalyticsPage { get; private set; } = new(new AnalyticsPage());
+        public static LiveViewModel LivePage { get; private set; } = new(new LivePage());
+        public static SearchViewModel SearchPage { get; private set; } = new(new SearchPage());
+        public static LikedViewModel LikedPage { get; private set; } = new(new LikedPage());
+        public static SettingsViewModel SettingsPage { get; private set; } = new(new SettingsPage());
 
 
         public static bool IsStartupHome => SettingsViewModel.IsStartupHome;
@@ -100,6 +92,23 @@ namespace FreakinStocksUI.ViewModels
                 _ => CurrentPage ?? HomePage.Source as Page,
             };
         }
+
+        private static IDataAccess GetDatabase(DatabaseType? type = null)
+        {
+            return type switch
+            {
+                DatabaseType.SQLite => new SQLiteDataAccess(),
+                DatabaseType.MySQL => new MySQLDataAccess(new(Properties.Settings.Default.DBServer,
+                                                              Properties.Settings.Default.DBDatabase,
+                                                              Properties.Settings.Default.DBUsername,
+                                                              Properties.Settings.Default.DBPasswordEntropy,
+                                                              Properties.Settings.Default.DBPasswordCipher)),
+                null => GetDatabase(Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType ?? "SQLite")),
+                _ => new SQLiteDataAccess()
+            };
+        }
+
+        internal static void SetDatabase(DatabaseType? type = null) => Database = GetDatabase(type);
 
         #endregion
 

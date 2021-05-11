@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
@@ -40,6 +42,7 @@ namespace FreakinStocksUI.ViewModels
                 {
                     Properties.Settings.Default.DatabaseType = value.ToString();
                     Properties.Settings.Default.Save();
+                    MainViewModel.SetDatabase(value);
                 }
                 if (DBType == DatabaseType.SQLite)
                 {
@@ -47,7 +50,10 @@ namespace FreakinStocksUI.ViewModels
                     {
                         File.WriteAllLines("MySQL.txt", new[] { "false" });
                     }
-                    catch { }
+                    catch
+                    {
+                        Debug.WriteLine("[ERR] Cannot save to MySQL.txt file");
+                    }
                 }
             }
         }

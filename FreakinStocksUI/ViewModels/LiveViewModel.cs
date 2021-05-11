@@ -89,7 +89,7 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        private async Task GetCurrentLiveData()
+        public async Task GetCurrentLiveData()
         {
             var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock);
             Prices.Clear();

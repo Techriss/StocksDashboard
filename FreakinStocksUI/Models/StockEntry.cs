@@ -24,7 +24,7 @@ namespace FreakinStocksUI.ViewModels
             Task.Run(GetStockData).ConfigureAwait(false);
             RemoveCommand = new(() =>
             {
-                (Application.Current.MainWindow.DataContext as MainViewModel).LikedPage.RemoveCommand.Execute(this);
+                MainViewModel.LikedPage.RemoveCommand.Execute(this);
                 EntryVisibility = Visibility.Collapsed;
                 OnPropertyChanged(nameof(EntryVisibility));
             });
