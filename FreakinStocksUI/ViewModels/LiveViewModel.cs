@@ -15,7 +15,7 @@ namespace FreakinStocksUI.ViewModels
         #region private
 
         private string _currentStock;
-        private ObservableCollection<string> _dates;
+        private ObservableCollection<string> _dates = new();
         private ChartValues<decimal> _prices = new();
 
         #endregion

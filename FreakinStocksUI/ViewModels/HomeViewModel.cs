@@ -121,6 +121,11 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(CurrentIndex));
             OnPropertyChanged(nameof(CanGoNext));
             OnPropertyChanged(nameof(CanGoPrevious));
+            if (CurrentIndex > Stocks.Length)
+            {
+                CurrentIndex = 0;
+            }
+
             try
             {
                 var data = (await StockMarketData.GetLastWeek(CurrentStock)).ToList();
@@ -140,7 +145,7 @@ namespace FreakinStocksUI.ViewModels
 
         private string[] GetStocks()
         {
-            if (Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode) is HomeStockMode.Liked || Properties.Settings.Default.RecentStock == "")
+            if (Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode) is HomeStockMode.Liked && Properties.Settings.Default.LikedStocks.Count > 0 || Properties.Settings.Default.RecentStock == "")
             {
                 return Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
             }
