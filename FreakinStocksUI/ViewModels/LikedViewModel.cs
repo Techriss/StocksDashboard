@@ -22,7 +22,7 @@ namespace FreakinStocksUI.ViewModels
 
         public RelayCommand RemoveCommand => new((object stock) =>
         {
-            Properties.Settings.Default.LikedStocks.Remove((stock as StockEntry).Symbol);
+            Properties.Settings.Default.LikedStocks?.Remove((stock as StockEntry).Symbol);
             Properties.Settings.Default.Save();
             Stocks.Remove(stock as StockEntry);
             ReloadCommand.Execute();
