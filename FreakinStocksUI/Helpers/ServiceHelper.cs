@@ -11,7 +11,7 @@ namespace FreakinStocksUI.Helpers
     public static class ServiceHelper
     {
         public const string ServiceName = "Freakin Stocks Live Data";
-        private static readonly string servicePath = Path.GetFullPath(@".\Freakin Stocks Live Service.exe");
+        private static readonly string servicePath = Path.GetFullPath(@".\FreakinStocksLiveService.exe");
 
 
         public static void ConfigureLiveService()

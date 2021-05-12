@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,8 +8,6 @@
     <Company>Techris</Company>
     <Description>The Freakin Stocks Stock Market Analytics Desktop Application Live Data gathering service</Description>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <AssemblyName>Freakin Stocks Live Service</AssemblyName>
-    <Product>Freakin Stocks Live Service</Product>
   </PropertyGroup>
 
   <ItemGroup>
