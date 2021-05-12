@@ -145,7 +145,7 @@ namespace FreakinStocksUI.ViewModels
 
         private string[] GetStocks()
         {
-            if (Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode) is HomeStockMode.Liked && Properties.Settings.Default.LikedStocks.Count > 0 || Properties.Settings.Default.RecentStock == "")
+            if (Enum.Parse<HomeStockMode>(Properties.Settings.Default.HomeStockMode) is HomeStockMode.Liked && Properties.Settings.Default.LikedStocks?.Count > 0 || Properties.Settings.Default.RecentStock == "")
             {
                 return Properties.Settings.Default.LikedStocks?.ToArray() ?? new[] { "TSLA", "NDAQ", "AAPL" };
             }
