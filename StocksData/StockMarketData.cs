@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using StocksData.Models;
@@ -21,7 +20,12 @@ namespace StocksData
         {
             try
             {
-                var data = await Yahoo.Symbols(symbol).Fields(Field.RegularMarketChangePercent, Field.RegularMarketPrice, Field.MarketCap, Field.PostMarketChangePercent).QueryAsync();
+                var data = await Yahoo.Symbols(symbol).Fields(
+                    Field.RegularMarketChangePercent,
+                    Field.RegularMarketPrice,
+                    Field.MarketCap,
+                    Field.PostMarketChangePercent).QueryAsync();
+
                 return data[symbol];
             }
             catch
@@ -32,8 +36,116 @@ namespace StocksData
 
         public static async Task<Security> GetAllStockData(string symbol)
         {
-            var data = await Yahoo.Symbols(symbol).Fields(
-            #region Fields
+            var data = await Yahoo.Symbols(symbol).Fields(AllFields).QueryAsync();
+
+            return data[symbol];
+        }
+
+        public static async Task<IReadOnlyList<Candle>> GetStockHistory(string symbol)
+        {
+            var history = await Yahoo.GetHistoricalAsync(symbol);
+
+            return history;
+        }
+
+        public static async Task<IReadOnlyList<Candle>> GetStockHistoryForTime(string symbol, DateTime start, Period period)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, start, DateTime.Now, period);
+            return data;
+        }
+
+
+        public static bool CheckSymbolExists(string symbol)
+        {
+            try
+            {
+                var data = Task.Run(async () => await Yahoo.Symbols(symbol).Fields(Field.Symbol).QueryAsync()).GetAwaiter().GetResult();
+
+                return data is not null && data.Count > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static IReadOnlyDictionary<string, bool> CheckSymbolsExist(params string[] symbols)
+        {
+            var dictionary = new Dictionary<string, bool>();
+            foreach (var symbol in symbols)
+            {
+                dictionary.Add(symbol, CheckSymbolExists(symbol));
+            }
+
+            return dictionary;
+        }
+
+
+        public static async Task<IEnumerable<StockPrice>> GetLastWeek(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(7), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetLastMonth(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(31), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetLastYear(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(365), DateTime.Now, Period.Daily);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+
+            return prices;
+        }
+
+        public static async Task<IEnumerable<StockPrice>> GetAllTime(string symbol)
+        {
+            var data = await Yahoo.GetHistoricalAsync(symbol, null, null, Period.Weekly);
+            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
+
+            return prices;
+        }
+
+
+        public static async Task<IReadOnlyList<StockPrice>> GetLivePrice(params string[] symbols)
+        {
+            try
+            {
+                var data = await Yahoo.Symbols(symbols).Fields(Field.RegularMarketPrice).QueryAsync();
+                var prices = new List<StockPrice>();
+                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.Now)));
+
+                return prices;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<StockPrice> GetLivePrice(string symbol)
+        {
+            try
+            {
+                var price = await GetStockPrice(symbol);
+                var priceEntry = new StockPrice(symbol, Convert.ToDecimal(price), DateTime.Now);
+
+                return priceEntry;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        public static readonly Field[] AllFields =
+        {
             Field.Ask,
             Field.AskSize,
 
@@ -100,114 +212,6 @@ namespace StocksData
             Field.TwoHundredDayAverage,
             Field.TwoHundredDayAverageChange,
             Field.TwoHundredDayAverageChangePercent
-            #endregion
-            ).QueryAsync();
-
-            return data[symbol];
-        }
-
-        public static async Task<IReadOnlyList<Candle>> GetStockHistory(string symbol)
-        {
-            var history = await Yahoo.GetHistoricalAsync(symbol);
-
-            return history;
-        }
-
-        public static async Task<IReadOnlyList<Candle>> GetStockHistoryForTime(string symbol, DateTime start, Period period)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, start, DateTime.Now, period);
-            return data;
-        }
-
-
-        public static bool CheckSymbolExists(string symbol)
-        {
-            try
-            {
-                var data = Task.Run(async () => await Yahoo.Symbols(symbol).Fields(Field.Symbol).QueryAsync()).GetAwaiter().GetResult();
-
-                return data is not null && data.Count > 0;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static Dictionary<string, bool> CheckSymbolsExist(params string[] symbols)
-        {
-            var dictionary = new Dictionary<string, bool>();
-            foreach (var symbol in symbols)
-            {
-                dictionary.Add(symbol, CheckSymbolExists(symbol));
-            }
-
-            return dictionary;
-        }
-
-
-        public static async Task<IEnumerable<StockPrice>> GetLastWeek(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(7), DateTime.Now, Period.Daily);
-            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
-            return prices;
-        }
-
-        public static async Task<IEnumerable<StockPrice>> GetLastMonth(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(31), DateTime.Now, Period.Daily);
-            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
-            return prices;
-        }
-
-        public static async Task<IEnumerable<StockPrice>> GetLastYear(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, DateTime.Now - TimeSpan.FromDays(365), DateTime.Now, Period.Daily);
-            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
-
-            return prices;
-        }
-
-        public static async Task<IEnumerable<StockPrice>> GetAllTime(string symbol)
-        {
-            var data = await Yahoo.GetHistoricalAsync(symbol, null, null, Period.Weekly);
-            var prices = data.Select(x => new StockPrice(symbol, x.Close, x.DateTime));
-
-            return prices;
-        }
-
-
-        public static async Task<List<StockPrice>> GetLivePrice(params string[] symbols)
-        {
-            try
-            {
-                var data = await Yahoo.Symbols(symbols).Fields(Field.RegularMarketPrice).QueryAsync();
-                var prices = new List<StockPrice>();
-                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.Now)));
-
-                return prices;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return new();
-            }
-        }
-
-        public static async Task<StockPrice> GetLivePrice(string symbol)
-        {
-            try
-            {
-                var data = await Yahoo.Symbols(symbol).Fields(Field.RegularMarketPrice).QueryAsync();
-                var price = new StockPrice(symbol, Convert.ToDecimal(data[symbol].RegularMarketPrice), DateTime.Now);
-
-                return price;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-        }
+        };
     }
 }

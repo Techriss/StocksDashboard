@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FreakinStocksUI.Helpers
+namespace StocksData.Models
 {
     public static class Encryption
     {

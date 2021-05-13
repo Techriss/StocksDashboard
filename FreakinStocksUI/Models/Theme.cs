@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using FreakinStocksUI.ViewModels;
+using MaterialDesignThemes.Wpf;
 
 namespace FreakinStocksUI.Models
 {
@@ -105,13 +106,8 @@ namespace FreakinStocksUI.Models
                     SideColorAcrylic = new(Color.FromArgb(221, 230, 230, 230));
                     SideColor = new(Color.FromRgb(230, 230, 230));
 
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Light);
+                    SetPagesTheme(theme);
+
                     break;
                 }
                 case ThemeMode.Dark:
@@ -122,13 +118,7 @@ namespace FreakinStocksUI.Models
                     SideColorAcrylic = new(Color.FromArgb(221, 15, 15, 15));
                     SideColor = new(Color.FromRgb(15, 15, 15));
 
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(Application.Current.MainWindow, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.HomePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.AnalyticsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LivePage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SearchPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.LikedPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
-                    MaterialDesignThemes.Wpf.ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, MaterialDesignThemes.Wpf.BaseTheme.Dark);
+                    SetPagesTheme(theme);
 
                     break;
                 }
@@ -136,6 +126,19 @@ namespace FreakinStocksUI.Models
 
             Mode = theme;
             OnPropertyChanged(nameof(Side));
+        }
+
+        private void SetPagesTheme(ThemeMode mode)
+        {
+            var baseTheme = mode.GetBaseTheme();
+
+            ThemeAssist.SetTheme(Application.Current.MainWindow, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.HomePage.Source as DependencyObject, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.AnalyticsPage.Source as DependencyObject, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.LivePage.Source as DependencyObject, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.SearchPage.Source as DependencyObject, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.LikedPage.Source as DependencyObject, baseTheme);
+            ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, baseTheme);
         }
 
         public Theme(ThemeMode theme)

@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security;
+using System.Threading.Tasks;
 using System.Windows;
-using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using StocksData;
 using StocksData.Models;
@@ -25,11 +25,16 @@ namespace FreakinStocksUI.ViewModels
 
         public RelayCommand CloseCommand => new(() =>
         {
-            (Source as Window).DialogResult = false;
-            (Source as Window).Close();
+            if (Source is Window dialog)
+            {
+                dialog.DialogResult = false;
+                dialog.Close();
+            }
         });
 
-        public RelayCommand ConfirmCommand => new(async () =>
+        public RelayCommand ConfirmCommand => new(async () => await SetMySQL());
+
+        private async Task SetMySQL()
         {
             var x = new NetworkCredential("", Password).Password;
             Encryption.Encrypt(ref x, out var cipher, out var entropy);
@@ -60,6 +65,6 @@ namespace FreakinStocksUI.ViewModels
                 (Source as Window).DialogResult = false;
                 Debug.WriteLine($"[ERR] Invalid Database. Result: { ex.Message }");
             }
-        });
+        }
     }
 }
