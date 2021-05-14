@@ -97,6 +97,12 @@ namespace FreakinStocksUI.ViewModels
             Prices.Clear();
             Prices.AddRange(data?.Select(x => x?.Price ?? 0));
             Dates = new(data?.Select(x => $"{DateTime.Parse(x.Time):t}"));
+
+            if (!Prices.Any())
+            {
+                Prices.Add(Convert.ToDecimal(await StockMarketData.GetStockPrice(CurrentStock)));
+            }
+
             OnPropertyChanged(nameof(CurrentPrice));
         }
 
