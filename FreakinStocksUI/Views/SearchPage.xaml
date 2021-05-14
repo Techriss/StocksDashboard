@@ -48,7 +48,7 @@
         <Label d:Visibility="Hidden" Margin="10 40 10 10" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
         <StackPanel Orientation="Vertical" Visibility="{Binding DataVisibility}" Margin="10 0">
-            <TextBlock Panel.ZIndex="10" FontSize="40" FontFamily="{StaticResource ProductSansThin}" Text="{Binding StockData.LongName}" d:Text="Tesla, Inc." Margin="-5 5 0 20" TextWrapping="Wrap"/>
+            <TextBlock Panel.ZIndex="10" FontSize="40" FontFamily="{StaticResource ProductSansThin}" Text="{Binding StockData.LongName}" d:Text="Tesla, Inc." Margin="-5 5 80 20" TextWrapping="Wrap"/>
 
             <StackPanel Orientation="Horizontal">
                 <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPrice}" d:Content="720 USD" ContentStringFormat="Price: {0:C}"/>

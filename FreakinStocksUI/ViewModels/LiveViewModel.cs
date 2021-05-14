@@ -43,6 +43,7 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+        public decimal CurrentPrice => Prices.Any() ? Prices.Last() : 0;
 
         public ObservableCollection<string> Dates
         {
@@ -83,6 +84,7 @@ namespace FreakinStocksUI.ViewModels
                     var price = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock).Last();
                     Prices.Add(price.Price);
                     Dates.Add($"{DateTime.Parse(price.Time):t}");
+                    OnPropertyChanged(nameof(CurrentPrice));
                 }
 
                 await Task.Delay(60000);
@@ -95,6 +97,7 @@ namespace FreakinStocksUI.ViewModels
             Prices.Clear();
             Prices.AddRange(data?.Select(x => x?.Price ?? 0));
             Dates = new(data?.Select(x => $"{DateTime.Parse(x.Time):t}"));
+            OnPropertyChanged(nameof(CurrentPrice));
         }
 
         #endregion

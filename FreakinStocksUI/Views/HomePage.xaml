@@ -84,13 +84,13 @@
             <Button Style="{StaticResource RightArrowButton}" Foreground="{Binding AppTheme.Foreground}" IsEnabled="{Binding CanGoNext}" Command="{Binding GoNext}"/>
         </StackPanel>
 
-        <StackPanel Margin="20 10" Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Margin="20 5" Grid.Row="3" Orientation="Horizontal">
             <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Price:"/>
             <Label d:Content="817.34" Content="{Binding StockInfo.RegularMarketPrice}" ContentStringFormat=" {0:C}"/>
             <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
         </StackPanel>
         
-        <StackPanel Margin="20 10" Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Margin="20 5" Grid.Row="4" Orientation="Horizontal">
             <Label FontFamily="{StaticResource ProductSansLight}" Content="Market Cap:"/>
             <Label d:Content="27.3B" Content="{Binding StockInfo.MarketCap}" ContentStringFormat=" ${0:#,##0,,,B}"/>
         </StackPanel>
