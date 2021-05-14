@@ -46,7 +46,7 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
-        <Label d:Visibility="Hidden" Margin="10 40 10 10" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
+        <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
             <TextBox Style="{StaticResource StockTextBox}" Padding="0" Text="{Binding CurrentStock, Mode=TwoWay}"/>
