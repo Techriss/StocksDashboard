@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 
@@ -10,6 +12,15 @@ namespace FreakinStocksUI.ViewModels
         public static Theme AppTheme => ThemeAssist.AppTheme;
 
         public object Source { get; set; }
+
+        public static RelayCommand MoveFocus => new(() =>
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                var focused = Keyboard.FocusedElement as UIElement;
+                focused?.MoveFocus(new(FocusNavigationDirection.Next));
+            }
+        });
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

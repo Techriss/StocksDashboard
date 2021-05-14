@@ -16,6 +16,9 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ReloadCommand}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="KeyDown">
+            <i:InvokeCommandAction Command="{Binding MoveFocus}"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Grid Margin="20">
