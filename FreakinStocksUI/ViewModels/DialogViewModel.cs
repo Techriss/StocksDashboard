@@ -5,6 +5,7 @@ using System.Net;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using StocksData;
 using StocksData.Models;
@@ -27,6 +28,7 @@ namespace FreakinStocksUI.ViewModels
         {
             if (Source is Window dialog)
             {
+                MainViewModel.SettingsPage.RefreshDatabaseChoice();
                 dialog.DialogResult = false;
                 dialog.Close();
             }
@@ -63,8 +65,16 @@ namespace FreakinStocksUI.ViewModels
             catch (Exception ex)
             {
                 (Source as Window).DialogResult = false;
+                MainViewModel.SettingsPage.RefreshDatabaseChoice();
                 Debug.WriteLine($"[ERR] Invalid Database. Result: { ex.Message }");
             }
+        }
+
+
+        public DialogViewModel(object source)
+        {
+            this.Source = source;
+            ThemeAssist.SetThemeForPage(this.Source as DependencyObject);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
@@ -33,7 +32,7 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public static DatabaseType DBType
+        public DatabaseType DBType
         {
             get => Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType);
             set
@@ -43,6 +42,10 @@ namespace FreakinStocksUI.ViewModels
                     Properties.Settings.Default.DatabaseType = value.ToString();
                     Properties.Settings.Default.Save();
                     MainViewModel.SetDatabase(value);
+                }
+                else
+                {
+                    RefreshDatabaseChoice();
                 }
                 if (DBType == DatabaseType.SQLite)
                 {
@@ -94,8 +97,16 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
-        public static bool IsMySQLSelected => DBType is DatabaseType.MySQL;
-        public static bool IsSQLiteSelected => DBType is DatabaseType.SQLite;
+        public bool IsMySQLSelected
+        {
+            get => DBType is DatabaseType.MySQL;
+            set => DBType = value ? DatabaseType.MySQL : DBType;
+        }
+        public bool IsSQLiteSelected
+        {
+            get => DBType is DatabaseType.SQLite;
+            set => DBType = value ? DatabaseType.SQLite : DBType;
+        }
 
         public static bool IsStartupHome => StartupPage is AppPage.Home;
         public static bool IsStartupAnalytics => StartupPage is AppPage.Analytics;
@@ -112,12 +123,18 @@ namespace FreakinStocksUI.ViewModels
         public static bool IsHomeStockRecent => HomeStock is HomeStockMode.Recent;
 
 
-        public static RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
-        public static RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
-        public static RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
-        public static RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
-        public static RelayCommand RestartService => new(() => ServiceHelper.RestartService());
-        public static RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
+        public RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
+        public RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
+        public RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
+        public RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
+        public RelayCommand RestartService => new(() => ServiceHelper.RestartService());
+        public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
+
+        public void RefreshDatabaseChoice()
+        {
+            OnPropertyChanged(nameof(IsSQLiteSelected));
+            OnPropertyChanged(nameof(IsMySQLSelected));
+        }
 
 
         public SettingsViewModel(Page page)

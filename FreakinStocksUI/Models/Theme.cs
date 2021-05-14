@@ -141,6 +141,7 @@ namespace FreakinStocksUI.Models
             ThemeAssist.SetTheme(MainViewModel.SettingsPage.Source as DependencyObject, baseTheme);
         }
 
+
         public Theme(ThemeMode theme)
         {
             SetTheme(theme);

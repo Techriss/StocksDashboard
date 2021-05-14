@@ -164,7 +164,7 @@
   </ItemGroup>
   <ItemGroup>
 	<ProjectReference Include="..\FreakinStocksUI\FreakinStocksUI.csproj">
-		<DesktopBridgeSelfContained>False</DesktopBridgeSelfContained>
+		<DesktopBridgeSelfContained>True</DesktopBridgeSelfContained>
 		<DesktopBridgeIdentifiers>win-x64</DesktopBridgeIdentifiers>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<Properties>SelfContained=False;RuntimeIdentifier=win-x64</Properties>

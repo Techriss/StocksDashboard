@@ -10,7 +10,7 @@ namespace FreakinStocksUI.Views
         {
             InitializeComponent();
 
-            this.DataContext = new DialogViewModel() { Source = this };
+            this.DataContext = new DialogViewModel(this);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

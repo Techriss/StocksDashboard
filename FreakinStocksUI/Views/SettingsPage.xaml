@@ -56,12 +56,12 @@
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Database Type" Foreground="{Binding AppTheme.Foreground}"/>
             <StackPanel Orientation="Horizontal">
-                <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=OneTime}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL" Padding="15 10 5 10"/>
+                <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=TwoWay}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL" Padding="15 10 5 10"/>
                 <Button Style="{StaticResource IconButton}" Command="{Binding ConfigureDatabase}">
                     <md:PackIcon Kind="DatabaseCogOutline"/>
                 </Button>
             </StackPanel>
-            <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=OneTime}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite" Padding="15 10"/>
+            <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=TwoWay}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite" Padding="15 10"/>
 
         </StackPanel>
     </ScrollViewer>
