@@ -54,7 +54,7 @@
                 <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPrice}" d:Content="720 USD" ContentStringFormat="Price: {0:C}"/>
                 <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
             </StackPanel>
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketCap}" d:Content="720 USD" ContentStringFormat="Market Cap: {0:$#,##0,,,B}"/>
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketCap}" d:Content="720 USD" ContentStringFormat="Market Cap: {0:C0}"/>
 
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPreviousClose}" ContentStringFormat="Previous Close: {0:C}" d:Content="720 USD" Margin="0 20 0 0"/>
             <StackPanel Orientation="Horizontal">
@@ -66,8 +66,9 @@
                 <Label d:Content="+4%" Content="{Binding TwoHundredDayAverageChange.Change}" Foreground="{Binding TwoHundredDayAverageChange.Color}"/>
             </StackPanel>
             
-            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.ExchangeTimezoneName}" d:Content="720 USD" ContentStringFormat="Time Zone: {0:$#,##0,,,B}" Margin="0 20 0 0"/>
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.ExchangeTimezoneName}" d:Content="720 USD" ContentStringFormat="Time Zone: {0}" Margin="0 20 0 0"/>
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FullExchangeName}" d:Content="720 USD" ContentStringFormat="Exchange: {0}"/>
+            <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketState}" d:Content="720 USD" ContentStringFormat="Market State: {0}"/>
 
         </StackPanel>
         

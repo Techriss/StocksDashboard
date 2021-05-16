@@ -88,9 +88,8 @@
         </StackPanel>
 
         <StackPanel Margin="20 5" Grid.Row="3" Orientation="Horizontal">
-            <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Price:"/>
-            <Label d:Content="817.34" Content="{Binding StockInfo.RegularMarketPrice}" ContentStringFormat=" {0:C}"/>
-            <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
+            <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Market State:"/>
+            <Label d:Content="817.34" Content="{Binding StockInfo.MarketState}" ContentStringFormat=" {0}"/>
         </StackPanel>
         
         <StackPanel Margin="20 5" Grid.Row="4" Orientation="Horizontal">
