@@ -68,6 +68,39 @@ namespace FreakinStocksUI.Helpers
             }
         }
 
+        public static void ReinstallService()
+        {
+            try
+            {
+                using (var sc = GetService())
+                {
+                    if (sc is null)
+                    {
+                        InstallService();
+                        RunService();
+                    }
+                    else if (sc.Status is ServiceControllerStatus.Running)
+                    {
+                        StopService();
+                        UninstallService();
+                        InstallService();
+                        RunService();
+                    }
+                    else
+                    {
+                        UninstallService();
+                        InstallService();
+                        RunService();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace + ex.InnerException ?? " -- No Inner Exception");
+            }
+        }
+
+
         private static void InstallService()
         {
             var psi = new ProcessStartInfo
@@ -108,12 +141,32 @@ namespace FreakinStocksUI.Helpers
             }
         }
 
-        private static void StopService()
+        public static void StopService()
         {
             var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Windows\system32\sc.exe",
                 Arguments = $"stop \"{ ServiceName }\"",
+                Verb = "runas",
+                UseShellExecute = true,
+            };
+
+            try
+            {
+                Process.Start(psi);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("[WAR] Stopping was not approved or failed");
+            }
+        }
+
+        private static void UninstallService()
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = @"C:\Windows\system32\sc.exe",
+                Arguments = $"delete \"{ ServiceName }\"",
                 Verb = "runas",
                 UseShellExecute = true,
             };

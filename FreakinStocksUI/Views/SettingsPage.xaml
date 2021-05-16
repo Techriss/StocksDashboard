@@ -49,7 +49,10 @@
 
 
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Live Data Service" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
-            <Button Command="{Binding RestartService}" Width="250" Height="40" Foreground="White" HorizontalAlignment="Left" Margin="10 5" Content="R E S T A R T   S E R V I C E" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
+            <Button Command="{Binding RestartService}" Width="250" Height="40" Foreground="White" HorizontalAlignment="Left" Margin="10 5" Content="R E S T A R T" FontFamily="{StaticResource ProductSans}" FontWeight="Bold"/>
+            <Button Command="{Binding StopService}" Width="250" Height="40" Foreground="Red" HorizontalAlignment="Left" Margin="10 5" Content="S T O P" FontFamily="{StaticResource ProductSans}" FontWeight="Bold" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+            <Button Command="{Binding ReinstallService}" Width="250" Height="40" Foreground="Red" HorizontalAlignment="Left" Margin="10 5" Content="R E I N S T A L L" FontFamily="{StaticResource ProductSans}" FontWeight="Bold" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+
 
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 

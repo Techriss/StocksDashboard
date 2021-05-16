@@ -13,7 +13,7 @@ namespace FreakinStocksUI.ViewModels
 
         public object Source { get; set; }
 
-        public static RelayCommand MoveFocus => new(() =>
+        public virtual RelayCommand MoveFocus => new(() =>
         {
             if (Keyboard.IsKeyDown(Key.Enter))
             {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using FreakinStocksUI.Models;
 using LiveCharts;
 using StocksData;
@@ -106,6 +107,18 @@ namespace FreakinStocksUI.ViewModels
         public RelayCommand GoPrevious => new(() => CurrentIndex--);
 
         public RelayCommand ReloadCommand => new(async () => await LoadPrices());
+
+        public override RelayCommand MoveFocus => new(() =>
+        {
+            if (Keyboard.IsKeyDown(Key.Left) && CanGoPrevious)
+            {
+                GoPrevious.Execute();
+            }
+            else if (Keyboard.IsKeyDown(Key.Right) && CanGoNext)
+            {
+                GoNext.Execute();
+            }
+        });
 
         #endregion
 

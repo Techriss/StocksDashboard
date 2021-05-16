@@ -128,6 +128,8 @@ namespace FreakinStocksUI.ViewModels
         public RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
         public RelayCommand RestartService => new(() => ServiceHelper.RestartService());
+        public RelayCommand StopService => new(() => ServiceHelper.StopService());
+        public RelayCommand ReinstallService => new(() => ServiceHelper.ReinstallService());
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
 
         public void RefreshDatabaseChoice()

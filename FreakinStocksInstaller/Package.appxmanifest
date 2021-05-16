@@ -9,7 +9,7 @@
   <Identity
     Name="e2ad8035-d0a3-4ace-8a77-54d30945882e"
     Publisher="CN=Techris"
-    Version="1.0.30.0" />
+    Version="1.0.38.0" />
 
   <Properties>
     <DisplayName>Freakin Stocks</DisplayName>
