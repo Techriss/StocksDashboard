@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
@@ -68,11 +67,11 @@ namespace FreakinStocksUI.ViewModels
             {
                 try
                 {
-                    return new($"{ Math.Round(StockData?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.RegularMarketChangePercent ?? 0));
+                    return new(StockData?.RegularMarketChangePercent ?? 0);
                 }
                 catch
                 {
-                    return new("0", ValueChange.GetColorForValue(0));
+                    return new(0);
                 }
             }
         }
@@ -82,11 +81,11 @@ namespace FreakinStocksUI.ViewModels
             {
                 try
                 {
-                    return new($"{ Math.Round(StockData?.FiftyDayAverageChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockData?.FiftyDayAverageChangePercent ?? 0));
+                    return new(StockData?.FiftyDayAverageChangePercent ?? 0);
                 }
                 catch
                 {
-                    return new("0", ValueChange.GetColorForValue(0));
+                    return new(0);
                 }
             }
         }
@@ -96,11 +95,11 @@ namespace FreakinStocksUI.ViewModels
             {
                 try
                 {
-                    return new($"{Math.Round(StockData?.TwoHundredDayAverageChangePercent ?? 0, 2)}%", ValueChange.GetColorForValue(StockData?.TwoHundredDayAverageChangePercent ?? 0));
+                    return new(StockData?.TwoHundredDayAverageChangePercent ?? 0);
                 }
                 catch
                 {
-                    return new("0", ValueChange.GetColorForValue(0));
+                    return new(0);
                 }
             }
         }

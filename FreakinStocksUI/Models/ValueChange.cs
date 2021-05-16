@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 
 namespace FreakinStocksUI.ViewModels
 {
@@ -8,10 +9,10 @@ namespace FreakinStocksUI.ViewModels
 
         public SolidColorBrush Color { get; init; }
 
-        public ValueChange(string change, SolidColorBrush color)
+        public ValueChange(double change)
         {
-            Change = change;
-            Color = color;
+            Change = $"{ Math.Round(change, 2) }%";
+            Color = GetColorForValue(change);
         }
 
         public static SolidColorBrush GetColorForValue(double value)

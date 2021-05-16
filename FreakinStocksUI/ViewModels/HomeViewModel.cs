@@ -75,7 +75,7 @@ namespace FreakinStocksUI.ViewModels
         {
             get
             {
-                return new($"{ Math.Round(StockInfo?.RegularMarketChangePercent ?? 0, 2) }%", ValueChange.GetColorForValue(StockInfo?.RegularMarketChangePercent ?? 0));
+                return new(StockInfo?.RegularMarketChangePercent ?? 0);
             }
         }
 
