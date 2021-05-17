@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -12,12 +14,15 @@ namespace StocksData
     {
         private string ConnectionString { get; set; } = @"Data Source=.\StocksData.db;Version=3;";
 
-        public SQLiteDataAccess()
+        public Action<Exception> ExceptionHandler { get; set; } = (Exception ex) => Debug.WriteLine(ex);
+
+
+        public SQLiteDataAccess(Action<Exception> exceptionHandler = null)
         {
 
         }
 
-        public SQLiteDataAccess(string path)
+        public SQLiteDataAccess(string path, Action<Exception> exceptionHandler = null)
         {
             SetDatabase(path);
         }
@@ -39,17 +44,31 @@ namespace StocksData
 
         public void SavePrice(StockPrice stockPrice)
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                cnn.Execute("INSERT INTO LiveData (Symbol, Price, Time) VALUES (@Symbol, @Price, @Time)", stockPrice);
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    cnn.Execute("INSERT INTO LiveData (Symbol, Price, Time) VALUES (@Symbol, @Price, @Time)", stockPrice);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
             }
         }
 
         public async Task SavePriceAsync(StockPrice stockPrice)
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                await cnn.ExecuteAsync($"INSERT INTO LiveData (Symbol, Price, Time) VALUES (@Symbol, @Price, @Time)", stockPrice);
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    await cnn.ExecuteAsync($"INSERT INTO LiveData (Symbol, Price, Time) VALUES (@Symbol, @Price, @Time)", stockPrice);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
             }
         }
 
@@ -57,19 +76,35 @@ namespace StocksData
 
         public List<StockPrice> LoadAllPrices()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                var data = cnn.Query<StockPrice>("SELECT * FROM LiveData").ToList();
-                return data;
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    var data = cnn.Query<StockPrice>("SELECT * FROM LiveData").ToList();
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
+                return Enumerable.Empty<StockPrice>().AsList();
             }
         }
 
         public async Task<List<StockPrice>> LoadAllPricesAsync()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                var data = (await cnn.QueryAsync<StockPrice>("SELECT * FROM LiveData")).ToList();
-                return data;
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    var data = (await cnn.QueryAsync<StockPrice>("SELECT * FROM LiveData")).ToList();
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
+                return Enumerable.Empty<StockPrice>().AsList();
             }
         }
 
@@ -77,17 +112,31 @@ namespace StocksData
 
         public void ClearDatabase()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                cnn.Execute("DELETE FROM LiveData");
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    cnn.Execute("DELETE FROM LiveData");
+                }
+            }
+            catch (Exception ex)
+            { 
+                ExceptionHandler?.Invoke(ex);
             }
         }
 
         public async Task ClearDatabaseAsync()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                await cnn.ExecuteAsync("DELETE FROM LiveData");
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    await cnn.ExecuteAsync("DELETE FROM LiveData");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
             }
         }
 
@@ -95,17 +144,31 @@ namespace StocksData
 
         public void RepairDatabase()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    cnn.Execute("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
             }
         }
 
         public async Task RepairDatabaseAsync()
         {
-            using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+            try
             {
-                await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                using (IDbConnection cnn = new SQLiteConnection(ConnectionString))
+                {
+                    await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler?.Invoke(ex);
             }
         }
     }
