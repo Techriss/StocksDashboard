@@ -110,6 +110,14 @@ namespace FreakinStocksUI.ViewModels
 
         internal static void SetDatabase(DatabaseType? type = null) => Database = GetDatabase(type);
 
+        private static void CheckForInternet()
+        {
+            if (!StockMarketData.CheckInternetConnection())
+            {
+                _ = MessageBox.Show("There is no internet connection. The application may not function properly.", "No Internet Connection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         #endregion
 
 
@@ -117,7 +125,7 @@ namespace FreakinStocksUI.ViewModels
         public MainViewModel()
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
-
+            CheckForInternet();
             ServiceHelper.SetServiceSymbols();
             ServiceHelper.ConfigureLiveService();
         }

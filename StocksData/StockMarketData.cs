@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using StocksData.Models;
 using YahooFinanceApi;
@@ -140,6 +141,25 @@ namespace StocksData
             catch
             {
                 return null;
+            }
+        }
+
+
+        public static bool CheckInternetConnection()
+        {
+            using (var p = new Ping())
+            {
+                var response = p.Send("8.8.8.8");
+                return response.Status == IPStatus.Success;
+            }
+        }
+
+        public static async Task<bool> CheckInternetConnectionAsync()
+        {
+            using (var p = new Ping())
+            {
+                var response = await p.SendPingAsync("8.8.8.8");
+                return response.Status == IPStatus.Success;
             }
         }
 

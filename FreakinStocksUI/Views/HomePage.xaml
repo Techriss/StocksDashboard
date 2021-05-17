@@ -89,7 +89,7 @@
 
         <StackPanel Margin="20 5" Grid.Row="3" Orientation="Horizontal">
             <Label VerticalAlignment="Bottom" FontFamily="{StaticResource ProductSansLight}" Content="Market State:"/>
-            <Label d:Content="817.34" Content="{Binding StockInfo.MarketState}" ContentStringFormat=" {0}"/>
+            <Label d:Content="CLOSED"  Content="{Binding StockInfo.MarketState}" ContentStringFormat=" {0}"/>
         </StackPanel>
         
         <StackPanel Margin="20 5" Grid.Row="4" Orientation="Horizontal">
