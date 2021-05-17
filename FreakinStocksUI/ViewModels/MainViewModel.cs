@@ -95,16 +95,19 @@ namespace FreakinStocksUI.ViewModels
 
         private static IDataAccess GetDatabase(DatabaseType? type = null)
         {
+            Action<Exception> handler = (Exception ex) => MessageBox.Show($"An Error has occurred while reading data from the database. Details: { ex.Message }");
+
             return type switch
             {
-                DatabaseType.SQLite => new SQLiteDataAccess(),
+                DatabaseType.SQLite => new SQLiteDataAccess(handler),
                 DatabaseType.MySQL => new MySQLDataAccess(new(Properties.Settings.Default.DBServer,
                                                               Properties.Settings.Default.DBDatabase,
                                                               Properties.Settings.Default.DBUsername,
                                                               Properties.Settings.Default.DBPasswordEntropy,
-                                                              Properties.Settings.Default.DBPasswordCipher)),
+                                                              Properties.Settings.Default.DBPasswordCipher),
+                                                            handler),
                 null => GetDatabase(Enum.Parse<DatabaseType>(Properties.Settings.Default.DatabaseType ?? "SQLite")),
-                _ => new SQLiteDataAccess()
+                _ => new SQLiteDataAccess(handler)
             };
         }
 
