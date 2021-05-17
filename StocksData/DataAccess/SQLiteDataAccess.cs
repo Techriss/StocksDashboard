@@ -19,11 +19,12 @@ namespace StocksData
 
         public SQLiteDataAccess(Action<Exception> exceptionHandler = null)
         {
-
+            ExceptionHandler = exceptionHandler ?? ExceptionHandler;
         }
 
         public SQLiteDataAccess(string path, Action<Exception> exceptionHandler = null)
         {
+            ExceptionHandler = exceptionHandler ?? ExceptionHandler;
             SetDatabase(path);
         }
 
@@ -120,7 +121,7 @@ namespace StocksData
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 ExceptionHandler?.Invoke(ex);
             }
         }
