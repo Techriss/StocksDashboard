@@ -124,7 +124,7 @@ namespace StocksData
                 {
                     if (c.Value.MarketState == "REGULAR")
                     {
-                        prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.UtcNow));
+                        prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.Now));
                     }
                 }
 
@@ -146,7 +146,7 @@ namespace StocksData
 
                 if (data.MarketState == "REGULAR")
                 {
-                    var priceEntry = new StockPrice(symbol, Convert.ToDecimal(price), DateTime.UtcNow);
+                    var priceEntry = new StockPrice(symbol, Convert.ToDecimal(price), DateTime.Now);
                     return priceEntry;
                 }
                 else

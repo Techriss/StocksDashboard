@@ -63,7 +63,7 @@ namespace FreakinStocksLiveService
                 try
                 {
                     var prices = await StockMarketData.GetLivePrice(Symbols);
-                    if (prices.Count > 0) _logger.LogInformation($"Saving { prices.Count } Stock Prices...");
+                    if (prices?.Count > 0) _logger.LogInformation($"Saving { prices?.Count } Stock Prices...");
                     foreach (var p in prices)
                     {
                         if (p is not null)

@@ -93,7 +93,7 @@ namespace FreakinStocksUI.ViewModels
 
         public async Task GetCurrentLiveData()
         {
-            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock);
+            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && DateTime.Parse(x.Time).Day == DateTime.Now.Day);
             Prices.Clear();
             Prices.AddRange(data?.Select(x => x?.Price ?? 0));
             Dates = new(data?.Select(x => $"{DateTime.Parse(x.Time):t}"));
