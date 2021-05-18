@@ -58,11 +58,12 @@ namespace FreakinStocksLiveService
 
         private async Task SaveLivePrice()
         {
-            if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320)
+            if (true) //(DateTime.UtcNow.TimeOfDay.TotalMinutes >= 710 && DateTime.UtcNow.TimeOfDay.TotalMinutes <= 1200)
             {
                 try
                 {
                     var prices = await StockMarketData.GetLivePrice(Symbols);
+                    if (prices.Count > 0) _logger.LogInformation($"Saving { prices.Count } Stock Prices...");
                     foreach (var p in prices)
                     {
                         if (p is not null)
@@ -80,7 +81,7 @@ namespace FreakinStocksLiveService
                     _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
                 }
             }
-            else if (DateTime.Now.TimeOfDay.TotalMinutes >= 900 && DateTime.Now.TimeOfDay.TotalMinutes < 930 && await IsDatabaseEmpty() == false)
+            else if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
             {
                 _logger.LogInformation("Clearing Database...");
                 await _dataAccess.ClearDatabaseAsync();

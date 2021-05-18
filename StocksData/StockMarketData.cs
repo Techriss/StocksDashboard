@@ -117,13 +117,20 @@ namespace StocksData
         {
             try
             {
-                var data = await Yahoo.Symbols(symbols).Fields(Field.RegularMarketPrice).QueryAsync();
+                var data = await Yahoo.Symbols(symbols).Fields(Field.RegularMarketPrice, Field.MarketState).QueryAsync();
                 var prices = new List<StockPrice>();
-                data.ToList().ForEach(c => prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.Now)));
+
+                foreach (var c in data.ToList())
+                {
+                    if (c.Value.MarketState == "REGULAR")
+                    {
+                        prices.Add(new(c.Key, Convert.ToDecimal(c.Value.RegularMarketPrice), DateTime.UtcNow));
+                    }
+                }
 
                 return prices;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -133,10 +140,19 @@ namespace StocksData
         {
             try
             {
-                var price = await GetStockPrice(symbol);
-                var priceEntry = new StockPrice(symbol, Convert.ToDecimal(price), DateTime.Now);
+                var quotes = await Yahoo.Symbols(symbol).Fields(Field.RegularMarketPrice, Field.MarketState).QueryAsync();
+                var data = quotes[symbol];
+                var price = data.RegularMarketPrice;
 
-                return priceEntry;
+                if (data.MarketState == "REGULAR")
+                {
+                    var priceEntry = new StockPrice(symbol, Convert.ToDecimal(price), DateTime.UtcNow);
+                    return priceEntry;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch
             {
