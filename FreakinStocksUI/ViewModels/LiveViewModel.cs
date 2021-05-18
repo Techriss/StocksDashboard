@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -96,6 +97,14 @@ namespace FreakinStocksUI.ViewModels
             var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && DateTime.Parse(x.Time).Day == DateTime.Now.Day
                                                                                                                  && DateTime.Parse(x.Time).Month == DateTime.Now.Month
                                                                                                                  && DateTime.Parse(x.Time).Year == DateTime.Now.Year);
+
+            if (data.Count() == 0)
+            {
+                data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && DateTime.Parse(x.Time).Day == DateTime.Now.Day - 1
+                                                                                                                 && DateTime.Parse(x.Time).Month == DateTime.Now.Month
+                                                                                                                 && DateTime.Parse(x.Time).Year == DateTime.Now.Year);
+            }
+
             Prices.Clear();
             Prices.AddRange(data?.Select(x => x?.Price ?? 0));
             Dates = new(data?.Select(x => $"{DateTime.Parse(x.Time):t}"));
