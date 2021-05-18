@@ -12,8 +12,6 @@ namespace FreakinStocksUI.ViewModels
 {
     class SettingsViewModel : ViewModelBase
     {
-        private string _serviceStatus;
-
         public static bool DarkTheme
         {
             get => Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme) == ThemeMode.Dark;
