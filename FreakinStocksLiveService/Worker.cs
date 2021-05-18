@@ -81,12 +81,12 @@ namespace FreakinStocksLiveService
                     _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
                 }
             }
-            else if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
-            {
-                _logger.LogInformation("Clearing Database...");
-                await _dataAccess.ClearDatabaseAsync();
-                _dataAccess = GetDatabaseConfig();
-            }
+            //else if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
+            //{
+            //    _logger.LogInformation("Clearing Database...");
+            //    await _dataAccess.ClearDatabaseAsync();
+            //    _dataAccess = GetDatabaseConfig();
+            //}
         }
 
         private async Task RefreshSymbols()

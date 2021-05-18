@@ -193,7 +193,7 @@ namespace FreakinStocksUI.Helpers
             }
         }
 
-        private static ServiceController GetService()
+        public static ServiceController GetService()
         {
             return ServiceController.GetServices().FirstOrDefault(x => x.DisplayName == ServiceName);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.ServiceProcess;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
@@ -11,6 +12,8 @@ namespace FreakinStocksUI.ViewModels
 {
     class SettingsViewModel : ViewModelBase
     {
+        private string _serviceStatus;
+
         public static bool DarkTheme
         {
             get => Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme) == ThemeMode.Dark;
@@ -122,21 +125,52 @@ namespace FreakinStocksUI.ViewModels
         public static bool IsHomeStockLiked => HomeStock is HomeStockMode.Liked;
         public static bool IsHomeStockRecent => HomeStock is HomeStockMode.Recent;
 
+        public string ServiceStatus => GetServiceStatus();
 
         public RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
         public RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
-        public RelayCommand RestartService => new(() => ServiceHelper.RestartService());
-        public RelayCommand StopService => new(() => ServiceHelper.StopService());
-        public RelayCommand ReinstallService => new(() => ServiceHelper.ReinstallService());
+        public RelayCommand RestartService => new(() =>
+        {
+            ServiceHelper.RestartService();
+            OnPropertyChanged(nameof(ServiceStatus));
+        });
+        public RelayCommand StopService => new(() =>
+        {
+            ServiceHelper.StopService();
+            OnPropertyChanged(nameof(ServiceStatus));
+        });
+        public RelayCommand ReinstallService => new(() =>
+        {
+            ServiceHelper.ReinstallService();
+            OnPropertyChanged(nameof(ServiceStatus));
+        });
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
+        public RelayCommand LoadServiceStatus => new(() => OnPropertyChanged(nameof(ServiceStatus)));
+
 
         public void RefreshDatabaseChoice()
         {
             OnPropertyChanged(nameof(IsSQLiteSelected));
             OnPropertyChanged(nameof(IsMySQLSelected));
         }
+
+        public static string GetServiceStatus()
+        {
+            return ServiceHelper.GetService()?.Status switch
+            {
+                ServiceControllerStatus.Stopped => "Stopped",
+                ServiceControllerStatus.StartPending => "Pending Start",
+                ServiceControllerStatus.StopPending => "Pending Stop",
+                ServiceControllerStatus.Running => "Running",
+                ServiceControllerStatus.ContinuePending => "Pending Continue",
+                ServiceControllerStatus.PausePending => "Pending Pause",
+                ServiceControllerStatus.Paused => "Paused",
+                _ => "Unavailable",
+            };
+        }
+
 
 
         public SettingsViewModel(Page page)
