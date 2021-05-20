@@ -9,7 +9,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
       mc:Ignorable="d" FontFamily="{StaticResource ProductSans}"
-      d:DesignHeight="1350" d:DesignWidth="1200" d:Background="WhiteSmoke"
+      d:DesignHeight="1550" d:DesignWidth="1200" d:Background="WhiteSmoke"
       Title="SettingsPage">
     
     <i:Interaction.Triggers>
@@ -74,6 +74,10 @@
                 </Button>
             </StackPanel>
             <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=TwoWay}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite" Padding="15 10"/>
+
+            <Label Style="{StaticResource SettingsOptionLabel}" Content="Live Data" Foreground="{Binding AppTheme.Foreground}"/>
+            <Button Command="{Binding ClearAll}" Width="250" Height="40" Foreground="Red" HorizontalAlignment="Left" Margin="10 5" Content="C L E A R  A L L" FontFamily="{StaticResource ProductSans}" FontWeight="Bold" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+
 
         </StackPanel>
     </ScrollViewer>

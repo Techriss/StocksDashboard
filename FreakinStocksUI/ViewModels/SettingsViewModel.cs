@@ -146,6 +146,7 @@ namespace FreakinStocksUI.ViewModels
         });
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
         public RelayCommand LoadServiceStatus => new(() => OnPropertyChanged(nameof(ServiceStatus)));
+        public RelayCommand ClearAll => new(async () => await MainViewModel.Database.ClearDatabaseAsync());
 
 
         public void RefreshDatabaseChoice()
