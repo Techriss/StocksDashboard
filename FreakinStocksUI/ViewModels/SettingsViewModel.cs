@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 using System.Windows.Controls;
+using Accessibility;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using FreakinStocksUI.Views;
@@ -146,7 +147,11 @@ namespace FreakinStocksUI.ViewModels
         });
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
         public RelayCommand LoadServiceStatus => new(() => OnPropertyChanged(nameof(ServiceStatus)));
-        public RelayCommand ClearAll => new(async () => await MainViewModel.Database.ClearDatabaseAsync());
+        public RelayCommand ClearAll => new(async () =>
+        {
+            // await MainViewModel.Database.ClearDatabaseAsync();
+            _ = new Prompt("oh no", "an error has occurred").ShowDialog();
+        });
 
 
         public void RefreshDatabaseChoice()

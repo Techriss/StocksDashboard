@@ -1,0 +1,43 @@
+﻿<Window x:Class="FreakinStocksUI.Views.Prompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FreakinStocksUI.Views" 
+        xmlns:viewmodels="clr-namespace:FreakinStocksUI.ViewModels" 
+        xmlns:interop="clr-namespace:FreakinStocksUI.Models"
+        d:DataContext="{d:DesignInstance Type=viewmodels:PromptViewModel}"
+        mc:Ignorable="d" interop:WindowBlur.IsEnabled="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen"
+        Title="Prompt" Width="400" SizeToContent="Height" ResizeMode="NoResize"
+        d:Foreground="Black" Background="{Binding AppTheme.SideColorAcrylic}"
+        FontSize="14" AllowsTransparency="True"
+        FontFamily="{StaticResource ProductSansLight}" Foreground="{Binding AppTheme.Foreground}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0"
+                      CaptionHeight="30"
+                      CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding Header}" Grid.Row="0" d:Content="Unexpected Error" d:Foreground="Black" FontFamily="{StaticResource ProductSans}" FontSize="16" Padding="0 0 0 10"/>
+        <Label Content="{Binding Content}" Grid.Row="1" d:Content="An unexpected error has suddenly occurred." d:Foreground="Black"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
+            <Button Command="{Binding CloseCommand}" Style="{StaticResource FilledButton}" Width="140" Height="30" Margin="20 0" Content="Cancel"/>
+            <Button Command="{Binding ConfirmCommand}" Style="{StaticResource OutlineButton}" Width="140" Height="30" Margin="20 0" Content="Confirm"/>
+        </StackPanel>
+    
+    </Grid>
+</Window>
