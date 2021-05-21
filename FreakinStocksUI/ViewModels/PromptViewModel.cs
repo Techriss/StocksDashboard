@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using FreakinStocksUI.Models;
 
 namespace FreakinStocksUI.ViewModels
@@ -37,6 +38,14 @@ namespace FreakinStocksUI.ViewModels
             this.Header = header;
             this.Content = content;
             this.Confirmation = confirmation;
+        }
+
+        public PromptViewModel(Exception ex, Window source)
+        {
+            this.Source = source;
+            this.Header = "Unexpected Error";
+            this.Content = $"An exception has occured: { ex }";
+            this.Confirmation = false;
         }
     }
 }

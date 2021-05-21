@@ -151,7 +151,7 @@ namespace FreakinStocksUI.ViewModels
             if (new Prompt("Confirm Deleting", "Are you sure to clear all saved live data in the selected database?", true).ShowDialog().Value)
             {
                 await MainViewModel.Database.ClearDatabaseAsync();
-                _ = new Prompt("Action Completed", "The database was cleared successfully.", false).ShowDialog();
+                _ = new Prompt("Action Completed", "The database was cleared successfully.").ShowDialog();
             }
         });
 

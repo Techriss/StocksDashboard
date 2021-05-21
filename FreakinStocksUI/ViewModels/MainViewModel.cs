@@ -95,7 +95,7 @@ namespace FreakinStocksUI.ViewModels
 
         private static IDataAccess GetDatabase(DatabaseType? type = null)
         {
-            Action<Exception> handler = (Exception ex) => MessageBox.Show($"An Error has occurred while reading data from the database. Details: { ex.Message }");
+            Action<Exception> handler = (Exception ex) => _ = new Prompt("Unexpected Error", $"An Error has occurred while reading data from the database. Details: { ex.Message }").ShowDialog();
 
             return type switch
             {
@@ -117,7 +117,7 @@ namespace FreakinStocksUI.ViewModels
         {
             if (!StockMarketData.CheckInternetConnection())
             {
-                _ = MessageBox.Show("There is no internet connection. The application may not function properly.", "No Internet Connection", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = new Prompt("No Internet Connection", "There is currently no internet connection. The application may not function properly.").ShowDialog();
             }
         }
 

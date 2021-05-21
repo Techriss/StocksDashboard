@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using FreakinStocksUI.ViewModels;
 
 namespace FreakinStocksUI.Views
@@ -10,6 +11,11 @@ namespace FreakinStocksUI.Views
             InitializeComponent();
 
             this.DataContext = new PromptViewModel(header, content, this, confirmation);
+        }
+
+        public Prompt(Exception ex)
+        {
+            this.DataContext = new PromptViewModel(ex, this);
         }
     }
 }

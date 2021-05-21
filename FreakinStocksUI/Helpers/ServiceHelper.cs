@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Threading.Tasks;
-using System.Windows;
+using FreakinStocksUI.Views;
 
 namespace FreakinStocksUI.Helpers
 {
@@ -35,7 +35,7 @@ namespace FreakinStocksUI.Helpers
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Exception has occurred: { ex.Message }");
+                    _ = new Prompt(ex).ShowDialog();
                 }
             });
         }
@@ -64,7 +64,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + ex.StackTrace + ex.InnerException ?? " -- No Inner Exception");
+                _ = new Prompt(ex).ShowDialog();
             }
         }
 
@@ -96,7 +96,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + ex.StackTrace + ex.InnerException ?? " -- No Inner Exception");
+                _ = new Prompt(ex).ShowDialog();
             }
         }
 
@@ -117,7 +117,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"[WAR] Installing was not approved or failed. Reason: { ex.Message + ex.StackTrace }");
+                _ = new Prompt(ex).ShowDialog();
             }
         }
 
@@ -135,9 +135,9 @@ namespace FreakinStocksUI.Helpers
             {
                 Process.Start(psi);
             }
-            catch (Exception ex)
+            catch
             {
-                Debug.WriteLine($"[WAR] Running was not approved or failed. Reason: { ex.Message }");
+                _ = new Prompt("Startup Cancelled", "The Live Data Service startup was not approved. The application's Live Data functionality will be limited.").ShowDialog();
             }
         }
 
@@ -157,7 +157,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception)
             {
-                Debug.WriteLine("[WAR] Stopping was not approved or failed");
+                _ = new Prompt("Startup Cancelled", "The Live Data Service startup was not approved. The application's Live Data functionality will be limited.").ShowDialog();
             }
         }
 
@@ -177,7 +177,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception)
             {
-                Debug.WriteLine("[WAR] Stopping was not approved or failed");
+                _ = new Prompt("Startup Cancelled", "The Live Data Service startup was not approved. The application's Live Data functionality will be limited.").ShowDialog();
             }
         }
 
@@ -189,7 +189,7 @@ namespace FreakinStocksUI.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[ERR] Could not write to file \"Stocks.txt\" - Reason: { ex.Message }");
+                _ = new Prompt("File not Accessible", $"[ERR] Could not write to file \"Stocks.txt\" - Reason: { ex.Message }").ShowDialog();
             }
         }
 
