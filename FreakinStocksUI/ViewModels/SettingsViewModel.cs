@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 using System.Windows.Controls;
-using Accessibility;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
 using FreakinStocksUI.Views;
@@ -149,8 +148,11 @@ namespace FreakinStocksUI.ViewModels
         public RelayCommand LoadServiceStatus => new(() => OnPropertyChanged(nameof(ServiceStatus)));
         public RelayCommand ClearAll => new(async () =>
         {
-            // await MainViewModel.Database.ClearDatabaseAsync();
-            _ = new Prompt("oh no", "an error has occurred").ShowDialog();
+            if (new Prompt("Confirm Deleting", "Are you sure to clear all saved live data in the selected database?", true).ShowDialog().Value)
+            {
+                await MainViewModel.Database.ClearDatabaseAsync();
+                _ = new Prompt("Action Completed", "The database was cleared successfully.", false).ShowDialog();
+            }
         });
 
 

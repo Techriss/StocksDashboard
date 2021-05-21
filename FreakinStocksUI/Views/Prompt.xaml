@@ -32,11 +32,12 @@
         </Grid.RowDefinitions>
 
         <Label Content="{Binding Header}" Grid.Row="0" d:Content="Unexpected Error" d:Foreground="Black" FontFamily="{StaticResource ProductSans}" FontSize="16" Padding="0 0 0 10"/>
-        <Label Content="{Binding Content}" Grid.Row="1" d:Content="An unexpected error has suddenly occurred." d:Foreground="Black"/>
+        <TextBlock Margin="10 5" Text="{Binding Content}" Grid.Row="1" d:Text="An unexpected error has suddenly occurred." d:Foreground="Black" TextWrapping="Wrap"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
-            <Button Command="{Binding CloseCommand}" Style="{StaticResource FilledButton}" Width="140" Height="30" Margin="20 0" Content="Cancel"/>
-            <Button Command="{Binding ConfirmCommand}" Style="{StaticResource OutlineButton}" Width="140" Height="30" Margin="20 0" Content="Confirm"/>
+            <Button Command="{Binding CloseCommand}" Style="{StaticResource FilledButton}" Width="140" Height="30" Margin="20 0" Content="Cancel" Visibility="{Binding ConfirmButtonsVisibility}"/>
+            <Button Command="{Binding CloseCommand}" Style="{StaticResource FilledButton}" Width="140" Height="30" Margin="20 0" Content="OK" Visibility="{Binding OKButtonsVisibility}" d:Visibility="Collapsed"/>
+            <Button Command="{Binding ConfirmCommand}" Style="{StaticResource OutlineButton}" Width="140" Height="30" Margin="20 0" Content="Confirm" Visibility="{Binding ConfirmButtonsVisibility}"/>
         </StackPanel>
     
     </Grid>

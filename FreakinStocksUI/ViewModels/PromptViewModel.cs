@@ -11,6 +11,11 @@ namespace FreakinStocksUI.ViewModels
 
         public bool Result { get; private set; }
 
+        public bool Confirmation { get; set; }
+
+        public Visibility ConfirmButtonsVisibility => Confirmation ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility OKButtonsVisibility => !Confirmation ? Visibility.Visible : Visibility.Collapsed;
+
 
         public RelayCommand CloseCommand => new(() =>
         {
@@ -26,11 +31,12 @@ namespace FreakinStocksUI.ViewModels
 
 
 
-        public PromptViewModel(string header, string content, Window source)
+        public PromptViewModel(string header, string content, Window source, bool confirmation = false)
         {
             this.Source = source;
             this.Header = header;
             this.Content = content;
+            this.Confirmation = confirmation;
         }
     }
 }

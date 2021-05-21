@@ -5,11 +5,11 @@ namespace FreakinStocksUI.Views
 {
     public partial class Prompt : Window
     {
-        public Prompt(string header, string content)
+        public Prompt(string header, string content, bool confirmation = false)
         {
             InitializeComponent();
 
-            this.DataContext = new PromptViewModel(header, content, this);
+            this.DataContext = new PromptViewModel(header, content, this, confirmation);
         }
     }
 }
