@@ -14,3 +14,9 @@ dotnet_diagnostic.HAA0601.severity = suggestion
 
 # HAA0603: Delegate allocation from a method group
 dotnet_diagnostic.HAA0603.severity = suggestion
+
+# HAA0101: Array allocation for params parameter
+dotnet_diagnostic.HAA0101.severity = suggestion
+
+# HAA0401: Possible allocation of reference type enumerator
+dotnet_diagnostic.HAA0401.severity = suggestion

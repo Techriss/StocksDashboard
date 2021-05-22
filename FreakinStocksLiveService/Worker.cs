@@ -58,12 +58,13 @@ namespace FreakinStocksLiveService
 
         private async Task SaveLivePrice()
         {
-            if (true) //(DateTime.UtcNow.TimeOfDay.TotalMinutes >= 710 && DateTime.UtcNow.TimeOfDay.TotalMinutes <= 1200)
+            try
             {
-                try
+                var prices = await StockMarketData.GetLivePrice(Symbols);
+                if (prices?.Count > 0) _logger.LogInformation($"Saving { prices?.Count } Stock Prices...");
+
+                if (prices is not null)
                 {
-                    var prices = await StockMarketData.GetLivePrice(Symbols);
-                    if (prices?.Count > 0) _logger.LogInformation($"Saving { prices?.Count } Stock Prices...");
                     foreach (var p in prices)
                     {
                         if (p is not null)
@@ -76,12 +77,13 @@ namespace FreakinStocksLiveService
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
-                }
             }
-            //else if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
+            catch (Exception ex)
+            {
+                _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
+            }
+
+            //if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
             //{
             //    _logger.LogInformation("Clearing Database...");
             //    await _dataAccess.ClearDatabaseAsync();
@@ -99,13 +101,13 @@ namespace FreakinStocksLiveService
                     var dir = StockMarketData.CheckSymbolsExist(lines);
                     var valid = dir.Where(x => x.Value).Select(x => x.Key);
 
-                    if (valid.Count() != lines.Length)
+                    if (valid?.Count() != lines?.Length)
                     {
                         await File.WriteAllLinesAsync(CURRENT_DIR + STOCKS, valid);
                         _logger.LogWarning("Invalid Symbol found in text file.");
                     }
 
-                    Symbols = valid.ToArray();
+                    Symbols = valid?.ToArray();
                 }
             }
             catch (Exception ex)
@@ -116,6 +118,8 @@ namespace FreakinStocksLiveService
 
         private IDataAccess GetDatabaseConfig()
         {
+            void handler(Exception ex) => _logger.LogError(ex, "An Exception has occurred.");
+
             try
             {
                 /*
@@ -128,7 +132,7 @@ namespace FreakinStocksLiveService
                  */
 
                 var lines = File.ReadAllLines(CURRENT_DIR + MYSQL);
-                if (lines[0].ToLower() == "true")
+                if (lines[0].ToLower() == "true") // if mysql is selected
                 {
                     var mysql = new MySQLConfiguration(lines[1], lines[2], lines[3], Convert.FromBase64String(lines[4]), Convert.FromBase64String(lines[5]));
 
@@ -141,7 +145,7 @@ namespace FreakinStocksLiveService
                             _logger.LogInformation($"The previous configuration: [ Server: { previous.Config.Server }, Database: { previous.Config.Database }, Username: { previous.Config.Username } ]");
                             _logger.LogInformation($"The new configuration: [ Server: { mysql.Server }, Database: { mysql.Database }, Username: { mysql.Username } ]");
                         }
-                        return new MySQLDataAccess(mysql);
+                        return new MySQLDataAccess(mysql, handler);
                     }
                     else
                     {
@@ -151,7 +155,7 @@ namespace FreakinStocksLiveService
                 else if (_dataAccess is null || _dataAccess is MySQLDataAccess)
                 {
                     _logger.LogInformation("Configuring SQLITE DATABASE");
-                    return new SQLiteDataAccess(CURRENT_DIR + DB);
+                    return new SQLiteDataAccess(CURRENT_DIR + DB, handler);
                 }
                 else
                 {
@@ -164,7 +168,7 @@ namespace FreakinStocksLiveService
                 _logger.LogInformation("Configuring SQLITE DATABASE");
                 try
                 {
-                    return new SQLiteDataAccess(CURRENT_DIR + DB);
+                    return new SQLiteDataAccess(CURRENT_DIR + DB, handler);
                 }
                 catch
                 {
