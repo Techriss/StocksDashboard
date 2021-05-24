@@ -1,12 +1,15 @@
 # Freakin Stocks - Version 2
 ### Stocks Analytics Desktop Application built in .NET 6 C# WPF using MVVM Design
 
+<hr/>
+
 ### Functionality Includes:
   - Analytics for All Time, Last Year, Last Month and Last Week
   - Stocks Search and Latest Information
   - Liked Stocks with information at a glance
   - Daily Analytics on Home Page for Liked Stocks or Recent Stock
   - Live Daily Analytics refreshing every minute
+  - Unlimited Stocks Count for Liked Stocks
   - Database integration in SQLite or MySQL for Daily Stock Price Data
   - Worker Service logging with Serilog and Dependency Injection
   - Silent background latest information gathering every minute by a separate Worker Service
