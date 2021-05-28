@@ -17,6 +17,7 @@
   - Automatic service launch on system startup
   - MySQL Database login and connection
   - Dark and Light Theme
+  - Option to enable or disable Acrylic Menu
   - Configurable startup tab for analytics page
   - Configurable startup page for application
   - Pleasent, fluent and responsive UI Design
@@ -42,11 +43,15 @@
 
 ### Gallery
 
-<img src="https://user-images.githubusercontent.com/64647259/119275611-62556c80-bc16-11eb-9060-e49ba0e52c05.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275694-ca0bb780-bc16-11eb-9839-215be20395d2.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275765-32f32f80-bc17-11eb-9535-9a6b8f5970f9.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275776-40a8b500-bc17-11eb-8117-24d766482012.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275785-4c947700-bc17-11eb-9b34-7f5fe403e1de.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275814-78176180-bc17-11eb-9c04-30cb9ef263e9.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275822-82396000-bc17-11eb-80fd-cb7ed28f2593.png" width="45%"></img> 
-<img src="https://user-images.githubusercontent.com/64647259/119275829-8a919b00-bc17-11eb-89fc-7e799dd69b59.png" width="45%"></img> 
+<img src="https://user-images.githubusercontent.com/64647259/120044807-d923a880-c00e-11eb-98eb-d2b3519c6c3f.png" width="45%"></img>  <!-- Home -->
+<img src="https://user-images.githubusercontent.com/64647259/119275611-62556c80-bc16-11eb-9060-e49ba0e52c05.png" width="45%"></img>  <!-- Analytics -->
+<img src="https://user-images.githubusercontent.com/64647259/119275694-ca0bb780-bc16-11eb-9839-215be20395d2.png" width="45%"></img>  <!-- Analytics -->
+<img src="https://user-images.githubusercontent.com/64647259/120044952-30c21400-c00f-11eb-8de9-2417ce42c587.png" width="45%"></img>  <!-- Live -->
+<img src="https://user-images.githubusercontent.com/64647259/120044684-96fa6700-c00e-11eb-975b-6a1589a538aa.png" width="45%"></img>  <!-- Search -->
+<img src="https://user-images.githubusercontent.com/64647259/120044705-a2e62900-c00e-11eb-90f1-ad90eb6c5065.png" width="45%"></img>  <!-- Liked -->
+
+<img src="https://user-images.githubusercontent.com/64647259/119275785-4c947700-bc17-11eb-9b34-7f5fe403e1de.png" width="45%"></img>  <!-- Home -->
+<img src="https://user-images.githubusercontent.com/64647259/119275814-78176180-bc17-11eb-9c04-30cb9ef263e9.png" width="45%"></img>  <!-- Analytics -->
+<img src="https://user-images.githubusercontent.com/64647259/120044995-4b948880-c00f-11eb-97ac-024b7f313570.png" width="45%"></img>  <!-- Live -->
+<img src="https://user-images.githubusercontent.com/64647259/120044552-60245100-c00e-11eb-9a5d-2f047e80a395.png" width="45%"></img>  <!-- Search -->
+<img src="https://user-images.githubusercontent.com/64647259/120044618-7d591f80-c00e-11eb-8c86-efdbd84f020c.png" width="45%"></img>  <!-- Liked -->
