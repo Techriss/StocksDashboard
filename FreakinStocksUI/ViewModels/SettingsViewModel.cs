@@ -124,6 +124,7 @@ namespace FreakinStocksUI.ViewModels
         public static bool IsHomeStockRecent => HomeStock is HomeStockMode.Recent;
 
         public string ServiceStatus => GetServiceStatus();
+        public long DatabaseEntriesNumber => MainViewModel.Database.GetEntriesNumber();
 
         public RelayCommand ChangeDatabaseType => new((object type) => DBType = Enum.Parse<DatabaseType>(type as string));
         public RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
@@ -145,7 +146,11 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(ServiceStatus));
         });
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
-        public RelayCommand LoadServiceStatus => new(() => OnPropertyChanged(nameof(ServiceStatus)));
+        public RelayCommand Reload => new(() =>
+        {
+            OnPropertyChanged(nameof(ServiceStatus));
+            OnPropertyChanged(nameof(DatabaseEntriesNumber));
+        });
         public RelayCommand ClearAll => new(async () =>
         {
             if (new Prompt("Confirm Deleting", "Are you sure to clear all saved live data in the selected database?", true).ShowDialog().Value)

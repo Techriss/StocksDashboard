@@ -199,6 +199,13 @@
                         <Setter Property="Margin" Value="10 5" />
                         <Setter Property="FontWeight" Value="Bold" />
                     </Style>
+                    <Style x:Key="MediumLabel" TargetType="{x:Type Label}">
+                        <Setter Property="Height" Value="40" />
+                        <Setter Property="Width" Value="250" />
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Margin" Value="5 0 0 0" />
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
