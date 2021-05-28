@@ -170,5 +170,39 @@ namespace StocksData
                 ExceptionHandler?.Invoke(ex);
             }
         }
+
+        public long GetEntriesNumber()
+        {
+            try
+            {
+                using (IDbConnection cnn = new MySqlConnection(ConnectionString))
+                {
+                    var entries = cnn.Query<StockPrice>("SELECT * FROM LiveData");
+                    return entries.LongCount();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Invoke(ex);
+                return 0;
+            }
+        }
+
+        public async Task<long> GetEntriesNumberAsync()
+        {
+            try
+            {
+                using (IDbConnection cnn = new MySqlConnection(ConnectionString))
+                {
+                    var entries = await cnn.QueryAsync<StockPrice>("SELECT * FROM LiveData");
+                    return entries.LongCount();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Invoke(ex);
+                return 0;
+            }
+        }
     }
 }

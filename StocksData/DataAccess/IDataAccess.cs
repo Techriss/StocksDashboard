@@ -17,5 +17,8 @@ namespace StocksData
 
         public void RepairDatabase();
         public Task RepairDatabaseAsync();
+
+        public long GetEntriesNumber();
+        public Task<long> GetEntriesNumberAsync();
     }
 }
