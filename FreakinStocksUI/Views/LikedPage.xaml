@@ -41,15 +41,17 @@
                     <Grid HorizontalAlignment="Stretch" Margin="10 0" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" MinWidth="180"/>
-                            <ColumnDefinition Width="auto" MinWidth="180"/>
+                            <ColumnDefinition Width="auto" MinWidth="140"/>
+                            <ColumnDefinition Width="auto" MinWidth="160"/>
                             <ColumnDefinition Width="auto" MinWidth="180"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                             
                         <Label Grid.Column="0" Content="{Binding Symbol}" FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
-                        <Label Grid.Column="1" Content="{Binding Stock.RegularMarketPrice}" ContentStringFormat="Price:   {0:C}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
-                        <Label Grid.Column="2" Content="{Binding Stock.MarketCap}" ContentStringFormat="Market Cap:   {0:$#,##0,,,B}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
+                        <Label Grid.Column="1" Content="{Binding Stock.RegularMarketPrice}" ContentStringFormat="Price:   {0:C}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 20 0"/>
+                        <Label Grid.Column="2" Content="{Binding PriceChange.Change}" ContentStringFormat=" {0:C}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 80 0" Foreground="{Binding PriceChange.Color}"/>
+                        <Label Grid.Column="3" Content="{Binding Stock.MarketCap}" ContentStringFormat="Market Cap:   {0:$#,##0,,,B}" FontFamily="{StaticResource ProductSansLight}" FontSize="16" VerticalAlignment="Center" Margin="0 0 40 0"/>
                         
                         <ToggleButton ToolTip="Remove" Grid.Column="4" Width="30" HorizontalAlignment="Right" Style="{StaticResource HeartCheck}" Padding="0" Command="{Binding RemoveCommand}" CommandParameter="{Binding}">
                             <md:PackIcon Kind="Close"/>

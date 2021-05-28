@@ -27,7 +27,7 @@
                 <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                 <d:Setter Property="Foreground" Value="White" />
                 <Setter Property="FontSize" Value="20" />
-                <Setter Property="FontFamily" Value="{StaticResource ProductSansThin}" />
+                <Setter Property="FontFamily" Value="{StaticResource ProductSansLight}" />
             </Style>
             <Style TargetType="{x:Type StackPanel}">
                 <Setter Property="Orientation" Value="Horizontal" />

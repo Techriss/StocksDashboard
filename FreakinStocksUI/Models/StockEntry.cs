@@ -16,6 +16,8 @@ namespace FreakinStocksUI.ViewModels
 
         public RelayCommand RemoveCommand { get; init; }
 
+        public ValueChange PriceChange => new(Stock?.RegularMarketChangePercent ?? 0);
+
         public Visibility EntryVisibility { get; private set; } = Visibility.Visible;
 
         public StockEntry(string symbol)
@@ -34,6 +36,7 @@ namespace FreakinStocksUI.ViewModels
         {
             Stock = await StockMarketData.GetStockData(Symbol);
             OnPropertyChanged(nameof(Stock));
+            OnPropertyChanged(nameof(PriceChange));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
