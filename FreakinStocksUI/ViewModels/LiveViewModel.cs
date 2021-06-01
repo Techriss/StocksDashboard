@@ -94,15 +94,17 @@ namespace FreakinStocksUI.ViewModels
 
         public async Task GetCurrentLiveData()
         {
-            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && DateTime.Parse(x.Time).Day == DateTime.Now.Day
-                                                                                                                 && DateTime.Parse(x.Time).Month == DateTime.Now.Month
-                                                                                                                 && DateTime.Parse(x.Time).Year == DateTime.Now.Year);
+            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), DateTime.Now));
 
-            if (data.Count() == 0)
+            if (!data.Any())
             {
-                data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && DateTime.Parse(x.Time).Day == DateTime.Now.Day - 1
-                                                                                                                 && DateTime.Parse(x.Time).Month == DateTime.Now.Month
-                                                                                                                 && DateTime.Parse(x.Time).Year == DateTime.Now.Year);
+                var dt = DateTime.Now;
+
+                while (!data.Any() && !IsDateMoreThanWeekAgo(dt))
+                {
+                    dt = dt.AddDays(-1);
+                    data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), dt));
+                }
             }
 
             Prices.Clear();
@@ -115,6 +117,18 @@ namespace FreakinStocksUI.ViewModels
             }
 
             OnPropertyChanged(nameof(CurrentPrice));
+        }
+
+        private static bool AreDatesEqual(DateTime d1, DateTime d2)
+        {
+            return d1.Day == d2.Day &&
+                   d1.Month == d2.Month &&
+                   d1.Year == d2.Year;
+        }
+
+        private static bool IsDateMoreThanWeekAgo(DateTime dt)
+        {
+            return DateTime.Now > dt.AddDays(7);
         }
 
         #endregion

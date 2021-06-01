@@ -213,7 +213,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Freakin Stocks"
         "ProductCode" = "8:{9AFF92C0-96E8-44CC-A5CD-561C4652BA7B}"
-        "PackageCode" = "8:{DC89AABE-3A4C-486C-8BB2-0F8163315E97}"
+        "PackageCode" = "8:{FDA3ABC4-5897-4324-83AE-DCE6BED5BDC2}"
         "UpgradeCode" = "8:{5064D9D1-DF56-487D-843A-DFF699A7FA97}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

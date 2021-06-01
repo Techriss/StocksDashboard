@@ -10,6 +10,8 @@
     <Company>Techris</Company>
     <Authors>Techris</Authors>
     <Description>Freakin Stocks Desktop Application</Description>
+	<PublishTrimmed>true</PublishTrimmed>
+	<PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <ItemGroup>
