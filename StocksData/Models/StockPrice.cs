@@ -2,6 +2,9 @@
 
 namespace StocksData.Models
 {
+    /// <summary>
+    /// Single read-only stock price containing the symbol, date and time
+    /// </summary>
     public record StockPrice
     {
         public string Symbol { get; init; }

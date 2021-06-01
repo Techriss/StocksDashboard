@@ -12,14 +12,27 @@ namespace StocksData
 {
     public class MySQLDataAccess : IDataAccess
     {
+        /// <summary>
+        /// The connection string to the MySQL database to allow accessing and managing stored data
+        /// </summary>
         private string ConnectionString { get; set; }
 
+        /// <summary>
+        /// The MySQL Configuration which allows accessing configuration information securely
+        /// </summary>
         public MySQLConfiguration Config { get; init; }
 
+        /// <summary>
+        /// The action which occurrs every time an exception is thrown while attempting to access or modify the data stored in the database. Its use is recommended. When not set does nothing.
+        /// </summary>
         public Action<Exception> ExceptionHandler { get; set; } = (Exception ex) => Debug.WriteLine(ex);
 
 
-
+        /// <summary>
+        /// Constructor for the MySQL Data Access requiring the database configuration encryted with the <see cref="Encryption"/> class
+        /// </summary>
+        /// <param name="mysql">Secure MySQL configuration for accessing and modifying database data</param>
+        /// <param name="exceptionHandler">Action occurring every time an Exception is thrown while attempting to access or modify the data stored in the selected database. Does nothing when not set. The use is highly recommended.</param>
         public MySQLDataAccess(MySQLConfiguration mysql, Action<Exception> exceptionHandler = null)
         {
             ExceptionHandler = exceptionHandler ?? ExceptionHandler;
@@ -28,13 +41,21 @@ namespace StocksData
         }
 
 
-
+        /// <summary>
+        /// Configures the database for connections
+        /// </summary>
+        /// <param name="mysql">The secure MySQL configuration for the database</param>
         private void SetDatabase(MySQLConfiguration mysql)
         {
             ConnectionString = GetConnectionString(mysql);
         }
 
-        private string GetConnectionString(MySQLConfiguration mysql)
+        /// <summary>
+        /// Provides a connection string based on the given secure <see cref="MySQLConfiguration"/>. Required to be run on the same machine as the encryption was performed on in order to properly decrypt the database password.
+        /// </summary>
+        /// <param name="mysql">The secure MySQL database configuration to generate a connection string from</param>
+        /// <returns>The MySQL database connection string based on the provided <see cref="MySQLConfiguration"/></returns>
+        private static string GetConnectionString(MySQLConfiguration mysql)
         {
             return $"SERVER={ mysql.Server };DATABASE={ mysql.Database };UID={ mysql.Username };PASSWORD={ Encryption.Decrypt(mysql.Cipher, mysql.Entropy) };";
         }
@@ -170,6 +191,8 @@ namespace StocksData
                 ExceptionHandler?.Invoke(ex);
             }
         }
+
+
 
         public long GetEntriesNumber()
         {
