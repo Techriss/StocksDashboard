@@ -8,6 +8,9 @@ namespace FreakinStocksLiveService
 {
     public class Program
     {
+        /// <summary>
+        /// The full path to the Freakin Stocks Live Data Service Log file
+        /// </summary>
         public static string LOG { get; } = Worker.CURRENT_DIR + @"\FreakinStocksLiveService.log";
 
         public static void Main(string[] args)
@@ -21,7 +24,7 @@ namespace FreakinStocksLiveService
 
             try
             {
-                Log.Information("Starting up the service");
+                Log.Information("Starting up the service...");
                 CreateHostBuilder(args).Build().Run();
                 return;
             }
