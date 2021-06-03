@@ -8,15 +8,13 @@ namespace FreakinStocksLiveService
 {
     public class Program
     {
-        public static string LOG { get; } = Worker.CURRENT_DIR + @"\FreakinStocksLiveService.log";
-
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
-                .WriteTo.File(LOG)
+                .WriteTo.File(@"C:\Dev\Logs\FreakinStocksLog.log")
                 .CreateLogger();
 
             try

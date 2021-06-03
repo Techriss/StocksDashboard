@@ -9,7 +9,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
       mc:Ignorable="d" FontFamily="{StaticResource ProductSans}"
-      d:DesignHeight="1850" d:DesignWidth="1200" d:Background="WhiteSmoke"
+      d:DesignHeight="1550" d:DesignWidth="1200" d:Background="WhiteSmoke"
       Title="SettingsPage">
     
     <i:Interaction.Triggers>
@@ -29,23 +29,19 @@
 
     <ScrollViewer>
         <StackPanel Margin="20">
-            <!--General-->
             <Label Style="{StaticResource SettingsSectionLabel}" Content="General" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
-            <!--Dark Theme-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Dark Theme" Foreground="{Binding AppTheme.Foreground}"/>
             <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding DarkTheme, Mode=TwoWay}"/>
 
-            <!--Enable Acrylic-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Enable Acrylic" Foreground="{Binding AppTheme.Foreground}"/>
             <ToggleButton Style="{StaticResource SettingsOptionToggle}" IsChecked="{Binding EnableAcrylic, Mode=TwoWay}"/>
 
-            <!--Home page Stocks-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Home Page Stocks" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
             <RadioButton IsChecked="{Binding IsHomeStockLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="HomeStock" Command="{Binding ChangeHomeStock}" CommandParameter="Liked" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsHomeStockRecent, Mode=OneTime}" Content="Recent" Style="{StaticResource SettingsOptionRadio}" GroupName="HomeStock" Command="{Binding ChangeHomeStock}" CommandParameter="Recent" Padding="15 10"/>
 
-            <!--Startup Page-->
+
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Startup Page" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
             <RadioButton IsChecked="{Binding IsStartupHome, Mode=OneTime}" Content="Home" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Home" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsStartupAnalytics, Mode=OneTime}" Content="Analytics" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Analytics" Padding="15 10"/>
@@ -53,42 +49,24 @@
             <RadioButton IsChecked="{Binding IsStartupSearch, Mode=OneTime}" Content="Search" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Search" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsStartupLiked, Mode=OneTime}" Content="Liked" Style="{StaticResource SettingsOptionRadio}" GroupName="StartupPage" Command="{Binding ChangeStartupPage}" CommandParameter="Liked" Padding="15 10"/>
 
-            <!--Analytics Startup Page-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Analytics Startup Page" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
             <RadioButton IsChecked="{Binding IsAnalyticsStartupAll, Mode=OneTime}" Content="All Time" Style="{StaticResource SettingsOptionRadio}" GroupName="AnalyticsStartupPage" Command="{Binding ChangeAnalyticsStartupPage}" CommandParameter="All" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsAnalyticsStartupYear, Mode=OneTime}" Content="Last Year" Style="{StaticResource SettingsOptionRadio}" GroupName="AnalyticsStartupPage" Command="{Binding ChangeAnalyticsStartupPage}" CommandParameter="Year" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsAnalyticsStartupMonth, Mode=OneTime}" Content="Last Month" Style="{StaticResource SettingsOptionRadio}" GroupName="AnalyticsStartupPage" Command="{Binding ChangeAnalyticsStartupPage}" CommandParameter="Month" Padding="15 10"/>
             <RadioButton IsChecked="{Binding IsAnalyticsStartupWeek, Mode=OneTime}" Content="Last Week" Style="{StaticResource SettingsOptionRadio}" GroupName="AnalyticsStartupPage" Command="{Binding ChangeAnalyticsStartupPage}" CommandParameter="Week" Padding="15 10"/>
 
-            
-            
-            <!--Live Data Service-->
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Live Data Service" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
-            <!--Status-->
             <Label Style="{StaticResource MediumLabel}" Content="{Binding ServiceStatus}" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" ContentStringFormat="The service is {0:}"/>
-            <!--Total Entries-->
             <Label Style="{StaticResource MediumLabel}" Content="{Binding DatabaseEntriesNumber}" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" ContentStringFormat="Total Entries: {0:#,#}"/>
-
-            <!--Manage-->
-            <Label Style="{StaticResource SettingsOptionLabel}" Content="Manage" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
             <Button Command="{Binding RestartService}" HorizontalAlignment="Left" Content="R E S T A R T" Style="{StaticResource FilledButton}"/>
             <Button Command="{Binding StopService}" HorizontalAlignment="Left" Content="S T O P" Style="{StaticResource OutlineButton}"/>
             <Button Command="{Binding ReinstallService}" HorizontalAlignment="Left" Content="R E I N S T A L L" Style="{StaticResource OutlineButton}"/>
 
-            <!--Log-->
-            <Label Style="{StaticResource SettingsOptionLabel}" Content="Log" Foreground="{Binding AppTheme.Foreground}" Margin="0 10 0 0"/>
-            <Button Command="{Binding ViewLog}" HorizontalAlignment="Left" Content="V I E W" Style="{StaticResource FilledButton}"/>
-            <Button Command="{Binding ClearLog}" HorizontalAlignment="Left" Content="C L E A R" Style="{StaticResource OutlineButton}"/>
 
-
-            
-            
-            <!--Database-->
             <Label Style="{StaticResource SettingsSectionLabel}" Content="Database" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}" Margin="0 20 0 0"/>
 
 
-            <!--DB Type-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Database Type" Foreground="{Binding AppTheme.Foreground}"/>
             <StackPanel Orientation="Horizontal">
                 <RadioButton IsChecked="{Binding IsMySQLSelected, Mode=TwoWay}" Content="MySQL" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="MySQL" Padding="15 10 5 10"/>
@@ -98,7 +76,6 @@
             </StackPanel>
             <RadioButton IsChecked="{Binding IsSQLiteSelected, Mode=TwoWay}" Content="SQLite" Style="{StaticResource SettingsOptionRadio}" GroupName="DBType" Command="{Binding ChangeDatabaseType}" CommandParameter="SQLite" Padding="15 10"/>
 
-            <!--Live Data-->
             <Label Style="{StaticResource SettingsOptionLabel}" Content="Live Data" Foreground="{Binding AppTheme.Foreground}"/>
             <Button Command="{Binding ClearAll}" HorizontalAlignment="Left" Content="C L E A R  A L L" Style="{StaticResource OutlineButton}"/>
 
