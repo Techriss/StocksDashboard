@@ -18,10 +18,11 @@ namespace FreakinStocksLiveService
         private readonly ILogger<Worker> _logger;
         private IDataAccess _dataAccess;
 
-        private static readonly string CURRENT_DIR = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        private const string DB = @"\StocksData.db";
-        private const string STOCKS = @"\Stocks.txt";
-        private const string MYSQL = @"\MySQL.txt";
+        public static string CURRENT_DIR { get; } = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        private static string DB { get; } = CURRENT_DIR + @"\StocksData.db";
+        private static string STOCKS { get; } = CURRENT_DIR + @"\Stocks.txt";
+        private static string MYSQL { get; } = CURRENT_DIR + @"\MySQL.txt";
+
 
         public Worker(ILogger<Worker> logger)
         {
@@ -95,15 +96,15 @@ namespace FreakinStocksLiveService
         {
             try
             {
-                if (File.Exists(CURRENT_DIR + STOCKS))
+                if (File.Exists(STOCKS))
                 {
-                    var lines = await File.ReadAllLinesAsync(CURRENT_DIR + STOCKS);
+                    var lines = await File.ReadAllLinesAsync(STOCKS);
                     var dir = StockMarketData.CheckSymbolsExist(lines);
                     var valid = dir.Where(x => x.Value).Select(x => x.Key);
 
                     if (valid?.Count() != lines?.Length)
                     {
-                        await File.WriteAllLinesAsync(CURRENT_DIR + STOCKS, valid);
+                        await File.WriteAllLinesAsync(STOCKS, valid);
                         _logger.LogWarning("Invalid Symbol found in text file.");
                     }
 
@@ -112,7 +113,7 @@ namespace FreakinStocksLiveService
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Could not save to file { CURRENT_DIR + STOCKS } Reason: { ex.Message }");
+                _logger.LogError($"Could not save to file { STOCKS } Reason: { ex.Message }");
             }
         }
 
@@ -131,13 +132,14 @@ namespace FreakinStocksLiveService
                  *  [CIPHER]
                  */
 
-                var lines = File.ReadAllLines(CURRENT_DIR + MYSQL);
+                var lines = File.ReadAllLines(MYSQL);
                 if (lines[0].ToLower() == "true") // if mysql is selected
                 {
                     var mysql = new MySQLConfiguration(lines[1], lines[2], lines[3], Convert.FromBase64String(lines[4]), Convert.FromBase64String(lines[5]));
 
                     if ((_dataAccess is not null && _dataAccess is MySQLDataAccess && !AreConfigsEqual((_dataAccess as MySQLDataAccess).Config, mysql)) ||
-                        (_dataAccess is null) || (_dataAccess is SQLiteDataAccess))
+                        (_dataAccess is null) ||
+                        (_dataAccess is SQLiteDataAccess))
                     {
                         _logger.LogInformation("Configuring MYSQL DATABASE");
                         if (_dataAccess is MySQLDataAccess previous)
@@ -155,7 +157,7 @@ namespace FreakinStocksLiveService
                 else if (_dataAccess is null || _dataAccess is MySQLDataAccess)
                 {
                     _logger.LogInformation("Configuring SQLITE DATABASE");
-                    return new SQLiteDataAccess(CURRENT_DIR + DB, handler);
+                    return new SQLiteDataAccess(DB, handler);
                 }
                 else
                 {
@@ -164,11 +166,11 @@ namespace FreakinStocksLiveService
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Could not read from MySQL Config { CURRENT_DIR + MYSQL } Reason: { ex.Message }");
+                _logger.LogError($"Could not read from MySQL Config { MYSQL } Reason: { ex.Message }");
                 _logger.LogInformation("Configuring SQLITE DATABASE");
                 try
                 {
-                    return new SQLiteDataAccess(CURRENT_DIR + DB, handler);
+                    return new SQLiteDataAccess(DB, handler);
                 }
                 catch
                 {
@@ -179,7 +181,7 @@ namespace FreakinStocksLiveService
 
         private static bool AreConfigsEqual(MySQLConfiguration c1, MySQLConfiguration c2)
         {
-            return (c1.Server == c2.Server && c1.Database == c2.Database && c1.Username == c2.Username);
+            return c1.Server == c2.Server && c1.Database == c2.Database && c1.Username == c2.Username;
         }
 
         private async Task<bool> IsDatabaseEmpty()
