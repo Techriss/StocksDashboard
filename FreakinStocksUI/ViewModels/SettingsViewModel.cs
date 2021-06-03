@@ -17,7 +17,7 @@ namespace FreakinStocksUI.ViewModels
             get => Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme) == ThemeMode.Dark;
             set
             {
-                Properties.Settings.Default.Theme = value ? ThemeMode.Dark.ToString() : ThemeMode.Light.ToString();
+                Properties.Settings.Default.Theme = value ? ThemeMode.Dark.GetString() : ThemeMode.Light.GetString();
                 Properties.Settings.Default.Save();
                 ThemeAssist.AppTheme.SetTheme(Enum.Parse<ThemeMode>(Properties.Settings.Default.Theme));
             }
@@ -40,7 +40,7 @@ namespace FreakinStocksUI.ViewModels
             {
                 if (DBType != value && ((value == DatabaseType.MySQL && new Dialog().ShowDialog().Value) || value == DatabaseType.SQLite))
                 {
-                    Properties.Settings.Default.DatabaseType = value.ToString();
+                    Properties.Settings.Default.DatabaseType = value.GetString();
                     Properties.Settings.Default.Save();
                     MainViewModel.SetDatabase(value);
                 }
@@ -68,7 +68,7 @@ namespace FreakinStocksUI.ViewModels
             {
                 if (StartupPage != value)
                 {
-                    Properties.Settings.Default.StartupPage = value.ToString();
+                    Properties.Settings.Default.StartupPage = value.GetString();
                     Properties.Settings.Default.Save();
                 }
             }
@@ -80,7 +80,7 @@ namespace FreakinStocksUI.ViewModels
             {
                 if (AnalyticsStartupPage != value)
                 {
-                    Properties.Settings.Default.AnalyticsStartupPage = value.ToString();
+                    Properties.Settings.Default.AnalyticsStartupPage = value.GetString();
                     Properties.Settings.Default.Save();
                 }
             }
@@ -92,7 +92,7 @@ namespace FreakinStocksUI.ViewModels
             {
                 if (value != HomeStock)
                 {
-                    Properties.Settings.Default.HomeStockMode = value.ToString();
+                    Properties.Settings.Default.HomeStockMode = value.GetString();
                     Properties.Settings.Default.Save();
                 }
             }
@@ -151,7 +151,7 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(ServiceStatus));
             OnPropertyChanged(nameof(DatabaseEntriesNumber));
         });
-        public RelayCommand ClearAll => new(async () =>
+        public static RelayCommand ClearAll => new(async () =>
         {
             if (new Prompt("Confirm Deleting", "Are you sure to clear all saved live data in the selected database?", true).ShowDialog().Value)
             {
@@ -159,6 +159,8 @@ namespace FreakinStocksUI.ViewModels
                 _ = new Prompt("Action Completed", "The database was cleared successfully.").ShowDialog();
             }
         });
+        public static RelayCommand ViewLog => new(ViewServiceLog);
+        public static RelayCommand ClearLog => new(ClearServiceLog);
 
 
         public void RefreshDatabaseChoice()
@@ -180,6 +182,49 @@ namespace FreakinStocksUI.ViewModels
                 ServiceControllerStatus.Paused => "Paused",
                 _ => "Unavailable",
             };
+        }
+
+        private static void ViewServiceLog()
+        {
+            try
+            {
+                if (File.Exists(FreakinStocksLiveService.Program.LOG))
+                {
+                    Process.Start("notepad.exe", FreakinStocksLiveService.Program.LOG);
+                }
+                else
+                {
+                    _ = new Prompt("Could not find the log", "The service log could not be found. Make sure the service was running.").ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = new Prompt(ex).ShowDialog();
+            }
+        }
+
+        private static void ClearServiceLog()
+        {
+            try
+            {
+                if (File.Exists(FreakinStocksLiveService.Program.LOG))
+                {
+                    File.WriteAllText(FreakinStocksLiveService.Program.LOG, string.Empty);
+                    _ = new Prompt("Log cleared", "The service log was cleared successfully.").ShowDialog();
+                }
+                else
+                {
+                    _ = new Prompt("Could not find the log", "The service log could not be found. Make sure the service was running.").ShowDialog();
+                }
+            }
+            catch (IOException)
+            {
+                _ = new Prompt("Log in use", "Could not clear the file. Stop the Live Data Service before clearing the log.").ShowDialog();
+            }
+            catch
+            {
+                _ = new Prompt("Clearing Failed", "Could not access the service log.").ShowDialog();
+            }
         }
 
 
