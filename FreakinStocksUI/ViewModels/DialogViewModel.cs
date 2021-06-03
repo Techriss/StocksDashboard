@@ -12,6 +12,9 @@ using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
+    /// <summary>
+    /// Logic implementation for a MySQL Database Configuration Dialog
+    /// </summary>
     class DialogViewModel : ViewModelBase
     {
         public string Server { get; set; } = Properties.Settings.Default.DBServer ?? "Server";
@@ -23,7 +26,9 @@ namespace FreakinStocksUI.ViewModels
         internal SecureString Password { private get; set; }
 
 
-
+        /// <summary>
+        /// Closes the dialog and applies the changes made to the database selection and configuration
+        /// </summary>
         public RelayCommand CloseCommand => new(() =>
         {
             if (Source is Window dialog)
@@ -34,8 +39,15 @@ namespace FreakinStocksUI.ViewModels
             }
         });
 
+        /// <summary>
+        /// Occurs when a change in the MySQL configuration was made throuh the dialog
+        /// </summary>
         public RelayCommand ConfirmCommand => new(async () => await SetMySQL());
 
+        /// <summary>
+        /// Configures a MySQL database using the provided information in the dialog
+        /// </summary>
+        /// <returns></returns>
         private async Task SetMySQL()
         {
             var x = new NetworkCredential("", Password).Password;
@@ -71,6 +83,10 @@ namespace FreakinStocksUI.ViewModels
         }
 
 
+        /// <summary>
+        /// Creates an instance of the logic for a MySQL Database Configuration dialog
+        /// </summary>
+        /// <param name="source">The dialog view</param>
         public DialogViewModel(object source)
         {
             this.Source = source;

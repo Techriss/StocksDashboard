@@ -41,39 +41,56 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--Like Button-->
         <Button Visibility="{Binding DataVisibility}" Margin="10" Panel.ZIndex="10" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right" Padding="0" VerticalAlignment="Top" Height="40" Width="40" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding ChangeLikedCommand}" ToolTip="Like">
             <md:PackIcon d:Kind="Heart"  Kind="{Binding IsCurrentStockLiked}" Width="30" Height="30"/>
         </Button>
 
+        <!--No Stock Selected-->
         <Label d:Visibility="Hidden" Margin="10 40 10 10" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
         <StackPanel Orientation="Vertical" Visibility="{Binding DataVisibility}" Margin="10 0">
+            
+            <!--Company Name-->
             <TextBlock Panel.ZIndex="10" FontSize="40" FontFamily="{StaticResource ProductSansThin}" Text="{Binding StockData.LongName}" d:Text="Tesla, Inc." Margin="-5 5 80 20" TextWrapping="Wrap"/>
 
+            <!--Stock Price-->
             <StackPanel Orientation="Horizontal">
                 <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPrice}" d:Content="720 USD" ContentStringFormat="Price: {0:C}"/>
                 <Label d:Content="+4%" Content="{Binding PriceChange.Change}" Foreground="{Binding PriceChange.Color}"/>
             </StackPanel>
+            
+            <!--Market Cap-->
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketCap}" d:Content="720 USD" ContentStringFormat="Market Cap: {0:C0}"/>
 
+            <!--Previous Close-->
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.RegularMarketPreviousClose}" ContentStringFormat="Previous Close: {0:C}" d:Content="720 USD" Margin="0 20 0 0"/>
+            
+            <!--50 Days Avg-->
             <StackPanel Orientation="Horizontal">
                 <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FiftyDayAverage}" d:Content="720 USD" ContentStringFormat="50 Days Avarage: {0:C}"/>
                 <Label d:Content="+4%" Content="{Binding FiftyDayAverageChange.Change}" Foreground="{Binding FiftyDayAverageChange.Color}"/>
             </StackPanel>
+            
+            <!--200 Days Avg-->
             <StackPanel Orientation="Horizontal">
                 <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.TwoHundredDayAverage}" d:Content="720 USD" ContentStringFormat="200 Days Avarage: {0:C}"/>
                 <Label d:Content="+4%" Content="{Binding TwoHundredDayAverageChange.Change}" Foreground="{Binding TwoHundredDayAverageChange.Color}"/>
             </StackPanel>
             
+            <!--Time Zone-->
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.ExchangeTimezoneName}" d:Content="720 USD" ContentStringFormat="Time Zone: {0}" Margin="0 20 0 0"/>
+            
+            <!--Exchange-->
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.FullExchangeName}" d:Content="720 USD" ContentStringFormat="Exchange: {0}"/>
+            
+            <!--Market State-->
             <Label FontSize="20" FontFamily="{StaticResource ProductSansThin}" Content="{Binding StockData.MarketState}" d:Content="720 USD" ContentStringFormat="Market State: {0}"/>
 
         </StackPanel>
         
         
-
+        <!--Search-->
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBox Style="{StaticResource StockTextBox}" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
             <Button Style="{StaticResource Search}" Foreground="{Binding AppTheme.Foreground}">

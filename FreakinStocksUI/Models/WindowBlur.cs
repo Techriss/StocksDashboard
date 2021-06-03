@@ -5,6 +5,9 @@ using System.Windows.Interop;
 
 namespace FreakinStocksUI.Models
 {
+    /// <summary>
+    /// Class for implementing the background blur of an application window
+    /// </summary>
     public class WindowBlur
     {
         public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached(

@@ -48,6 +48,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--Top Data Mode Tabs-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
             <RadioButton Content="All Time" CommandParameter="All" IsChecked="{Binding IsAll, Mode=OneTime}"/>
             <RadioButton Content="Last Year" CommandParameter="Year" IsChecked="{Binding IsYear, Mode=OneTime}"/>
@@ -55,6 +56,7 @@
             <RadioButton Content="Last Week" CommandParameter="Week" IsChecked="{Binding IsWeek, Mode=OneTime}"/>
         </StackPanel>
 
+        <!--Value Chart-->
         <lvc:CartesianChart Visibility="{Binding ChartVisibility}" Grid.Row="1" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black" Title="Price: "/>
@@ -75,13 +77,15 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
+        <!--No Stock Selected-->
         <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" Foreground="{Binding AppTheme.Foreground}" FontFamily="{StaticResource ProductSansThin}"/>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
-                <TextBox Style="{StaticResource StockTextBox}" Padding="0" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                <Button Style="{StaticResource IconButton}" Foreground="{Binding AppTheme.Foreground}">
-                        <md:PackIcon Style="{StaticResource RightArrow}"/>
-                </Button>
-            </StackPanel>
+        <!--Search-->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
+            <TextBox Style="{StaticResource StockTextBox}" Padding="0" Text="{Binding CurrentStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+            <Button Style="{StaticResource IconButton}" Foreground="{Binding AppTheme.Foreground}">
+                    <md:PackIcon Style="{StaticResource RightArrow}"/>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

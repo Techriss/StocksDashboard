@@ -23,8 +23,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <!--Header-->
         <Label Style="{StaticResource SettingsSectionLabel}" Content="Liked" FontFamily="{StaticResource ProductSansThin}" Margin="0 0 0 20"/>
 
+        <!--Liked Stock Symbols List-->
         <ListView ItemsSource="{Binding Stocks}" Grid.Row="1">
             <ListView.Resources>
                 <Style x:Key="HeartCheck" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatButton}"/>

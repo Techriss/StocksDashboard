@@ -10,6 +10,9 @@ using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
+    /// <summary>
+    /// Logic for a Settings Page
+    /// </summary>
     class SettingsViewModel : ViewModelBase
     {
         public static bool DarkTheme
@@ -229,6 +232,10 @@ namespace FreakinStocksUI.ViewModels
 
 
 
+        /// <summary>
+        /// Creates an instance of interaction logic for a Settings Page
+        /// </summary>
+        /// <param name="page">The Settings Page view</param>
         public SettingsViewModel(Page page)
         {
             Source = page;

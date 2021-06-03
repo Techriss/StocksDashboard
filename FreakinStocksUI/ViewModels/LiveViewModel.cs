@@ -25,6 +25,9 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
+        /// <summary>
+        /// The currently selected stock symbol of a company used by other elements
+        /// </summary>
         public string CurrentStock
         {
             get => _currentStock;
@@ -44,8 +47,16 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// The current real-time updated price for the selected company
+        /// </summary>
         public decimal CurrentPrice => Prices.Any() ? Prices.Last() : 0;
 
+
+        /// <summary>
+        /// A collection of points in time for a chart
+        /// </summary>
         public ObservableCollection<string> Dates
         {
             get => _dates;
@@ -55,6 +66,10 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// A list of stock prices for the selected company updated every minute
+        /// </summary>
         public ChartValues<decimal> Prices
         {
             get => _prices;
@@ -65,9 +80,14 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+
         public Visibility TempHeaderVisibility => CurrentStock is null or "" ? Visibility.Visible : Visibility.Collapsed;
         public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
 
+
+        /// <summary>
+        /// Enables to cancel the loop of fetching data from the database every minute
+        /// </summary>
         public CancellationTokenSource OperationsCancellation { get; set; } = new();
 
         #endregion
@@ -76,10 +96,17 @@ namespace FreakinStocksUI.ViewModels
 
         #region methods
 
+        /// <summary>
+        /// Gets real-time data from the database and updates the <see cref="Prices"/> with a new one every minute
+        /// </summary>
+        /// <param name="token">Cancellation token for cancelling the always-executing data fetching loop</param>
+        /// <returns></returns>
         private async Task FetchLiveData(CancellationToken token = default)
         {
             while (!token.IsCancellationRequested)
             {
+                // TODO: fetch life data dynamically when available, not using time
+
                 if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null and not "")
                 {
                     var price = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock).Last();
@@ -92,6 +119,10 @@ namespace FreakinStocksUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the currently saved stock prices for the selected stock symbol and sets the <see cref="Prices"/> and <see cref="Dates"/>
+        /// </summary>
+        /// <returns></returns>
         public async Task GetCurrentLiveData()
         {
             var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), DateTime.Now));
@@ -119,6 +150,12 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(CurrentPrice));
         }
 
+        /// <summary>
+        /// Checks if the day, month and year of two provided dates are equal
+        /// </summary>
+        /// <param name="d1">The first date</param>
+        /// <param name="d2">The second date</param>
+        /// <returns><see langword="true"/> if the day, month and year of the dates are the same, otherwise <see langword="false"/></returns>
         private static bool AreDatesEqual(DateTime d1, DateTime d2)
         {
             return d1.Day == d2.Day &&
@@ -126,6 +163,11 @@ namespace FreakinStocksUI.ViewModels
                    d1.Year == d2.Year;
         }
 
+        /// <summary>
+        /// Checks if the provided date was earlier than a week ago
+        /// </summary>
+        /// <param name="dt">The date to check</param>
+        /// <returns><see langword="false"/> if the provided date was later than a week ago, otherwise <see langword="true"/></returns>
         private static bool IsDateMoreThanWeekAgo(DateTime dt)
         {
             return DateTime.Now > dt.AddDays(7);
@@ -134,6 +176,10 @@ namespace FreakinStocksUI.ViewModels
         #endregion
 
 
+        /// <summary>
+        /// Creates an instance of interaction logic for a Live Data Page and starts fetching data from the database
+        /// </summary>
+        /// <param name="page">The Live Data Page view</param>
         public LiveViewModel(Page page)
         {
             Source = page;

@@ -11,6 +11,9 @@ using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
+    /// <summary>
+    /// Logic implementation for the Analytics Page
+    /// </summary>
     class AnalyticsViewModel : ViewModelBase
     {
         #region private
@@ -94,7 +97,7 @@ namespace FreakinStocksUI.ViewModels
 
 
 
-        #region command
+        #region commands
 
         public RelayCommand SetDataMode => new((object mode) => CurrentDataMode = Enum.Parse<DataMode>(mode as string));
 

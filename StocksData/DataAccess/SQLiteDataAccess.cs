@@ -18,7 +18,7 @@ namespace StocksData
         private string ConnectionString { get; set; } = @"Data Source=.\StocksData.db;Version=3;";
 
         /// <summary>
-        /// The action which occurrs every time an exception is thrown while attempting to access or modify the data stored in the database. Its use is recommended. When not set does nothing.
+        /// The action which Occurs every time an exception is thrown while attempting to access or modify the data stored in the database. Its use is recommended. When not set does nothing.
         /// </summary>
         public Action<Exception> ExceptionHandler { get; set; } = (Exception ex) => Debug.WriteLine(ex);
 

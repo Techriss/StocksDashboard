@@ -25,7 +25,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
+        
+        <!--Value Chart-->
         <lvc:CartesianChart Visibility="{Binding DataVisibility}" Grid.Row="1" Margin="20 20 20 20" Background="Transparent" Foreground="Black">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries PointGeometrySize="0" Values="{Binding Prices}" Foreground="Black" Title="Price: "/>
@@ -46,8 +48,10 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
+        <!--No Stock Selected-->
         <Label Grid.Row="1" Style="{StaticResource TempHeader}" Visibility="{Binding TempHeaderVisibility}" Content="No Stock Selected" FontFamily="{StaticResource ProductSansThin}" Foreground="{Binding AppTheme.Foreground}"/>
 
+        <!--Search-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
             <TextBox Style="{StaticResource StockTextBox}" Padding="0" Text="{Binding CurrentStock, Mode=TwoWay}"/>
             <Button Style="{StaticResource Search}" Foreground="{Binding AppTheme.Foreground}" Margin="-3">
@@ -55,6 +59,7 @@
             </Button>
         </StackPanel>
 
+        <!--Price-->
         <Label Grid.Row="0" HorizontalAlignment="Right" FontSize="40" d:Content="$760" Content="{Binding CurrentPrice}" FontFamily="{StaticResource ProductSansThin}" VerticalAlignment="Center" Margin="30 0" FlowDirection="LeftToRight" ContentStringFormat=" {0:C}"/>
 
     </Grid>

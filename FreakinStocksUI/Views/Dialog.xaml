@@ -36,8 +36,10 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
+            <!--Header-->
             <Label FontFamily="{StaticResource ProductSans}" Style="{StaticResource SettingsOptionLabel}" Content="Configure MySQL" Foreground="{Binding AppTheme.Foreground}" d:Foreground="White" Margin="10"/>
 
+            <!--TextBoxes-->
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <TextBox Text="{Binding Server, Mode=TwoWay}"/>
                 <TextBox Text="{Binding Database, Mode=TwoWay}"/>
@@ -45,7 +47,7 @@
                 <PasswordBox Foreground="{Binding AppTheme.Foreground}" PasswordChanged="PasswordBox_PasswordChanged" Padding="10" Margin="12" Width="300" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
             
-
+            <!--Controls-->
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0 10 0 10">
                 <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="20" Width="120" Content="Cancel" Command="{Binding CloseCommand}"/>
                 <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Margin="20" Width="120" Content="Confirm" Command="{Binding ConfirmCommand}"/>

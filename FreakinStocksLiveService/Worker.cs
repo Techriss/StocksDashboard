@@ -97,7 +97,7 @@ namespace FreakinStocksLiveService
             }
             catch (Exception ex)
             {
-                _logger.LogError("An Exception has occurred while trying to access the database. Reason: {Exception}", ex);
+                _logger.LogError("An Exception has Occured while trying to access the database. Reason: {Exception}", ex);
             }
 
             //if (DateTime.UtcNow.TimeOfDay.TotalMinutes >= 690 && DateTime.UtcNow.TimeOfDay.TotalMinutes < 710 && await IsDatabaseEmpty() == false)
@@ -143,7 +143,7 @@ namespace FreakinStocksLiveService
         /// <returns>The <see cref="IDataAccess"/> for the selected database in the text file</returns>
         private IDataAccess GetDatabaseConfig()
         {
-            void handler(Exception ex) => _logger.LogError(ex, "An Exception has occurred.");
+            void handler(Exception ex) => _logger.LogError(ex, "An Exception has Occured.");
 
             try
             {

@@ -7,13 +7,18 @@
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Fonts -->
             <FontFamily x:Key="ProductSans">pack://application:,,,/Fonts/#Product Sans</FontFamily>
             <FontFamily x:Key="ProductSansLight">pack://application:,,,/Fonts/#Product Sans Light</FontFamily>
             <FontFamily x:Key="ProductSansThin">pack://application:,,,/Fonts/#Product Sans Thin</FontFamily>
+            
+            <!-- Custom Styles -->
             <ResourceDictionary.MergedDictionaries>
                 <md:BundledTheme BaseTheme="Dark" PrimaryColor="Red" SecondaryColor="DeepOrange"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary>
+                    
+                    <!--Top Window Control-->
                     <Style x:Key="ControlButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="BorderThickness" Value="0" />
                         <Setter Property="Background" Value="Transparent" />
@@ -27,17 +32,23 @@
                         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Top Window Control Icon-->
                     <Style x:Key="ControlButtonIcon" TargetType="md:PackIcon">
                         <Setter Property="Width" Value="12" />
                         <Setter Property="Height" Value="12" />
                         <Setter Property="Kind" Value="Circle" />
                     </Style>
+                    
+                    <!--Menu Section-->
                     <Style x:Key="SectionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="10" />
                         <Setter Property="FontWeight" Value="Regular" />
                         <Setter Property="Margin" Value="10 0 10 10" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Menu Item-->
                     <Style x:Key="MenuItem" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="Margin" Value="10 7" />
@@ -56,11 +67,15 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    
+                    <!--Menu Item Icon-->
                     <Style x:Key="MenuItemIcon" TargetType="md:PackIcon">
                         <Setter Property="Margin" Value="10 0" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Home Page Arrow-->
                     <Style x:Key="Arrow" TargetType="md:PackIcon">
                         <Setter Property="Opacity" Value="0.8" />
                         <Setter Property="Width" Value="20" />
@@ -70,6 +85,8 @@
                         <Setter Property="HorizontalAlignment" Value="Center" />
                         <Setter Property="Padding" Value="0" />
                     </Style>
+                    
+                    <!--Home Page Arrow Button-->
                     <Style x:Key="ArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="Padding" Value="0" />
@@ -80,6 +97,8 @@
                         <Setter Property="Height" Value="20" />
                         <Setter Property="Width" Value="20" />
                     </Style>
+                    
+                    <!--Home Page Left Arrow-->
                     <Style x:Key="LeftArrow" TargetType="md:PackIcon" BasedOn="{StaticResource Arrow}">
                         <Setter Property="RenderTransform">
                             <Setter.Value>
@@ -87,6 +106,8 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+
+                    <!--Home Page Right Arrow-->
                     <Style x:Key="RightArrow" TargetType="md:PackIcon" BasedOn="{StaticResource Arrow}">
                         <Setter Property="RenderTransform">
                             <Setter.Value>
@@ -94,6 +115,8 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+
+                    <!--Home Page Left Arrow Button-->
                     <Style x:Key="LeftArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButton}">
                         <Setter Property="Content">
                             <Setter.Value>
@@ -101,6 +124,8 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+
+                    <!--Home Page Right Arrow Button -->
                     <Style x:Key="RightArrowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButton}">
                         <Setter Property="Content">
                             <Setter.Value>
@@ -108,11 +133,15 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+                    
+                    <!--Analytics Page Tab-->
                     <Style x:Key="Tab" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Margin" Value="5 10" />
                         <Setter Property="GroupName" Value="Tabs" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Stock Search Box-->
                     <Style x:Key="StockTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Height" Value="40" />
@@ -139,6 +168,8 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    
+                    <!--Stock Search Button-->
                     <Style x:Key="Search" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="BorderThickness" Value="0" />
@@ -147,28 +178,38 @@
                         <Setter Property="Width" Value="25" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Settings Section-->
                     <Style x:Key="SettingsSectionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="33" />
                         <Setter Property="Padding" Value="10" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Settings Option-->
                     <Style x:Key="SettingsOptionLabel" TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="14" />
                         <Setter Property="Padding" Value="10" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Settings Toggle-->
                     <Style x:Key="SettingsOptionToggle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
                         <Setter Property="HorizontalAlignment" Value="Left" />
                         <Setter Property="Margin" Value="20 10" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Settings Radio-->
                     <Style x:Key="SettingsOptionRadio" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
                         <Setter Property="Margin" Value="10 5" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                         <Setter Property="FontSize" Value="14" />
                     </Style>
+                    
+                    <!--Icon Button-->
                     <Style x:Key="IconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="Height" Value="20" />
@@ -178,12 +219,16 @@
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--No Stock Selected-->
                     <Style x:Key="TempHeader" TargetType="{x:Type Label}">
                         <Setter Property="HorizontalAlignment" Value="Center" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                         <Setter Property="FontSize" Value="40" />
                         <Setter Property="Foreground" Value="{Binding AppTheme.Foreground}" />
                     </Style>
+                    
+                    <!--Outline Button-->
                     <Style x:Key="OutlineButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
                         <Setter Property="Width" Value="250" />
                         <Setter Property="Height" Value="40" />
@@ -191,6 +236,8 @@
                         <Setter Property="Margin" Value="10 5" />
                         <Setter Property="FontWeight" Value="Bold" />
                     </Style>
+                    
+                    <!--Filled Button-->
                     <Style x:Key="FilledButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
                         <Setter Property="Width" Value="250" />
                         <Setter Property="Height" Value="40" />
@@ -199,6 +246,8 @@
                         <Setter Property="Margin" Value="10 5" />
                         <Setter Property="FontWeight" Value="Bold" />
                     </Style>
+                    
+                    <!--Medium Label-->
                     <Style x:Key="MediumLabel" TargetType="{x:Type Label}">
                         <Setter Property="Height" Value="40" />
                         <Setter Property="Width" Value="250" />

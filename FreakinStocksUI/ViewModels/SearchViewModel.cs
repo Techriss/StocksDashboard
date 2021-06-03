@@ -9,6 +9,9 @@ using YahooFinanceApi;
 
 namespace FreakinStocksUI.ViewModels
 {
+    /// <summary>
+    /// Logic for a Search Page displaying stock information
+    /// </summary>
     class SearchViewModel : ViewModelBase
     {
         #region private
@@ -22,6 +25,9 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
+        /// <summary>
+        /// The currently selected stock symbol of a company
+        /// </summary>
         public string CurrentStock
         {
             get => _currentStock;
@@ -44,6 +50,10 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// All available data for the selected stock symbol from <see cref="YahooFinanceApi"/>
+        /// </summary>
         public Security StockData
         {
             get => _stockData;
@@ -61,6 +71,10 @@ namespace FreakinStocksUI.ViewModels
         public Visibility DataVisibility => CurrentStock is null or "" ? Visibility.Collapsed : Visibility.Visible;
         public PackIconKind IsCurrentStockLiked => Properties.Settings.Default.LikedStocks is not null && Properties.Settings.Default.LikedStocks.Contains(CurrentStock) ? PackIconKind.Heart : PackIconKind.HeartOutline;
 
+
+        /// <summary>
+        /// The stock price percent change represented by a color
+        /// </summary>
         public ValueChange PriceChange
         {
             get
@@ -75,6 +89,10 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// The 50 day avarage percent change represented by a color
+        /// </summary>
         public ValueChange FiftyDayAverageChange
         {
             get
@@ -89,6 +107,10 @@ namespace FreakinStocksUI.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// The 200 day avarage percent change represented by a color
+        /// </summary>
         public ValueChange TwoHundredDayAverageChange
         {
             get
@@ -110,9 +132,13 @@ namespace FreakinStocksUI.ViewModels
 
         #region commands
 
+        /// <summary>
+        /// Adds or removes the selected stock symbol from the list of liked stocks in settings
+        /// </summary>
         public RelayCommand ChangeLikedCommand => new(() =>
         {
             if (Properties.Settings.Default.LikedStocks is null) Properties.Settings.Default.LikedStocks = new();
+
             if (!Properties.Settings.Default.LikedStocks.Contains(CurrentStock))
             {
                 Properties.Settings.Default.LikedStocks.Add(CurrentStock);
@@ -127,6 +153,9 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(IsCurrentStockLiked));
         });
 
+        /// <summary>
+        /// Loads all the stock symbol data and the value of it being liked
+        /// </summary>
         public RelayCommand ReloadCommand => new(async () =>
         {
             if (CurrentStock is not null) await LoadData(CurrentStock);
@@ -142,6 +171,11 @@ namespace FreakinStocksUI.ViewModels
 
         #region methods
 
+        /// <summary>
+        /// Loads all the available data for the selected stock from <see cref="YahooFinanceApi"/>
+        /// </summary>
+        /// <param name="symbol">The symbol of a company to load data for</param>
+        /// <returns></returns>
         public async Task LoadData(string symbol)
         {
             var data = await StockMarketData.GetAllStockData(symbol);
@@ -155,6 +189,10 @@ namespace FreakinStocksUI.ViewModels
 
 
 
+        /// <summary>
+        /// Creates an instance of interaction logic for a Search Page
+        /// </summary>
+        /// <param name="page">The Search Page view</param>
         public SearchViewModel(Page page)
         {
             Source = page;

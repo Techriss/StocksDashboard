@@ -7,6 +7,9 @@ using MaterialDesignThemes.Wpf;
 
 namespace FreakinStocksUI.Models
 {
+    /// <summary>
+    /// Represents a color theme in the application
+    /// </summary>
     public class Theme : INotifyPropertyChanged
     {
         private SolidColorBrush _background;
@@ -94,6 +97,10 @@ namespace FreakinStocksUI.Models
         }
 
 
+        /// <summary>
+        /// Sets the provided <see cref="ThemeMode"/> for the theme
+        /// </summary>
+        /// <param name="theme">The mode to which the theme will be changed</param>
         public void SetTheme(ThemeMode theme)
         {
             switch (theme)
@@ -128,7 +135,11 @@ namespace FreakinStocksUI.Models
             OnPropertyChanged(nameof(Side));
         }
 
-        private void SetPagesTheme(ThemeMode mode)
+        /// <summary>
+        /// Sets the specified theme mode for all elements in the application
+        /// </summary>
+        /// <param name="mode">The mode to which all elements of the application will be changed</param>
+        private static void SetPagesTheme(ThemeMode mode)
         {
             var baseTheme = mode.GetBaseTheme();
 
@@ -142,6 +153,10 @@ namespace FreakinStocksUI.Models
         }
 
 
+        /// <summary>
+        /// Creates a theme from the provided <see cref="ThemeMode"/>
+        /// </summary>
+        /// <param name="theme"></param>
         public Theme(ThemeMode theme)
         {
             SetTheme(theme);

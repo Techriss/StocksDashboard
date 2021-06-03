@@ -9,6 +9,9 @@ using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
+    /// <summary>
+    /// Logic implementation for a Main Application Window
+    /// </summary>
     class MainViewModel : ViewModelBase
     {
         #region private
@@ -22,6 +25,9 @@ namespace FreakinStocksUI.ViewModels
 
         #region public
 
+        /// <summary>
+        /// Data Access available throughout the entire application
+        /// </summary>
         internal static IDataAccess Database { get; private set; } = GetDatabase();
 
         public WindowState MainWindowState
@@ -35,7 +41,6 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged(nameof(MainWindowMargin));
             }
         }
-
         public Thickness MainWindowMargin => MainWindowState == WindowState.Maximized ? new(0) : new(10);
 
         public Page CurrentPage
@@ -79,6 +84,10 @@ namespace FreakinStocksUI.ViewModels
 
         #region methods
 
+        /// <summary>
+        /// Navigates the <see cref="CurrentPage"/> to the provided page
+        /// </summary>
+        /// <param name="Page">The page to navigate to in the application</param>
         public void NavigateTo(AppPage Page)
         {
             CurrentPage = Page switch
@@ -93,9 +102,14 @@ namespace FreakinStocksUI.ViewModels
             };
         }
 
+        /// <summary>
+        /// Gets the Data Access by checking the settings and configures MySQL Database when selected
+        /// </summary>
+        /// <param name="type">The type of the database to get</param>
+        /// <returns>The <see cref="IDataAccess"/> for the selected database</returns>
         private static IDataAccess GetDatabase(DatabaseType? type = null)
         {
-            Action<Exception> handler = (Exception ex) => _ = new Prompt("Unexpected Error", $"An Error has occurred while reading data from the database. Details: { ex.Message }").ShowDialog();
+            Action<Exception> handler = (Exception ex) => _ = new Prompt("Unexpected Error", $"An Error has Occured while reading data from the database. Details: { ex.Message }").ShowDialog();
 
             return type switch
             {
@@ -111,8 +125,15 @@ namespace FreakinStocksUI.ViewModels
             };
         }
 
+        /// <summary>
+        /// Sets the application database from settings or to a one of provided <see cref="DatabaseType"/>
+        /// </summary>
+        /// <param name="type"></param>
         internal static void SetDatabase(DatabaseType? type = null) => Database = GetDatabase(type);
 
+        /// <summary>
+        /// Shows a prompt informing that there currently is no internet connection available
+        /// </summary>
         private static void CheckForInternet()
         {
             if (!StockMarketData.CheckInternetConnection())
@@ -125,6 +146,9 @@ namespace FreakinStocksUI.ViewModels
 
 
 
+        /// <summary>
+        /// Creates an instance of interaction logic for the application's main window
+        /// </summary>
         public MainViewModel()
         {
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
