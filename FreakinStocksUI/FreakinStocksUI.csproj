@@ -1,67 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>stocks.ico</ApplicationIcon>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Product>Freakin Stocks</Product>
-    <Company>Techris</Company>
-    <Authors>Techris</Authors>
-    <Description>Freakin Stocks Desktop Application</Description>
-	<PublishTrimmed>true</PublishTrimmed>
-	<PublishReadyToRun>true</PublishReadyToRun>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net6.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<ApplicationIcon>stocks.ico</ApplicationIcon>
+	<Platforms>AnyCPU;x64;x86</Platforms>
+	<Product>Freakin Stocks</Product>
+	<Company>Techris</Company>
+	<Authors>Techris</Authors>
+	<Description>Freakin Stocks Desktop Application</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\ProductSans-Bold.ttf" />
-    <None Remove="Fonts\ProductSans-Light.ttf" />
-    <None Remove="Fonts\ProductSans-Regular.ttf" />
-    <None Remove="Fonts\ProductSans-Thin.ttf" />
-    <None Remove="stocks.ico" />
-    <None Remove="Views\stocks.ico" />
+	<None Remove="Fonts\ProductSans-Bold.ttf" />
+	<None Remove="Fonts\ProductSans-Light.ttf" />
+	<None Remove="Fonts\ProductSans-Regular.ttf" />
+	<None Remove="Fonts\ProductSans-Thin.ttf" />
+	<None Remove="stocks.ico" />
+	<None Remove="Views\stocks.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+	<None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.3.21201.4" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0-preview.3.21201.4" />
-    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+	<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+	<PackageReference Include="MaterialDesignThemes" Version="4.2.0-ci2578" />
+	<PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.4.21253.7" />
+	<PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0-preview.4.21253.7" />
+	<PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FreakinStocksLiveService\FreakinStocksLiveService.csproj" />
-    <ProjectReference Include="..\StocksData\StocksData.csproj" />
+	<ProjectReference Include="..\FreakinStocksLiveService\FreakinStocksLiveService.csproj" />
+	<ProjectReference Include="..\StocksData\StocksData.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\ProductSans-Bold.ttf" />
-    <Resource Include="Fonts\ProductSans-Light.ttf" />
-    <Resource Include="Fonts\ProductSans-Regular.ttf" />
-    <Resource Include="Fonts\ProductSans-Thin.ttf" />
-    <Resource Include="stocks.ico" />
-    <Resource Include="Views\stocks.ico" />
+	<Resource Include="Fonts\ProductSans-Bold.ttf" />
+	<Resource Include="Fonts\ProductSans-Light.ttf" />
+	<Resource Include="Fonts\ProductSans-Regular.ttf" />
+	<Resource Include="Fonts\ProductSans-Thin.ttf" />
+	<Resource Include="stocks.ico" />
+	<Resource Include="Views\stocks.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+	<Compile Update="Properties\Settings.Designer.cs">
+	  <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>Settings.settings</DependentUpon>
+	</Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+	<None Update="Properties\Settings.settings">
+	  <Generator>SettingsSingleFileGenerator</Generator>
+	  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	</None>
   </ItemGroup>
 
 </Project>
