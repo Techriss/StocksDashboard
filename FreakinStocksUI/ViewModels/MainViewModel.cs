@@ -154,6 +154,7 @@ namespace FreakinStocksUI.ViewModels
             NavigateTo(Enum.Parse<AppPage>(Properties.Settings.Default.StartupPage));
             CheckForInternet();
             ServiceHelper.SetServiceSymbols();
+            ServiceHelper.UpdateMySQLConfigFile();
             ServiceHelper.ConfigureLiveService();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Security;
 using System.Threading.Tasks;
@@ -68,8 +67,7 @@ namespace FreakinStocksUI.ViewModels
                 Properties.Settings.Default.Save();
 
 
-                var lines = new string[] { "true", Server, Database, Username, Convert.ToBase64String(entropy), Convert.ToBase64String(cipher) };
-                await File.WriteAllLinesAsync("MySQL.txt", lines);
+                await ServiceHelper.WriteToMySQLConfigAsync(true, Server, Database, Username, entropy, cipher);
 
                 (Source as Window).DialogResult = true;
                 (Source as Window).Close();

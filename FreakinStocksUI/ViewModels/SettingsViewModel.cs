@@ -56,7 +56,7 @@ namespace FreakinStocksUI.ViewModels
                 {
                     try
                     {
-                        File.WriteAllLines("MySQL.txt", new[] { "false" });
+                        ServiceHelper.WriteToMySQLConfig(false);
                     }
                     catch
                     {
