@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
@@ -133,19 +134,22 @@ namespace FreakinStocksUI.ViewModels
         public RelayCommand ChangeStartupPage => new((object page) => StartupPage = Enum.Parse<AppPage>(page as string));
         public RelayCommand ChangeAnalyticsStartupPage => new((object mode) => AnalyticsStartupPage = Enum.Parse<DataMode>(mode as string));
         public RelayCommand ConfigureDatabase => new(() => new Dialog().ShowDialog());
-        public RelayCommand RestartService => new(() =>
+        public RelayCommand RestartService => new(async () =>
         {
             ServiceHelper.RestartService();
+            await Task.Delay(500);
             OnPropertyChanged(nameof(ServiceStatus));
         });
-        public RelayCommand StopService => new(() =>
+        public RelayCommand StopService => new(async () =>
         {
             ServiceHelper.StopService();
+            await Task.Delay(500);
             OnPropertyChanged(nameof(ServiceStatus));
         });
-        public RelayCommand ReinstallService => new(() =>
+        public RelayCommand ReinstallService => new(async () =>
         {
             ServiceHelper.ReinstallService();
+            await Task.Delay(500);
             OnPropertyChanged(nameof(ServiceStatus));
         });
         public RelayCommand ChangeHomeStock => new((object mode) => HomeStock = Enum.Parse<HomeStockMode>(mode as string));
