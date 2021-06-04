@@ -142,6 +142,19 @@ namespace FreakinStocksUI.ViewModels
         /// </summary>
         public bool CanGoPrevious => CurrentIndex - 1 >= 0;
 
+
+        /// <summary>
+        /// Gets an appropriate welcome phrase for the current time of day
+        /// </summary>
+        public string WelcomeHeader => DateTime.Now.TimeOfDay.TotalHours switch
+        {
+            >= 5 and < 12 => "Good Morning!",
+            >= 12 and < 17 => "Good Afternoon!",
+            >= 17 or < 5 => "Good Evening!",
+            _ => "Welcome Back!"
+        };
+
+
         #endregion
 
 
@@ -196,6 +209,7 @@ namespace FreakinStocksUI.ViewModels
             OnPropertyChanged(nameof(CurrentIndex));
             OnPropertyChanged(nameof(CanGoNext));
             OnPropertyChanged(nameof(CanGoPrevious));
+            OnPropertyChanged(nameof(WelcomeHeader));
 
             if (CurrentIndex > Stocks.Length)
             {
