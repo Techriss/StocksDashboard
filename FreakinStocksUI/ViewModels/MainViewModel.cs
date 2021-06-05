@@ -109,7 +109,7 @@ namespace FreakinStocksUI.ViewModels
         /// <returns>The <see cref="IDataAccess"/> for the selected database</returns>
         private static IDataAccess GetDatabase(DatabaseType? type = null)
         {
-            Action<Exception> handler = (Exception ex) => _ = new Prompt("Unexpected Error", $"An Error has Occured while reading data from the database. Details: { ex.Message }").ShowDialog();
+            static void handler(Exception ex) => _ = new Prompt("Unexpected Error", $"An Error has Occured while reading data from the database. Details: { ex.Message }").ShowDialog();
 
             return type switch
             {

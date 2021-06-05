@@ -44,7 +44,7 @@ namespace FreakinStocksUI.ViewModels
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentDisplayStock));
 
-                Task.Run(LoadPrices);
+                _ = Task.Run(LoadPrices);
             }
         }
 
@@ -146,7 +146,7 @@ namespace FreakinStocksUI.ViewModels
         /// <summary>
         /// Gets an appropriate welcome phrase for the current time of day
         /// </summary>
-        public string WelcomeHeader => DateTime.Now.TimeOfDay.TotalHours switch
+        public static string WelcomeHeader => DateTime.Now.TimeOfDay.TotalHours switch
         {
             >= 5 and < 12 => "Good Morning!",
             >= 12 and < 17 => "Good Afternoon!",
@@ -264,7 +264,7 @@ namespace FreakinStocksUI.ViewModels
             Stocks = GetStocks();
             _currentStock = Stocks[CurrentIndex];
 
-            Task.Run(LoadPrices);
+            _ = Task.Run(LoadPrices);
         }
     }
 }

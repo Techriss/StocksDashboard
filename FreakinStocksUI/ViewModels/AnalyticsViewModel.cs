@@ -39,7 +39,7 @@ namespace FreakinStocksUI.ViewModels
                     _currentDataMode = value;
                     OnPropertyChanged();
 
-                    if (CurrentStock is not null or "")
+                    if (CurrentStock is not null and not "")
                     {
                         Task.Run(() => LoadChart(CurrentDataMode));
                     }
@@ -148,6 +148,10 @@ namespace FreakinStocksUI.ViewModels
 
 
 
+        /// <summary>
+        /// Creates an instance of the logic for a Analytics Page
+        /// </summary>
+        /// <param name="page">The Analytics Page view</param>
         public AnalyticsViewModel(Page page)
         {
             Source = page;

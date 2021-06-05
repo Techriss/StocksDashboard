@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
 using FreakinStocksUI.Helpers;
 using FreakinStocksUI.Models;
+using FreakinStocksUI.Views;
 using StocksData;
 using StocksData.Models;
 
@@ -54,7 +54,6 @@ namespace FreakinStocksUI.ViewModels
             x = null;
 
             var mysql = new MySQLDataAccess(new MySQLConfiguration(Server, Database, Username, entropy, cipher));
-
             try
             {
                 await mysql.RepairDatabaseAsync();
@@ -72,11 +71,11 @@ namespace FreakinStocksUI.ViewModels
                 (Source as Window).DialogResult = true;
                 (Source as Window).Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 (Source as Window).DialogResult = false;
                 MainViewModel.SettingsPage.RefreshDatabaseChoice();
-                Debug.WriteLine($"[ERR] Invalid Database. Result: { ex.Message }");
+                _ = new Prompt("Invalid Database", "The provided MySQL database configuration is invalid.").ShowDialog();
             }
         }
 

@@ -38,7 +38,7 @@ namespace FreakinStocksUI.ViewModels
                 if (StockMarketData.CheckSymbolExists(value) && value != _currentStock)
                 {
                     _currentStock = value;
-                    Task.Run(async () => await LoadData(value));
+                    _ = Task.Run(async () => await LoadData(value));
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(StockData));
                     OnPropertyChanged(nameof(DataVisibility));
