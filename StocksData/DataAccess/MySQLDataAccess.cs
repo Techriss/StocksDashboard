@@ -200,8 +200,8 @@ namespace StocksData
             {
                 using (IDbConnection cnn = new MySqlConnection(ConnectionString))
                 {
-                    var entries = cnn.Query<StockPrice>("SELECT * FROM LiveData");
-                    return entries.LongCount();
+                    var entries = cnn.QueryFirst<long>("SELECT COUNT(*) FROM LiveData");
+                    return entries;
                 }
             }
             catch (Exception ex)
@@ -217,8 +217,8 @@ namespace StocksData
             {
                 using (IDbConnection cnn = new MySqlConnection(ConnectionString))
                 {
-                    var entries = await cnn.QueryAsync<StockPrice>("SELECT * FROM LiveData");
-                    return entries.LongCount();
+                    var entries = await cnn.QueryFirstAsync<long>("SELECT COUNT(*) FROM LiveData");
+                    return entries;
                 }
             }
             catch (Exception ex)
