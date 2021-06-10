@@ -168,7 +168,7 @@ namespace StocksData
             {
                 using (IDbConnection cnn = new MySqlConnection(ConnectionString))
                 {
-                    cnn.Execute("CREATE TABLE LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                    cnn.Execute("CREATE TABLE LiveData (Symbol TEXT NOT NULL, Price DECIMAL(10,2) NOT NULL, Time TEXT NOT NULL);");
                 }
             }
             catch (Exception ex)
@@ -183,7 +183,7 @@ namespace StocksData
             {
                 using (IDbConnection cnn = new MySqlConnection(ConnectionString))
                 {
-                    await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price NUMERIC NOT NULL, Time TEXT NOT NULL);");
+                    await cnn.ExecuteAsync("CREATE TABLE IF NOT EXISTS LiveData (Symbol TEXT NOT NULL, Price DECIMAL(10,2) NOT NULL, Time TEXT NOT NULL);");
                 }
             }
             catch (Exception ex)
