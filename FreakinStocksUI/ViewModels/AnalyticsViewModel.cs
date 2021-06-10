@@ -117,28 +117,28 @@ namespace FreakinStocksUI.ViewModels
                 {
                     data = await StockMarketData.GetLastWeek(CurrentStock);
                     Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):dddd}").ToList();
-                    Prices = new(data?.Select(x => x?.Price ?? 0));
+                    Prices = new(data?.Where(x => x is not null && x.Price is not 0).Select(x => x.Price));
                     break;
                 }
                 case DataMode.Month:
                 {
                     data = await StockMarketData.GetLastMonth(CurrentStock);
                     Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):M}").ToList();
-                    Prices = new(data?.Select(x => x?.Price ?? 0));
+                    Prices = new(data?.Where(x => x is not null && x.Price is not 0).Select(x => x.Price));
                     break;
                 }
                 case DataMode.Year:
                 {
                     data = await StockMarketData.GetLastYear(CurrentStock);
                     Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):Y}").ToList();
-                    Prices = new(data?.Select(x => x?.Price ?? 0));
+                    Prices = new(data?.Where(x => x is not null && x.Price is not 0).Select(x => x.Price));
                     break;
                 }
                 case DataMode.All:
                 {
                     data = await StockMarketData.GetAllTime(CurrentStock);
                     Dates = data?.Select(x => $"{DateTime.Parse(x?.Time):Y}").ToList();
-                    Prices = new(data?.Select(x => x?.Price ?? 0));
+                    Prices = new(data?.Where(x => x is not null && x.Price is not 0).Select(x => x.Price));
                     break;
                 }
             }
