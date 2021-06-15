@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using LiveCharts;
 using StocksData;
+using StocksData.Models;
 
 namespace FreakinStocksUI.ViewModels
 {
@@ -97,7 +99,7 @@ namespace FreakinStocksUI.ViewModels
         #region methods
 
         /// <summary>
-        /// Gets real-time data from the database and updates the <see cref="Prices"/> with a new one every minute
+        /// Gets real-time data from the database and updates the <see cref="Prices"/> with a new one every minute. Checks the last database entry and adds its value to the chart if its time is different.
         /// </summary>
         /// <param name="token">Cancellation token for cancelling the always-executing data fetching loop</param>
         /// <returns></returns>
@@ -105,14 +107,17 @@ namespace FreakinStocksUI.ViewModels
         {
             while (!token.IsCancellationRequested)
             {
-                // TODO: fetch life data dynamically when available, not using time
-
-                if (DateTime.Now.TimeOfDay.TotalMinutes >= 930 && DateTime.Now.TimeOfDay.TotalMinutes <= 1320 && CurrentStock is not null and not "")
+                if (CurrentStock is not null and not "")
                 {
                     var price = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock).Last();
-                    Prices.Add(price.Price);
-                    Dates.Add($"{DateTime.Parse(price.Time):t}");
-                    OnPropertyChanged(nameof(CurrentPrice));
+                    var time = $"{DateTime.Parse(price.Time):t}";
+
+                    if (Dates.Any() && time != Dates.Last())
+                    {
+                        Prices.Add(price.Price);
+                        Dates.Add(time);
+                        OnPropertyChanged(nameof(CurrentPrice));
+                    }
                 }
 
                 await Task.Delay(60000);
@@ -125,18 +130,15 @@ namespace FreakinStocksUI.ViewModels
         /// <returns></returns>
         public async Task GetCurrentLiveData()
         {
-            var data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), DateTime.Now));
+            List<StockPrice> data = new();
+            var dt = DateTime.Now;
 
-            if (!data.Any())
+            do
             {
-                var dt = DateTime.Now;
-
-                while (!data.Any() && !IsDateMoreThanWeekAgo(dt))
-                {
-                    dt = dt.AddDays(-1);
-                    data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), dt));
-                }
+                data = (await MainViewModel.Database.LoadAllPricesAsync())?.Where(x => x?.Symbol == CurrentStock && AreDatesEqual(DateTime.Parse(x?.Time), dt)).ToList();
+                dt = dt.AddDays(-1);
             }
+            while (!data.Any() && !IsDateMoreThanWeekAgo(dt.AddDays(1)));
 
             Prices.Clear();
             Prices.AddRange(data?.Select(x => x?.Price ?? 0));
