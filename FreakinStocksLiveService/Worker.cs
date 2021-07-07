@@ -46,7 +46,7 @@ namespace FreakinStocksLiveService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Service running at: {time}", DateTimeOffset.Now);
+                _logger.LogDebug("Service running at: {time}", DateTimeOffset.Now);
 
                 try
                 {
