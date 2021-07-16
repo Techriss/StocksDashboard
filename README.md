@@ -1,9 +1,10 @@
 # Freakin Stocks - Version 2
 ### Stocks Analytics Desktop Application built in .NET 6 C# WPF using MVVM Design
+![White-15d](https://user-images.githubusercontent.com/64647259/125875598-3eba607c-9495-42e0-a6db-e43a0e04e79b.png)
 
 <hr/>
 
-### Functionality Includes:
+## Functionality Includes:
   - Analytics for All Time, Last Year, Last Month and Last Week
   - Stocks Search and Latest Information
   - Liked Stocks with information at a glance
@@ -34,14 +35,14 @@
   - Material Design Themes Components
   - MVVM Application Structure Design
   
-### Created Using:
+## Created Using:
   - [Material Design Themes](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
   - [Dapper](https://github.com/DapperLib/Dapper)
   - [Yahoo Finance API](https://github.com/karlwancl/YahooFinanceApi)
   - [Live Charts](https://github.com/beto-rodriguez/LiveCharts2)
 
 
-### Gallery
+## Gallery
 
 <img src="https://user-images.githubusercontent.com/64647259/120044807-d923a880-c00e-11eb-98eb-d2b3519c6c3f.png" width="45%"></img>  <!-- Home -->
 <img src="https://user-images.githubusercontent.com/64647259/119275611-62556c80-bc16-11eb-9060-e49ba0e52c05.png" width="45%"></img>  <!-- Analytics -->
