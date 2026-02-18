@@ -1,4 +1,4 @@
-# Freakin Stocks - Version 2
+# Stocks Dashboard - Version 2
 ### Stocks Analytics Desktop Application built in .NET 6 C# WPF using MVVM Design
 ![White-15d](https://user-images.githubusercontent.com/64647259/125875598-3eba607c-9495-42e0-a6db-e43a0e04e79b.png)
 
